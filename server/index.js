@@ -13,3 +13,5 @@ app.use(middleware.logger);
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
+
+app.get('/friends', controllers.getFriends);
