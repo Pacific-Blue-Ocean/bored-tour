@@ -1,8 +1,12 @@
 import React from 'react';
+import FriendsList from './social/FriendsList.jsx';
 
 const App = () => {
   return (
-    <h1>Bored Tour</h1>
+    <div>
+      <h1>Bored Tour</h1>
+      <FriendsList />
+    </div>
   )
 }
 
