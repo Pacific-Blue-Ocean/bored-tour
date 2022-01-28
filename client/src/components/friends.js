@@ -1,23 +1,27 @@
+import { Box, Flex, Heading } from '@chakra-ui/react';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import Friend from './Friend.jsx';
+import { Header } from './header';
+import Friend from './friend.jsx';
 
-const FriendsList = () => {
+const Friends = () => {
   const [id, setUserId] = useState(1);
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    axios.get('/friends', { params: {id}} )
+    axios.get('/api/friends', { params: {id}} )
       .then((res) => {
+        console.log(res.data);
         setFriends(res.data);
+        console.log(friends);
       })
   }, [id])
 
-
-
   return (
-    <div>
-      <h1>Friends List</h1>
+  <Box>
+    <Header />
+    <Flex p={4} m={4} flexDirection="column" border='1px' borderRadius='10px' borderColor='#8F8F8F'>
+    <Heading>Friends</Heading>
       <form>
         <input type="text" placeholder="Search/Add Friend" />
         <button type="submit">Submit</button>
@@ -28,12 +32,9 @@ const FriendsList = () => {
           friend={friend}
         />
       )) : null}
-    </div>
+    </Flex>
+  </Box>
   )
 }
 
-export default FriendsList;
-
-/*
-
-*/
+export default Friends;
