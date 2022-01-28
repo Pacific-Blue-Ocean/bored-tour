@@ -4,8 +4,8 @@
 \c pacific
 
 -- Drop tables
-drop table if exists users;
-drop table if exists relationships;
+drop table if exists users cascade;
+drop table if exists relationships cascade;
 
 -- Create tables
 create table users (
