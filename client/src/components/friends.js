@@ -10,11 +10,7 @@ const Friends = () => {
 
   useEffect(() => {
     axios.get('/api/friends', { params: {id}} )
-      .then((res) => {
-        console.log(res.data);
-        setFriends(res.data);
-        console.log(friends);
-      })
+      .then((res) => { setFriends(res.data); })
   }, [id])
 
   return (
