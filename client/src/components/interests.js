@@ -3,15 +3,15 @@ import React from 'react';
 import { Header } from './header';
 
 
-const App = () => {
+const Interests = () => {
   return (
   <Box>
     <Header />
     <Flex p={4} m={4} border='1px' borderRadius='10px' borderColor='#8F8F8F'>
-      <Heading>Home Page</Heading>
+      <Heading>Interests</Heading>
     </Flex>
   </Box>
   )
 }
 
-export default App;
+export default Interests;
