@@ -32,5 +32,10 @@ insert into users (full_name) values ('Yulan Rong');
 
 -- Populate relationships
 insert into relationships (from_user_id, to_user_id) values (1, 2);
+insert into relationships (from_user_id, to_user_id) values (2, 1);
+
 insert into relationships (from_user_id, to_user_id) values (1, 4);
+insert into relationships (from_user_id, to_user_id) values (4, 1);
+
 insert into relationships (from_user_id, to_user_id) values (1, 6);
+insert into relationships (from_user_id, to_user_id) values (6, 2);

@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import Friend from './Friend.jsx';
 
 const FriendsList = () => {
-  const [friends, setFriends] = useState();
+  const [id, setUserId] = useState(1);
+  const [friends, setFriends] = useState([]);
+
   useEffect(() => {
-    axios.get('/friends')
+    axios.get('/friends', { params: {id}} )
       .then((res) => {
-        friends.setFriends(res.data);
+        setFriends(res.data);
       })
-  }, [])
+  }, [id])
+
+
 
   return (
     <div>
@@ -17,11 +22,18 @@ const FriendsList = () => {
         <input type="text" placeholder="Search/Add Friend" />
         <button type="submit">Submit</button>
       </form>
-      <Friend />
-      <Friend />
-      <Friend />
+      {friends.length ? friends.map((friend) => (
+        <Friend
+          key={friend.id}
+          friend={friend}
+        />
+      )) : null}
     </div>
   )
 }
 
 export default FriendsList;
+
+/*
+
+*/
