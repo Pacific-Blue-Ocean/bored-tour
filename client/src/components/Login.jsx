@@ -78,7 +78,7 @@ export const Login = () => {
         </Box>
       </Stack>
       <Box>
-        <Link to="signup"><Heading size="sm">Sign up for Bored Tours</Heading></Link>
+        <Link to="signup"><Heading size="sm" color="red.400">Sign up for Bored Tours</Heading></Link>
       </Box>
     </Flex>
   );
