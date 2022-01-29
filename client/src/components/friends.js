@@ -20,7 +20,7 @@ const Friends = () => {
 
       <Heading>Friends</Heading>
 
-      <Flex p={4} m={4} flexDirection="row">
+      <Flex p={4} m={4} flexDirection="row" flexWrap='wrap'>
         {friends.length ? friends.map((friend) => (
           <Friend
             key={friend.id}

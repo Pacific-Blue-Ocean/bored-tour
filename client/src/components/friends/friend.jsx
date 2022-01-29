@@ -14,7 +14,7 @@ const Friend = ({ friend }) => {
     >
       {friend.full_name}<br />
       Location: {friend.location_id}<br />
-      {friend.friend ? null : <Button>Add Friend</Button>}
+      {friend.friend ? <Button>❌ &nbsp; Remove</Button> : <Button>➕ &nbsp; Add</Button>}
     </Flex>
   )
 }
