@@ -14,20 +14,20 @@ drop table if exists locations cascade;
 
 -- Create tables
 create table preferences_steps (
-  id          bigserial not null primary key,
-  label       varchar(50) not null,
-  question    varchar(255) not null,
-  order       integer not null
+  id             bigserial not null primary key,
+  label          varchar(50) not null,
+  question       varchar(50) not null,
+  showingOrder   integer not null
 );
 
 create table preferences (
-  id           bigserial not null primary key,
-  preference_step_id  bigserial not null,
-  parent_preference_id bigserial null,
-  label        varchar(50) not null,
-  description  varchar(255) null,
+  id                     bigserial not null primary key,
+  preference_step_id     bigint not null,
+  parent_preference_id   bigint null,
+  label                  varchar(50) not null,
+  description            varchar(255) null,
   foreign key (preference_step_id) references preferences_steps(id),
-  foreign key (parent_preference_id) references preferences(id),
+  foreign key (parent_preference_id) references preferences(id)
 );
 
 create table users_preferences (
@@ -39,29 +39,25 @@ create table users_preferences (
 
 create table locations_types (
   id  bigserial not null primary key,
-  label varchar(255) null,
+  label varchar(255) null
 );
 
 create table locations (
   id        bigserial not null primary key,
   location_type_id  bigserial not null,
   label     varchar(255) null,
-  foreign key (location_type_id) references locations_types(id),
+  foreign key (location_type_id) references locations_types(id)
 );
-
-
-alter table users add location_id bigserial not null;
-alter table users add constraint  foreign key (location_id) references locations(id);
 
 -- Populate preferences_steps table
 insert into preferences_steps
-  (label, question, order)
+  (label, question, showingOrder)
 values
   ('About Me', 'What best describes you?', 1), -- id 1
   ('My Interests', 'What type of activities are you interested on?', 2), -- id 2
   ('My Location', 'Where would you like to go out?', 3); -- id 3
 
--- Populate preferences table
+-- -- Populate preferences table
 insert into preferences
   (preference_step_id, parent_preference_id, label, description)
 values
@@ -83,12 +79,12 @@ values
   (2, null, 'Online ', null), -- id 16
   (2, 16, 'Tournaments ', null), -- id 17
   (2, 16, 'Video game suggestions ', null), -- id 18
-  (2, 16, 'Twitch.Youtube streams ', null), -- id 19
+  (2, 16, 'Twitch.Youtube streams ', null); -- id 19
 
 
 -- Populate users_preferences table
-insert into relationships
-  (from_user_id, to_user_id)
+insert into users_preferences
+  (user_id, preferences_id)
 values
   (4, 1),
   (4, 9),
@@ -101,7 +97,6 @@ values
   ('City'), -- id 1
   ('Region'); -- id 2
 
-
 -- Populate locations table
 insert into locations
   (location_type_id, label)
@@ -111,8 +106,12 @@ values
   (1, 'New York'), -- id 3
   (2, 'Bay Area'); -- id 4
 
--- Update users rows
-UPDATE users SET location_id = 1 WHERE id = 4; -- Update user Feranda with the location San Francisco
+
+-- Update users rows and update user 4 with a location preference.
+-- As per PR feedback this will be implemented on a different schema.
+-- alter table users add location_id bigint not null;
+-- alter table users add constraint user_location_fk foreign key (location_id) references locations(id);
+-- UPDATE users SET location_id = 1 WHERE id = 4; -- Update user Feranda with the location San Francisco
 
 
 
