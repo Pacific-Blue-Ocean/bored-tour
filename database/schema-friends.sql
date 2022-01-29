@@ -22,5 +22,5 @@ insert into relationships (from_user_id, to_user_id) values (4, 1);
 insert into relationships (from_user_id, to_user_id) values (1, 6);
 insert into relationships (from_user_id, to_user_id) values (6, 2);
 
-ALTER TABLE relationships ADD CONSTRAINT from_user_id_fkey FOREIGN KEY (from_user_id) REFERENCES users(id);
-ALTER TABLE relationships ADD CONSTRAINT to_user_id_fkey FOREIGN KEY (to_user_id) REFERENCES users(id);
+alter table relationships add constraint from_user_id_fkey foreign key (from_user_id) references users(id);
+alter table relationships add constraint to_user_id_fkey foreign key (to_user_id) references users(id);

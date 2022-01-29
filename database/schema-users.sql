@@ -13,6 +13,9 @@ create table users (
   location_id bigserial not null
 );
 
+-- Foreign key
+alter table users add constraint user_location_fk foreign key (location_id) references locations(id);
+
 -- Populate users table
 insert into users (full_name, location_id) values ('Andrew Lam', 1);
 insert into users (full_name, location_id) values ('Catherine Chiu', 2);
@@ -23,5 +26,4 @@ insert into users (full_name, location_id) values ('Sean Welch', 6);
 insert into users (full_name, location_id) values ('Yulan Rong', 7);
 
 -- Update users rows and update user 4 with a location preference.
-alter table users add constraint user_location_fk foreign key (location_id) references locations(id);
 update users set location_id = 1 where id = 4; -- Update user Feranda with the location San Francisco
