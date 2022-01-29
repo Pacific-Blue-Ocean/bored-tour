@@ -3,7 +3,6 @@ import React from 'react';
 import { Header } from './header';
 import homepage from '../../public/images/HomePage.jpeg';
 
-
 const App = () => {
   return (
   <Box>
