@@ -9,8 +9,9 @@ drop table if exists relationships cascade;
 
 -- Create tables
 create table users (
-  id        bigserial not null primary key,
-  full_name varchar(50) not null
+  id          bigserial not null primary key,
+  full_name   varchar(50) not null,
+  location_id bigserial not null
 );
 
 create table relationships (
@@ -22,13 +23,13 @@ create table relationships (
 );
 
 -- Populate users table
-insert into users (full_name) values ('Andrew Lam');
-insert into users (full_name) values ('Catherine Chiu');
-insert into users (full_name) values ('Eric Baldwin');
-insert into users (full_name) values ('Fernanda Silva');
-insert into users (full_name) values ('James Song');
-insert into users (full_name) values ('Sean Welch');
-insert into users (full_name) values ('Yulan Rong');
+insert into users (full_name, location_id) values ('Andrew Lam', 1);
+insert into users (full_name, location_id) values ('Catherine Chiu', 2);
+insert into users (full_name, location_id) values ('Eric Baldwin', 3);
+insert into users (full_name, location_id) values ('Fernanda Silva', 4);
+insert into users (full_name, location_id) values ('James Song', 5);
+insert into users (full_name, location_id) values ('Sean Welch', 6);
+insert into users (full_name, location_id) values ('Yulan Rong', 7);
 
 -- Populate relationships
 insert into relationships (from_user_id, to_user_id) values (1, 2);
