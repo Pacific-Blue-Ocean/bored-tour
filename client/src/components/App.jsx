@@ -1,15 +1,19 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Image, Flex, Heading, Input, Center } from '@chakra-ui/react';
 import React from 'react';
 import { Header } from './header';
+import homepage from '../../public/images/HomePage.jpeg';
 
 
 const App = () => {
   return (
   <Box>
     <Header />
-    <Flex p={4} m={4} border='1px' borderRadius='10px' borderColor='#8F8F8F'>
-      <Heading>Home Page</Heading>
-    </Flex>
+    <Box w='100%'>
+      <Center w='100vw'>
+        <Image src={homepage} w='100vw' h='70vh' objectFit='cover'/>
+        <Input placeholder='idk' size='lg'/>
+      </Center>
+    </Box>
   </Box>
   )
 }

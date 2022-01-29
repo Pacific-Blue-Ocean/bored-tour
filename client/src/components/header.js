@@ -18,8 +18,8 @@ import { Link } from "react-router-dom";
 export const Header = () => {
 
   return (
-    <Flex style={{ borderBottom: '1px solid black' }}>
-    <Link to="/"><Heading p={4}>Bored Tour</Heading></Link>
+    <Flex style={{ borderBottom: '5px solid black' }}>
+    <Link to="/"><Heading as='h1' fontSize='6vh' p={8}>Bored Tour</Heading></Link>
       <Spacer />
       <Box p={4}>
       <Menu>
