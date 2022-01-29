@@ -6,7 +6,7 @@ const Friend = ({ friend }) => {
 
   return (
     <Flex
-      flexDirection="row"
+      flexDirection="column"
       p={4} m={4}
       border='1px'
       borderRadius='10px'

@@ -21,15 +21,13 @@ const Friends = () => {
       <Heading>Friends</Heading>
 
       <Flex p={4} m={4} flexDirection="row">
-        <Input type="text" size='md' placeholder="Friend Name" />
-        <Button type="submit">Add Friend</Button>
+        {friends.length ? friends.map((friend) => (
+          <Friend
+            key={friend.id}
+            friend={friend}
+          />
+        )) : null}
       </Flex>
-      {friends.length ? friends.map((friend) => (
-        <Friend
-          key={friend.id}
-          friend={friend}
-        />
-      )) : null}
     </Flex>
   </Box>
   )
