@@ -1,8 +1,10 @@
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
-const { friends, preferences } = require("./controllers");
 const middleware = require('./middleware');
+// controllers
+const friends = require("./controllers/friends");
+const preferences = require("./controllers/preferences");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
