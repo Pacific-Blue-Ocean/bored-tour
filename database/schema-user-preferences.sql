@@ -6,8 +6,11 @@
 \c pacific
 
 -- Drop tables
+drop table if exists preferences_steps cascade;
 drop table if exists preferences cascade;
 drop table if exists users_preferences cascade;
+drop table if exists locations_types cascade;
+drop table if exists locations cascade;
 
 -- Create tables
 create table preferences_steps (
