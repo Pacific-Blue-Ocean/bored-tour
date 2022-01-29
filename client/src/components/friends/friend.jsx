@@ -13,8 +13,8 @@ const Friend = ({ friend }) => {
       borderColor='#8F8F8F'
     >
       {friend.full_name}<br />
-      Location: {friend.location_id}<br />
-      {friend.friend ? <Button>❌ &nbsp; Remove</Button> : <Button>➕ &nbsp; Add</Button>}
+      {friend.location}<br />
+      {friend.friend ? <Button>❌&nbsp;Remove</Button> : <Button>➕&nbsp;Add</Button>}
     </Flex>
   )
 }

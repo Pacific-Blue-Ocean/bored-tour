@@ -13,6 +13,9 @@ app.use(middleware.logger);
 
 app.get('/api/friends', controllers.getFriends);
 
+app.get('/api/survey', controllers.getSurvey);
+app.post('/api/users/:id/preferences', controllers.postUserPreferences);
+
 app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname + '../..' + '/client/public/index.html'));
 });

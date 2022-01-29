@@ -19,7 +19,10 @@ const Friends = () => {
     <Flex p={4} m={4} flexDirection="column" border='1px' borderRadius='10px' borderColor='#8F8F8F'>
 
       <Heading>Friends</Heading>
-
+      <Flex p={4} m={8} flexDirection="row">
+        <Input type='text' placeholder="Search for a user"></Input>
+        <Button>Search</Button>
+      </Flex>
       <Flex p={4} m={4} flexDirection="row" flexWrap='wrap'>
         {friends.length ? friends.map((friend) => (
           <Friend
