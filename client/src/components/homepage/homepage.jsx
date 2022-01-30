@@ -32,6 +32,7 @@ const HomePage = () => {
             w={8}
             h={8}
             color='black.500'
+            cursor='pointer'
             onClick={() => {categories.current.scrollBy(-300, 0)}}
           />
         <div ref={categories} className='categories'>
@@ -88,6 +89,7 @@ const HomePage = () => {
             w={8}
             h={8}
             color='black.500'
+            cursor='pointer'
             onClick={() => {categories.current.scrollBy(300, 0)}}
           />
 
