@@ -1,16 +1,16 @@
-import { Flex, Box, Button } from "@chakra-ui/react";
-import React, {useState} from "react";
-import axios from "axios";
+import { Flex, Button } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const Friend = ({ user_id, friend }) => {
+function Friend({ user_id, friend }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
 
   const handleClick = (e) => {
     const request = e.target.value;
     const body = {
-      user_id: user_id,
-      friend_id: parseInt(friend.id)
-    }
+      user_id,
+      friend_id: parseInt(friend.id, 10),
+    };
 
     if (request === 'add') {
       axios.post('/api/friends', body);
@@ -35,7 +35,7 @@ const Friend = ({ user_id, friend }) => {
       {friend.location}
       <br />
       {isFriend ? (
-        <Button m={2} onClick={(e) => {handleClick(e)}} value="remove">
+        <Button m={2} onClick={(e) => { handleClick(e); }} value="remove">
           ❌ &nbsp; Remove
         </Button>
       ) : (
@@ -43,6 +43,6 @@ const Friend = ({ user_id, friend }) => {
       )}
     </Flex>
   );
-};
+}
 
 export default Friend;
