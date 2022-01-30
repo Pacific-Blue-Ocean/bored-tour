@@ -21,9 +21,17 @@ const getSurvey = () => {
   return db.pool.query(query);
 }
 
+const getUserPreferences = (userId) => {
+  console.log('userId', userId)
+  const query = `SELECT preferences_id from users_preferences WHERE user_id = ${userId}`
+  return db.pool.query(query);
+}
+
 const postUserPreferences = ({userId, preferences}) => {
 
-  const values = preferences.map(pref => `(${userId, pref})`).join(',');
+  const values = preferences.map(preferenceId => `(${userId} , ${preferenceId})`).join(',');
+
+  console.log('values', values);
   const query = `insert into users_preferences (user_id, preferences_id) values ${values};`
 
   return db.pool.query(query);
@@ -31,5 +39,6 @@ const postUserPreferences = ({userId, preferences}) => {
 
 module.exports = {
   getSurvey,
+  getUserPreferences,
   postUserPreferences
 };
