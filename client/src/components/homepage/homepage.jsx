@@ -8,12 +8,6 @@ const HomePage = () => {
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
 
-  // useEffect(() => {
-  //   console.log("slideLeft..", categories.current);
-  //   slideLeft.current.onClick = (e) => {console.log('hi'); categories.current.scrollLeft += 20};
-  //   slideRight.current.onClick = (e) => {categories.current.scrollRight -= 20};
-  // });
-
   return (
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
