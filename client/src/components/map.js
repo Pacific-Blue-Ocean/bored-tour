@@ -1,9 +1,43 @@
 import { Flex } from '@chakra-ui/react';
-import React from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import axios from 'axios';
+import config from '../../../config';
+import Geocode from "react-geocode";
 
-const Map = () => {
+const Map = ({ address }) => {
+  const mapStyles = {
+    height: "60vh",
+    width: "40%"
+  };
 
+  const [location, setLocation] = useState({});
+
+  Geocode.setApiKey(config.GOOGLE_API);
+  useEffect(() => {
+    Geocode.fromAddress(address).then(
+      (response) => {
+        setLocation(response.results[0].geometry.location)
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }, []);
+
+ console.log(location);
+
+  return (
+    <LoadScript
+      googleMapsApiKey={config.GOOGLE_API}>
+      <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={12}
+          center={location}>
+          <Marker position={location}/>
+     </GoogleMap>
+    </LoadScript>
+  );
 };
 
 export default Map;
