@@ -27,6 +27,7 @@ const Friends = () => {
         {friends.length ? friends.map((friend) => (
           <Friend
             key={friend.id}
+            user_id={id}
             friend={friend}
           />
         )) : null}
