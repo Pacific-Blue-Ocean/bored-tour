@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(middleware.logger);
 
 app.get('/api/friends', friends.getFriends);
+app.post('/api/friends', friends.addFriend);
+app.delete('/api/friends', friends.removeFriend);
 
 app.get('/api/preferences', preferences.getSurvey);
 app.post('/api/users/:id/preferences', preferences.postUserPreferences);
