@@ -1,18 +1,22 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Heading, Stack, Button, FormControl } from '@chakra-ui/react';
 import React from 'react';
 import { Header } from './header';
+import homepage from '../../public/images/HomePage.jpeg';
 import { Link } from "react-router-dom";
-
-
 const App = () => {
   return (
-  <Box>
-    <Header />
-    <Flex p={4} m={4} border='1px' borderRadius='10px' borderColor='#8F8F8F'>
-      <Heading>Home Page</Heading>
-    </Flex>
-    <Link to="event_detail"> this is an event picture </Link>
-  </Box>
+    <div>
+      <Header />
+      <div className="homePageBackground">
+        <div className="searchBarFlex">
+          <input type="text" className="homePageSearch" placeholder="What do you want to do?"/>
+          <button className="homePageSearchButton">
+            Go!
+          </button>
+        </div>
+      </div>
+      <Link to="event_detail"> this is an event picture </Link>
+    </div>
   )
 }
 
