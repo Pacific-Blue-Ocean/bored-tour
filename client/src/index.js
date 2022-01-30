@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { render } from 'react-dom';
 
 import App from './components/App.jsx';
-import Friends from './components/friends';
+import Friends from './components/friends.jsx';
 import Events from './components/events/events.js';
 import Interests from './components/interests';
 import NotFound from './components/notfound';

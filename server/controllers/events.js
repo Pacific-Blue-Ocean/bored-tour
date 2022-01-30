@@ -1,10 +1,4 @@
-const models = require('./models');
-
-const getFriends = async (req, res) => {
-  const { id } = req.query
-  const { rows } = await models.getFriends(id);
-  res.send(rows);
-}
+const models = require('../models/events');
 
 const getEvents = async (req, res) => {
   let limit = req.query.limit || 10;
@@ -15,5 +9,5 @@ const getEvents = async (req, res) => {
 }
 
 module.exports = {
-  getFriends, getEvents
+   getEvents
 };
