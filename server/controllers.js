@@ -6,6 +6,14 @@ const getFriends = async (req, res) => {
   res.send(rows);
 }
 
+const getEvents = async (req, res) => {
+  let limit = req.query.limit || 10;
+  let page = req.query.page || 1;
+  let filter = req.query.filter || {};
+  const { rows } = await models.getEvents(limit,page,filter);
+  res.send(rows);
+}
+
 module.exports = {
-  getFriends,
+  getFriends, getEvents
 };

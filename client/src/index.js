@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 
 import App from './components/App.jsx';
 import Friends from './components/friends';
-import Events from './components/events';
+import Events from './components/events/events.js';
 import Interests from './components/interests';
 import NotFound from './components/notfound';
 import { Login } from './components/Login.jsx';

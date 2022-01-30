@@ -12,6 +12,8 @@ app.use(express.json());
 app.use(middleware.logger);
 
 app.get('/api/friends', controllers.getFriends);
+app.get('/api/events', controllers.getEvents);
+
 
 app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname + '../..' + '/client/public/index.html'));
