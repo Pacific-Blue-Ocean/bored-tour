@@ -1,8 +1,9 @@
 import { Heading, Stack, Button, FormControl } from '@chakra-ui/react';
 import React from 'react';
 import { Header } from './header';
-import homepage from '../../public/images/HomePage.jpeg';
+//import homepage from '../../public/images/HomePage.jpeg';
 import { Link } from "react-router-dom";
+
 const App = () => {
   return (
     <div>

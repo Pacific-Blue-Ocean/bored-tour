@@ -2,8 +2,8 @@ import { Flex } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import axios from 'axios';
-import config from '../../../config';
 import Geocode from "react-geocode";
+import config from '../../../config.js';
 
 const Map = ({ address }) => {
   const mapStyles = {
