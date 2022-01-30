@@ -8,9 +8,8 @@ const getSurvey = async (req, res) => {
 const getUserPreferences = async (req, res) => {
   const { id } = req.params;
   const { rows } = await models.getUserPreferences(id);
-  const response = rows.map(row => row.preferences_id);
 
-  res.send(JSON.stringify(response));
+  res.send(rows[0].json_agg);
 }
 
 const postUserPreferences = async (req, res) => {

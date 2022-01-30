@@ -22,8 +22,7 @@ const getSurvey = () => {
 }
 
 const getUserPreferences = (userId) => {
-  console.log('userId', userId)
-  const query = `SELECT preferences_id from users_preferences WHERE user_id = ${userId}`
+  const query = `SELECT json_agg(preferences_id) FROM  users_preferences where user_id = ${userId}`
   return db.pool.query(query);
 }
 
