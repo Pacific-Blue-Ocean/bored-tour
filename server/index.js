@@ -15,8 +15,9 @@ app.use(middleware.logger);
 
 app.get('/api/friends', friends.getFriends);
 
-app.get('/api/survey', preferences.getSurvey);
+app.get('/api/preferences', preferences.getSurvey);
 app.post('/api/users/:id/preferences', preferences.postUserPreferences);
+app.get('/api/users/:id/preferences', preferences.getUserPreferences);
 
 app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname + '../..' + '/client/public/index.html'));
