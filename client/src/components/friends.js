@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Button, Input, Stack } from '@chakra-ui/react';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Header } from './header';
-import Friend from './friend.jsx';
+import Friend from './friends/friend.jsx';
 
 const Friends = () => {
   const [id, setUserId] = useState(1);
@@ -17,17 +17,20 @@ const Friends = () => {
   <Box>
     <Header />
     <Flex p={4} m={4} flexDirection="column" border='1px' borderRadius='10px' borderColor='#8F8F8F'>
-    <Heading>Friends</Heading>
-      <Flex p={4} m={4} flexDirection="row">
-        <Input type="text" size='md' placeholder="Search/Add Friend" />
-        <Button type="submit">Submit</Button>
+
+      <Heading>Friends</Heading>
+      <Flex p={4} m={8} flexDirection="row">
+        <Input type='text' placeholder="Search for a user"></Input>
+        <Button>Search</Button>
       </Flex>
-      {friends.length ? friends.map((friend) => (
-        <Friend
-          key={friend.id}
-          friend={friend}
-        />
-      )) : null}
+      <Flex p={4} m={4} flexDirection="row" flexWrap='wrap'>
+        {friends.length ? friends.map((friend) => (
+          <Friend
+            key={friend.id}
+            friend={friend}
+          />
+        )) : null}
+      </Flex>
     </Flex>
   </Box>
   )

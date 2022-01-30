@@ -1,8 +1,10 @@
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
-const controllers = require('./controllers');
 const middleware = require('./middleware');
+// controllers
+const friends = require("./controllers/friends");
+const preferences = require("./controllers/preferences");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,10 +13,10 @@ app.use(express.static('client/public'));
 app.use(express.json());
 app.use(middleware.logger);
 
-app.get('/api/friends', controllers.getFriends);
+app.get('/api/friends', friends.getFriends);
 
-app.get('/api/survey', controllers.getSurvey);
-app.post('/api/users/:id/preferences', controllers.postUserPreferences);
+app.get('/api/survey', preferences.getSurvey);
+app.post('/api/users/:id/preferences', preferences.postUserPreferences);
 
 app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname + '../..' + '/client/public/index.html'));

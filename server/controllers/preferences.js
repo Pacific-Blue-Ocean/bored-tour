@@ -1,10 +1,4 @@
-const models = require('./models');
-
-const getFriends = async (req, res) => {
-  const { id } = req.query
-  const { rows } = await models.getFriends(id);
-  res.send(rows);
-}
+const models = require('../models/preferences');
 
 const getSurvey = async (req, res) => {
   const { rows } = await models.getSurvey();
@@ -18,7 +12,6 @@ const postUserPreferences = async (req, res) => {
 }
 
 module.exports = {
-  getFriends,
   getSurvey,
-  postUserPreferences
+  postUserPreferences,
 };
