@@ -8,7 +8,8 @@ import Geocode from "react-geocode";
 const Map = ({ address }) => {
   const mapStyles = {
     height: "60vh",
-    width: "40%"
+    width: "40%",
+    float: "right"
   };
 
   const [location, setLocation] = useState({});
@@ -17,24 +18,22 @@ const Map = ({ address }) => {
   useEffect(() => {
     Geocode.fromAddress(address).then(
       (response) => {
-        setLocation(response.results[0].geometry.location)
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+        setLocation(response.results[0].geometry.location);
+      }).catch((err) => { console.log(err)});
   }, []);
 
- console.log(location);
-
+ let center = {
+   lat: parseFloat(location.lat),
+   lng: parseFloat(location.lng)
+ };
   return (
     <LoadScript
       googleMapsApiKey={config.GOOGLE_API}>
       <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={12}
-          center={location}>
-          <Marker position={location}/>
+          center={center}>
+          <Marker position={center}/>
      </GoogleMap>
     </LoadScript>
   );
