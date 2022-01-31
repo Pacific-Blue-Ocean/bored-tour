@@ -13,7 +13,7 @@ const Events = () => {
   useEffect(() => {
     axios.get('/api/events', { params: {
       limit: 10,
-      page: 5
+      page: 0
       }
     })
     .then((response) => {

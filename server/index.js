@@ -14,7 +14,9 @@ app.use(express.static('client/public'));
 app.use(express.json());
 app.use(middleware.logger);
 
-app.get('/api/events', events.getEvents);
+app.get('/api/events', events.getAllEvents);
+app.get('/api/events/m', events.getEventsByTime);
+app.get('/api/events/s', events.searchEventsByTitle);
 
 app.get('/api/friends', friends.getFriends);
 app.post('/api/friends', friends.addFriend);

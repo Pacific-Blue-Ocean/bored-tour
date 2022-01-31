@@ -1,18 +1,24 @@
-import { Box, Flex, Heading, SimpleGrid, GridItem, AspectRatio, Text, Spacer, Image, Badge } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, GridItem, AspectRatio, Text, Spacer, Image, Badge, HStack } from '@chakra-ui/react';
 import React from 'react';
-
+import DayJS from 'react-dayjs';
 
 const EventItemBlock = (props) => {
+
+
   return (
   <Box>
     <AspectRatio ratio={1} mb={4}>
     <Image
-    src={props.event.mainPhoto} borderRadius='lg'/>
+    src={props.event.mainphoto} borderRadius='lg'/>
     </AspectRatio>
-      <Heading size='lg' mb={4}>{props.event.title}</Heading>
-      <Text mb={4}>{props.event.details}</Text>
-      <Text mb={4} color='gray.500' fontSize='sm'>{props.event.description}</Text>
+      <Heading size='lg' mb={2}>{props.event.title}</Heading>
+      <HStack mb={2}>
+      <Badge colorScheme='purple'>{props.event.event_length_minutes} mins</Badge>
       {props.event.digital ? <Badge>Digital</Badge> : null}
+      </HStack>
+
+      <Text mb={4} as='em'>{props.event.details}</Text>
+      <Text mb={4} color='gray.500' fontSize='sm'>{props.event.description}</Text>
       <Text mb={4}>{props.event.location}
       </Text>
   </Box>
@@ -22,7 +28,7 @@ const EventItemBlock = (props) => {
 const EventItemList = (props) => {
   return (
   <Flex p={5} borderBottom='1px solid grey'>
-    <Image boxSize='100px' borderRadius='lg' objectFit='cover' src={props.event.mainPhoto} mr={4}/>
+    <Image boxSize='100px' borderRadius='lg' objectFit='cover' src={props.event.mainphoto} mr={4}/>
     <Flex width='500px' mr={4} justify={'center'} direction={'column'} >
       <Heading size='md'>{props.event.title}</Heading>
       <Text fontSize='sm'>{props.event.details}</Text>
@@ -32,7 +38,6 @@ const EventItemList = (props) => {
   </Flex>
   )
 }
-
 
 const EventList = (props) => {
   if (props.listStyle === 'list') {
