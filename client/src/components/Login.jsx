@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const handleShowClick = () => setShowPassword(!showPassword);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -39,7 +42,7 @@ export const Login = () => {
                   <InputLeftElement
                     pointerEvents="none"
                   />
-                  <Input type="email" placeholder="email address" />
+                  <Input type="email" placeholder="email address" onChange={(e) => setEmail(e.target.value)}/>
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -59,9 +62,7 @@ export const Login = () => {
                   </InputRightElement>
                 </InputGroup>
                 <FormHelperText textAlign="right">
-                  {/* need to create a page to find password? */}
                   <Heading size="xs">forgot password?</Heading>
-                  {/* <Link to="">forgot password?</Link> */}
                 </FormHelperText>
               </FormControl>
               <Button
