@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 
 import App from './components/App.jsx';
 import Friends from './components/friends.jsx';
-import Events from './components/events';
+import Events from './components/events/events.js';
 import Interests from './components/interests';
 import NotFound from './components/notfound';
 import { Login } from './components/Login.jsx';
@@ -17,10 +17,11 @@ render(
   <Routes>
       <Route path="/" element={<App />} />
       <Route path="friends" element={<Friends />} />
-      <Route path="events" element={<Events />} />
+      <Route path="events" element={<Events />}>
+        <Route path="/events/:eventId" element={<EventDetail />} />
+      </Route>
       <Route path="interests" element={<Interests />} />
       <Route path="login" element={<Login />} />
-      <Route path="event_detail" element={<EventDetail />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   </ChakraProvider>
