@@ -38,6 +38,32 @@ const searchEventsByTitle = (searchTerm,limit = 10, page = 0) => {
   return db.pool.query(query);
 }
 
+const getUsersForEvent = (event_id) => {
+  const query = `
+    select *
+    from events_users
+    where event_id = ${event_id}
+  `
+  return db.pool.query(query);
+}
+
+const addUserToEvent = (user_id, event_id) => {
+  const query = `
+    insert into events_users
+    (event_id, user_id)
+    values (${event_id}, ${user_id})
+  `
+  return db.pool.query(query);
+}
+
+const removeUserFromEvent = (user_id, event_id) => {
+  const query = `
+  delete from events_users
+  where (event_id = ${event_id}, user_id = ${user_id})
+  `
+  return db.pool.query(query);
+}
+
 module.exports = {
- getAllEvents, getEventsByTime, searchEventsByTitle
+ getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent
 };

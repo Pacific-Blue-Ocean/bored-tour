@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, SimpleGrid, GridItem, AspectRatio, Text, Spacer, Image, Badge, HStack } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import DayJS from 'react-dayjs';
 
@@ -6,6 +7,7 @@ const EventItemBlock = (props) => {
 
 
   return (
+    <Link to={`/events/${props.event.id}`} style={{textDecoration: 'none'}}>
   <Box>
     <AspectRatio ratio={1} mb={4}>
     <Image
@@ -22,11 +24,13 @@ const EventItemBlock = (props) => {
       <Text mb={4}>{props.event.location}
       </Text>
   </Box>
+  </Link>
   )
 }
 
 const EventItemList = (props) => {
   return (
+  <Link to={`/events/${props.event.id}`}>
   <Flex p={5} borderBottom='1px solid grey'>
     <Image boxSize='100px' borderRadius='lg' objectFit='cover' src={props.event.mainphoto} mr={4}/>
     <Flex width='500px' mr={4} justify={'center'} direction={'column'} >
@@ -36,6 +40,7 @@ const EventItemList = (props) => {
     <Spacer />
       <Box>{props.event.digital ? <Badge>Digital</Badge> : null}</Box>
   </Flex>
+  </Link>
   )
 }
 

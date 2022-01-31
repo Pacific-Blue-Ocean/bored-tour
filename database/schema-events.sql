@@ -16,7 +16,7 @@ create table events (
   online_address text,
   address_line_1 VARCHAR(255),
   address_state VARCHAR(20) ,
-  address_zip int,
+  address_zip VARCHAR(5) ,
   price int
 );
 
