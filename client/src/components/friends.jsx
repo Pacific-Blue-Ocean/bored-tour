@@ -9,6 +9,7 @@ import Friend from './friends/friend.jsx';
 function Friends() {
   const [id, setUserId] = useState(1);
   const [friends, setFriends] = useState([]);
+  const [event_id, setEventId] = useState(5);
 
   useEffect(() => {
     axios.get('/api/friends', { params: { id } })
@@ -44,6 +45,7 @@ function Friends() {
               key={friend.id}
               user_id={id}
               friend={friend}
+              event_id={event_id}
             />
           )) : null}
         </Flex>
