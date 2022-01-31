@@ -29,6 +29,8 @@ function Friend({ user_id, friend, event_id }) {
       friend_id: parseInt(friend.id, 10),
     };
 
+    console.log(body);
+
     // TODO: Call api route to add user to event
     setIsInvited(true);
   };
