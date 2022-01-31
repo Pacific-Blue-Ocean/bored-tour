@@ -49,7 +49,7 @@ function Friends() {
               friend={friend}
               event_id={event_id}
             />
-          )) : <span>No friends found</span>}
+          )) : <span>No users found</span>}
         </Flex>
       </Flex>
     </Box>
