@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement} from "@chakra-ui/react";
+import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement, extendTheme, ChakraProvider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 
@@ -11,76 +11,100 @@ export const Login = () => {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black {header}
+        200: "#8DD8E0",  //blue {border color}
+        300: "#E3444B",  //red  {buttons}
+        400: "#EC7C71",  //orange {button border}
+        500: "#FBFAFA",  //white {subheaders, text}
+      },
+    },
+  })
+
+
   return (
-    <Flex
-      flexDirection="column"
-      width="100wh"
-      height="100vh"
-      backgroundColor="gray.200"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Stack
-        flexDir="column"
-        mb="2"
-        justifyContent="center"
-        alignItems="center"
+    <ChakraProvider theme={theme}>
+      <Box
+        backgroundImage="url('./images/RaccoonParty.jpeg')"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+        width="100wh"
+        height="100vh"
       >
-        <Avatar bg="red.500" />
-        <Link to="/"><Heading color="red.400">Bored Tour</Heading></Link>
-        <Heading color="red.400">Log In</Heading>
-        <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
-            <Stack
-              spacing={4}
-              p="1rem"
-              backgroundColor="white"
-              boxShadow="md"
-            >
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                  />
-                  <Input type="email" placeholder="email address" onChange={(e) => setEmail(e.target.value)}/>
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    color="gray.300"
-                  />
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                  />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                      {showPassword ? "Hide" : "Show"}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <FormHelperText textAlign="right">
-                  <Heading size="xs">forgot password?</Heading>
-                </FormHelperText>
-              </FormControl>
-              <Button
-                borderRadius={0}
-                type="submit"
-                variant="solid"
-                colorScheme="red"
-                width="full"
+        <Flex
+          flexDirection="column"
+          width="100wh"
+          height="100vh"
+          justifyContent="center"
+          alignItems="center"
+        >
+
+          <Stack
+            flexDir="column"
+            mb="2"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Avatar bg="brand.100" />
+            <Link to="/"><Heading color="brand.500">Bored Tour</Heading></Link>
+            <Heading color="brand.500">Log In</Heading>
+          <Box minW={{ base: "90%", md: "468px" }}>
+            <form>
+              <Stack
+                spacing={4}
+                p="1rem"
+                backgroundColor="brand.500"
+                boxShadow="md"
               >
-                Log in
-              </Button>
-            </Stack>
-          </form>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                    />
+                    <Input type="email" placeholder="email address" />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      color="gray.300"
+                    />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                        {showPassword ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormHelperText textAlign="right">
+                    <Heading size="xs">forgot password?</Heading>
+                  </FormHelperText>
+                </FormControl>
+                <Button
+                  borderRadius={0}
+                  type="submit"
+                  variant="solid"
+                  colorScheme="red"
+                  width="full"
+                >
+                  Log in
+                </Button>
+              </Stack>
+            </form>
+          </Box>
+        </Stack>
+        <Box>
+          <Link to="signup"><Heading color="brand.500" size="sm">Sign up for Bored Tours</Heading></Link>
         </Box>
-      </Stack>
-      <Box>
-        <Link to="signup"><Heading size="sm" color="red.400">Sign up for Bored Tours</Heading></Link>
-      </Box>
-    </Flex>
+      </Flex>
+    </Box>
+    </ChakraProvider >
   );
 };
