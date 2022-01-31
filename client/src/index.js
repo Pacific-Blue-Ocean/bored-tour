@@ -16,12 +16,11 @@ render(
   <ChakraProvider>
   <Routes>
       <Route path="/" element={<App />} />
-      <Route path="friends" element={<Friends />} />
-      <Route path="events" element={<Events />}>
-        <Route path="/events/:eventId" element={<EventDetail />} />
-      </Route>
-      <Route path="interests" element={<Interests />} />
-      <Route path="login" element={<Login />} />
+      <Route path="/friends" element={<Friends />} />
+      <Route path="/events" element={<Events />} />
+      <Route path="/events/:eventId" element={<EventDetail />} />
+      <Route path="/interests" element={<Interests />} />
+      <Route path="/login" element={<Login />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   </ChakraProvider>

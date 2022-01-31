@@ -15,6 +15,10 @@ app.use(express.json());
 app.use(middleware.logger);
 
 app.get('/api/events', events.getAllEvents);
+app.get('/api/events/:id', events.getSpecificEvent);
+app.get('/api/events/users/:id', events.getUsersForEvent);
+
+
 app.get('/api/events/m', events.getEventsByTime);
 app.get('/api/events/s', events.searchEventsByTitle);
 
