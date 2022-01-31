@@ -9,6 +9,7 @@ import Events from './components/events';
 import Interests from './components/interests';
 import NotFound from './components/notfound';
 import { Login } from './components/Login.jsx';
+import EventDetail from './components/eventDetail';
 
 render(
   <BrowserRouter>
@@ -19,6 +20,7 @@ render(
       <Route path="events" element={<Events />} />
       <Route path="interests" element={<Interests />} />
       <Route path="login" element={<Login />} />
+      <Route path="event_detail" element={<EventDetail />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   </ChakraProvider>
