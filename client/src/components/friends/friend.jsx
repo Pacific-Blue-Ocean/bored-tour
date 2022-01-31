@@ -1,10 +1,24 @@
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Button, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const theme = extendTheme({
+  colors: {
+    brand: {
+      100: "#2E2F30",  //black
+      200: "#8DD8E0",  //blue
+      300: "#E3444B",  //red
+      400: "#EC7C71",  //orange
+      500: "#FBFAFA",  //white
+    },
+    button: {
+      300: "#E3444B",  //red
+    }
+  },
+})
+
 function Friend({ user_id, friend, event_id }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
-
   // TODO: Read from db if user is invited to event
   const [isInvited, setIsInvited] = useState(false);
 
@@ -28,9 +42,6 @@ function Friend({ user_id, friend, event_id }) {
       event_id,
       friend_id: parseInt(friend.id, 10),
     };
-
-    console.log(body);
-
     // TODO: Call api route to add user to event
     setIsInvited(true);
   };

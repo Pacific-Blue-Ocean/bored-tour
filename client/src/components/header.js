@@ -9,13 +9,28 @@ import {
   MenuOptionGroup,
   MenuDivider,
   Button,
-  Flex
+  Flex,
+  extendTheme,
+ ChakraProvider
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from "react-router-dom";
 
 
 export const Header = () => {
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black
+        200: "#8DD8E0",  //blue
+        300: "#E3444B",  //red
+        400: "#EC7C71",  //orange
+        500: "#FBFAFA",  //white
+      },
+    },
+  })
+
 
   return (
     <Flex style={{ borderBottom: '5px solid black' }}>
