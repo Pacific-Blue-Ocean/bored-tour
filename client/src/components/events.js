@@ -1,12 +1,10 @@
-import { Box, Flex, Heading, Button, Spacer, extendTheme, ChakraProvider } from '@chakra-ui/react';
+import { Box, Flex, Heading, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { Header } from './header';
-import { Link } from 'react-router-dom';
 
 
-const NotFound = () => {
-
-  const theme = extendTheme({
+const Events = () => {
+const theme = extendTheme({
     colors: {
       brand: {
         100: "#2E2F30",  //black
@@ -22,12 +20,10 @@ const NotFound = () => {
   <Box>
     <Header />
     <Flex p={4} m={4} border='1px' borderRadius='10px' borderColor='#8F8F8F'>
-      <Heading>You seem to be lost...</Heading>
-      <Spacer />
-      <Link to='/'><Button colorScheme='blue' size='lg'>Go Home</Button></Link>
+      <Heading>Events Go Here</Heading>
     </Flex>
   </Box>
   )
 }
 
-export default NotFound;
+export default Events;

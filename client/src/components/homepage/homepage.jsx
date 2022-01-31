@@ -1,4 +1,4 @@
-import { Heading, Container, Box, Button, ButtonGroup, FormControl } from '@chakra-ui/react';
+import { Heading, Container, Box, Button, ButtonGroup, FormControl, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect } from 'react';
 
@@ -7,6 +7,18 @@ const HomePage = () => {
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black
+        200: "#8DD8E0",  //blue
+        300: "#E3444B",  //red
+        400: "#EC7C71",  //orange
+        500: "#FBFAFA",  //white
+      },
+    },
+  })
 
   return (
     <div className='homePageSelector'>
