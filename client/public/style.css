@@ -1,0 +1,68 @@
+
+.homePageBackground {
+  background-image: url('./images/Homepage.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30% 50%;
+  width: 100vw;
+  height: 60vh;
+}
+
+.searchBarFlex {
+  display: flex;
+  justify-content: center;
+}
+
+
+.homePageSearch {
+  background: rgba(255, 255, 255, 0.6);
+  width: 30vw;
+  padding: 15px;
+  border-radius: 5px;
+  color: black;
+  font-size: 2vh;
+  margin-top: 30vh;
+  margin-right: 2vw;
+}
+
+.homePageSearch::placeholder {
+  color: rgba(75, 75, 75, 0.6);
+  font-size: 2vh;
+}
+
+.homePageSearchButton {
+  background:rgba(255, 255, 255, 0.9);
+  width: 5vw;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 2vh;
+  margin-top: 30vh;
+}
+
+.homePageSelector {
+  margin-top: 2.5vw;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.dateTimeFlex {
+  display: flex;
+  margin-left: 5vw;
+}
+
+.categoriesFlex {
+  margin-left: 10vw;
+  display: flex;
+  flex: row;
+  width: 70vw;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.categories {
+  width: 90%;
+  overflow-x: hidden;
+}
+
