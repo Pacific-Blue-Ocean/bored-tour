@@ -2,10 +2,13 @@ import { Flex, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Friend({ user_id, friend }) {
+function Friend({ user_id, friend, event_id }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
 
-  const handleClick = (e) => {
+  // TODO: Read from db if user is invited to event
+  const [isInvited, setIsInvited] = useState(false);
+
+  const handleFriendClick = (e) => {
     const request = e.target.value;
     const body = {
       user_id,
@@ -17,9 +20,38 @@ function Friend({ user_id, friend }) {
     } else if (request === 'remove') {
       axios.delete('/api/friends/', { data: body });
     }
-
     setIsFriend(!isFriend);
   };
+
+  const handleInvite = (e) => {
+    const body = {
+      event_id,
+      friend_id: parseInt(friend.id, 10),
+    };
+
+    console.log(body);
+
+    // TODO: Call api route to add user to event
+    setIsInvited(true);
+  };
+
+  // Conditionally render invitation based on event, invitation, friend status
+  let inviteButton;
+  if (event_id && !isInvited && isFriend) {
+    inviteButton = (
+      <Button m={2} onClick={handleInvite} value="invite">
+        ✉️ &nbsp; Invite to Event
+      </Button>
+    );
+  } else if (event_id && isInvited && isFriend) {
+    inviteButton = (
+      <Button m={2} onClick={handleInvite} value="invite">
+        ✅ &nbsp; Invitation Sent!
+      </Button>
+    );
+  } else {
+    inviteButton = null;
+  }
 
   return (
     <Flex
@@ -34,13 +66,18 @@ function Friend({ user_id, friend }) {
       <br />
       {friend.location}
       <br />
+
       {isFriend ? (
-        <Button m={2} onClick={(e) => { handleClick(e); }} value="remove">
-          ❌ &nbsp; Remove
+        <Button m={2} onClick={handleFriendClick} value="remove">
+          ❌ &nbsp; Remove Friend
         </Button>
       ) : (
-        <Button m={2} onClick={handleClick} value="add">➕ &nbsp; Add</Button>
+        <Button m={2} onClick={handleFriendClick} value="add">
+          ➕ &nbsp; Add Friend
+        </Button>
       )}
+
+      { inviteButton }
     </Flex>
   );
 }
