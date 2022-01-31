@@ -5,7 +5,7 @@ import axios from 'axios';
 function Friend({ user_id, friend, event_id }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
 
-  // TODO: Check read from db if user is invited to event
+  // TODO: Read from db if user is invited to event
   const [isInvited, setIsInvited] = useState(false);
 
   const handleFriendClick = (e) => {
@@ -29,11 +29,27 @@ function Friend({ user_id, friend, event_id }) {
       friend_id: parseInt(friend.id, 10),
     };
 
-    console.log(body);
-
     axios.post('/api/events/invite', body);
     setIsInvited(true);
   };
+
+  // Conditionally render invitation based on event, invitation, friend status
+  let inviteButton;
+  if (event_id && !isInvited && isFriend) {
+    inviteButton = (
+      <Button m={2} onClick={handleInvite} value="invite">
+        ✉️ Invite to Event
+      </Button>
+    );
+  } else if (event_id && isInvited && isFriend) {
+    inviteButton = (
+      <Button m={2} onClick={handleInvite} value="invite">
+        ✅ Invitation Sent!
+      </Button>
+    );
+  } else {
+    inviteButton = null;
+  }
 
   return (
     <Flex
@@ -48,6 +64,7 @@ function Friend({ user_id, friend, event_id }) {
       <br />
       {friend.location}
       <br />
+
       {isFriend ? (
         <Button m={2} onClick={handleFriendClick} value="remove">
           ❌ &nbsp; Remove Friend
@@ -57,11 +74,8 @@ function Friend({ user_id, friend, event_id }) {
           ➕ &nbsp; Add Friend
         </Button>
       )}
-      {event_id && !isInvited && isFriend ? (
-        <Button m={2} onClick={handleInvite} value="invite">
-          ✉️ Invite to Event
-        </Button>
-      ) : null}
+
+      { inviteButton }
     </Flex>
   );
 }
