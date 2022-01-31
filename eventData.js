@@ -15,6 +15,7 @@ const eventDetail = {
   online_address: 'https://live.com/luctus/et.aspx?turpis=suspendisse&adipiscing=ornare&lorem=consequat&vitae=lectus&mattis=in&nibh=est&ligula=risus&nec=auctor&sem=sed&duis=tristique&aliquam=in&convallis=tempus&nunc=sit&proin=amet&at=sem&turpis=fusce&a=consequat&pede=nulla&posuere=nisl&nonummy=nunc&integer=nisl&non=duis&velit=bibendum&donec=felis&diam=sed&neque=interdum&vestibulum=venenatis&eget=turpis&vulputate=enim&ut=blandit&ultrices=mi&vel=in&augue=porttitor&vestibulum=pede&ante=justo&ipsum=eu&primis=massa&in=donec',
   start_time: '17:48:00',
   title: 'No Scrubs: SF\'s Best \'90s Hip Hop and R&B Night',
+  price: '$50',
 };
 
 export default eventDetail;

@@ -16,7 +16,12 @@ const App = () => {
           </button>
         </div>
       </div>
+      <div>
+        <Flex>
       <Link to="event_detail"> this is an event picture </Link>
+
+        </Flex>
+      </div>
     </div>
   )
 }

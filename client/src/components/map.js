@@ -8,7 +8,7 @@ import config from '../../../config.js';
 const Map = ({ address }) => {
   const mapStyles = {
     height: "60vh",
-    width: "40%",
+    width: "100%",
     float: "right"
   };
 
