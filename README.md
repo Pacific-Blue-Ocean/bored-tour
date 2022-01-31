@@ -7,7 +7,7 @@ Helping people find things to do with their time.
 npm install
 ```
 2. Setup Postgres database to match settings in `/database/index.js`.
-3. Rename `.env.example` to `.env` and fill in the enironment variables.
+3. Copy `.env.example`, rename the copy to `.env`, and fill in the environment variables.
 4. Build scripts:
 ```
 npm run build

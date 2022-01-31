@@ -1,9 +1,9 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 import Geocode from "react-geocode";
-import config from '../../../config.js';
+import config from '../../../config';
 
 const Map = ({ address }) => {
   const mapStyles = {
@@ -11,6 +11,19 @@ const Map = ({ address }) => {
     width: "100%",
     float: "right"
   };
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black
+        200: "#8DD8E0",  //blue
+        300: "#E3444B",  //red
+        400: "#EC7C71",  //orange
+        500: "#FBFAFA",  //white
+      },
+    },
+  })
+
 
   const [location, setLocation] = useState({});
 

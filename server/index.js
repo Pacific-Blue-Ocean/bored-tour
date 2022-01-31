@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const middleware = require('./middleware');
 // controllers
+const events = require('./controllers/events');
 const friends = require("./controllers/friends");
 const preferences = require("./controllers/preferences");
 
@@ -12,6 +13,14 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static('client/public'));
 app.use(express.json());
 app.use(middleware.logger);
+
+app.get('/api/events', events.getAllEvents);
+app.get('/api/events/:id', events.getSpecificEvent);
+app.get('/api/events/users/:id', events.getUsersForEvent);
+
+
+app.get('/api/events/m', events.getEventsByTime);
+app.get('/api/events/s', events.searchEventsByTitle);
 
 app.get('/api/friends', friends.getFriends);
 app.post('/api/friends', friends.addFriend);
