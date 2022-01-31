@@ -1,5 +1,5 @@
 import {
-  Box, Flex, Heading, Button, Input,
+  Box, Flex, Heading, Button, Input, extendTheme, ChakraProvider
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -14,6 +14,19 @@ function Friends() {
     axios.get('/api/friends', { params: { id } })
       .then((res) => { setFriends(res.data); });
   }, [id]);
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black
+        200: "#8DD8E0",  //blue
+        300: "#E3444B",  //red
+        400: "#EC7C71",  //orange
+        500: "#FBFAFA",  //white
+      },
+    },
+  })
+
 
   return (
     <Box>

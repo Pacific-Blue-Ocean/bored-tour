@@ -1,9 +1,24 @@
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Button, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import axios from 'axios';
 
 function Friend({ user_id, friend }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black
+        200: "#8DD8E0",  //blue
+        300: "#E3444B",  //red
+        400: "#EC7C71",  //orange
+        500: "#FBFAFA",  //white
+      },
+      button: {
+        300: "#E3444B",  //red
+      }
+    },
+  })
 
   const handleClick = (e) => {
     const request = e.target.value;
@@ -36,7 +51,7 @@ function Friend({ user_id, friend }) {
       <br />
       {isFriend ? (
         <Button m={2} onClick={(e) => { handleClick(e); }} value="remove">
-          ❌ &nbsp; Remove
+          💩 &nbsp; Remove
         </Button>
       ) : (
         <Button m={2} onClick={handleClick} value="add">➕ &nbsp; Add</Button>

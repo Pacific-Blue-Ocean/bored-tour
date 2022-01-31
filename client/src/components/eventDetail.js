@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Flex, Heading, Image, Text, Button } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Flex, Heading, Image, Text, Button, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { Header } from './header';
 import eventData from '../../../eventData.js';
@@ -7,6 +7,19 @@ import Map from './map';
 const EventDetail = () => {
   const [event, setEvent] = useState(eventData);
   const address = `${eventData.address_line1} ${eventData.address_city} ${eventData.address_state} ${eventData.address_zip}`;
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30",  //black
+        200: "#8DD8E0",  //blue
+        300: "#E3444B",  //red
+        400: "#EC7C71",  //orange
+        500: "#FBFAFA",  //white
+      },
+    },
+  })
+
 
   return (
     <Box>

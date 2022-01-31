@@ -65,3 +65,14 @@
   width: 90%;
   overflow-x: hidden;
 }
+
+
+
+.homePageBackground {
+  background-image: url('./images/LoginBackground.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30% 50%;
+  width: 100vw;
+  height: 60vh;
+}
