@@ -29,7 +29,7 @@ function Friend({ user_id, friend, event_id }) {
       friend_id: parseInt(friend.id, 10),
     };
 
-    axios.post('/api/events/invite', body);
+    // TODO: Call api route to add user to event
     setIsInvited(true);
   };
 
@@ -38,13 +38,13 @@ function Friend({ user_id, friend, event_id }) {
   if (event_id && !isInvited && isFriend) {
     inviteButton = (
       <Button m={2} onClick={handleInvite} value="invite">
-        ✉️ Invite to Event
+        ✉️ &nbsp; Invite to Event
       </Button>
     );
   } else if (event_id && isInvited && isFriend) {
     inviteButton = (
       <Button m={2} onClick={handleInvite} value="invite">
-        ✅ Invitation Sent!
+        ✅ &nbsp; Invitation Sent!
       </Button>
     );
   } else {
