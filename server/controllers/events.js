@@ -9,8 +9,16 @@ const getAllEvents = async (req, res) => {
   } catch (e) {
     res.status(500).send(e);
   }
+}
 
-
+const getSpecificEvent = async (req, res) => {
+  let event_id = req.params.id;
+  try {
+    const { rows } = await models.getSpecificEvent(event_id);
+    res.send(rows);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 }
 
 const getEventsByTime = async (req, res) => {
@@ -38,7 +46,7 @@ const searchEventsByTitle = async (req, res) => {
 }
 
 const getUsersForEvent = async (req, res) => {
-  let event_id = req.query.event_id;
+  let event_id = req.params.id;
   try {
     const { rows } = await models.getUsersForEvent(event_id);
     res.send(rows);
@@ -71,5 +79,5 @@ const removeUserFromEvent = async (req, res) => {
 
 
 module.exports = {
-   getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent,
+   getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, getSpecificEvent, removeUserFromEvent
 };
