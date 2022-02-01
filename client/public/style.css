@@ -4,6 +4,7 @@
 }
 
 
+
 .homePageBackground {
   background-image: url('./images/RaccoonParty.jpeg');
   background-size: cover;
@@ -103,4 +104,15 @@
   text-align: center;
   border-radius: 5%;
   object-fit: cover;
+}
+
+.calendar {
+  z-index: 1000;
+  position: relative;
+  top: 40%;
+  left: -50%;
+}
+
+.homePageRelative {
+  position: relative;
 }

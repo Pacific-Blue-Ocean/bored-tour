@@ -1,6 +1,9 @@
-import { Heading, Container, Box, Spacer, Flex, Button, ButtonGroup, FormControl, extendTheme, ChakraProvider } from '@chakra-ui/react';
+import {
+  Button, ButtonGroup, extendTheme, Modal, ModalOverlay,
+  ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
 import axios from 'axios';
 import Event from './event.jsx'
 
@@ -11,8 +14,13 @@ const HomePage = () => {
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
+
+  // const { isOpen, onOpen, onClose } = useDisclosure()
+
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
+  const [value, onChange] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState(false)
 
 
   useEffect(() => {
@@ -44,15 +52,28 @@ const HomePage = () => {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
   }, [])
 
+  const viewCalendar = () => {
+    if (showCalendar) {
+      return (
+        <div className="calendar">
+          <Calendar
+            onChange={onChange}
+            value={value}
+          />
+        </div>
+      )
+    }
+  }
 
   return (
-    <div>
+    <div className='homePageRelative'>
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Button colorScheme='teal' size='lg' variant='outline'>
+          <Button colorScheme='teal' size='lg' variant='outline' onClick={() => {setShowCalendar(!showCalendar)}}>
             Date
           </Button>
+          {/* {viewCalendar()} */}
           <Button colorScheme='teal' size='lg' variant='outline'>
             Time
           </Button>
@@ -69,11 +90,12 @@ const HomePage = () => {
           />
         <div ref={categories} className='categories'>
           <ButtonGroup spacing={6} direction='row' align='center'>
-            {categoriesList.map((category) => (
+            {categoriesList.map((category, idx) => (
               <Button
                 colorScheme='teal'
                 size='lg'
                 variant='outline'
+                key={idx}
                 //need category label in events
                 // onClick={() => {setHomePageEvents(category.label)}}
               >{category.label}
