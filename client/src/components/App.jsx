@@ -37,7 +37,7 @@ const App = () => {
     <div>
       <Flex style={{ borderBottom: '5px solid black' }}>
         <Link to="/">
-          <Heading as='h1' fontSize='6vh' color='brand.500' p={8}>Bored Tour</Heading>
+          <Heading as='h1' fontSize='6vh' color='brand.500' p={8}>bored tour</Heading>
         </Link>
         <Spacer />
         <Box p={4}>
