@@ -80,7 +80,7 @@ function Friend({ user_id, friend, event_id }) {
 
       {isFriend ? (
         <Button m={2} onClick={handleFriendClick} value="remove">
-          ❌ &nbsp; Remove Friend
+          💩 &nbsp; Remove Friend
         </Button>
       ) : (
         <Button m={2} onClick={handleFriendClick} value="add">

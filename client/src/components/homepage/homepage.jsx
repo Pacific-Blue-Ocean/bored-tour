@@ -1,12 +1,28 @@
-import { Heading, Container, Box, Button, ButtonGroup, FormControl, extendTheme, ChakraProvider } from '@chakra-ui/react';
+import { Heading, Container, Box, Spacer, Flex, Button, ButtonGroup, FormControl, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import axios from 'axios';
+import Event from './event.jsx'
 
 const HomePage = () => {
 
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/events', {
+      params: {
+        limit: 10,
+        page: 0
+      }
+    })
+      .then((response) => {
+        setEvents(response.data)
+      })
+      .catch((err) => { console.log(err) });
+  }, [])
 
   const theme = extendTheme({
     colors: {
@@ -20,7 +36,12 @@ const HomePage = () => {
     },
   })
 
+  const eventRows = events.reduce(function(rows, key, index) {
+    return (index % 6 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
+  }, [])
+
   return (
+    <div>
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
@@ -98,7 +119,21 @@ const HomePage = () => {
             cursor='pointer'
             onClick={() => {categories.current.scrollBy(300, 0)}}
           />
-
+      </div>
+    </div>
+      <div className='eventContainer'>
+        {eventRows.map((row, idx) => (
+          <div
+            className='eventRows'
+            key={idx}>
+              {row.map((event, idx) => (
+                <Event
+                  event={event}
+                  key={idx}
+                />
+                ))}
+          </div>
+          ))}
       </div>
     </div>
   )
