@@ -1,6 +1,5 @@
 import {
-  Button, ButtonGroup, extendTheme, Modal, ModalOverlay,
-  ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
+  Button, ButtonGroup, extendTheme } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';

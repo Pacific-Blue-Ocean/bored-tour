@@ -26,28 +26,31 @@ const Map = ({ address }) => {
 
   const [location, setLocation] = useState({});
 
-  Geocode.setApiKey(process.env.GOOGLE_API);
-  useEffect(() => {
-    Geocode.fromAddress(address).then(
-      (response) => {
-        setLocation(response.results[0].geometry.location);
-      }).catch((err) => { console.log(err)});
-  }, []);
+  // Geocode.setApiKey(process.env.GOOGLE_API);
+  // useEffect(() => {
+  //   Geocode.fromAddress(address).then(
+  //     (response) => {
+  //       setLocation(response.results[0].geometry.location);
+  //     }).catch((err) => { console.log(err)});
+  // }, []);
 
  let center = {
    lat: parseFloat(location.lat),
    lng: parseFloat(location.lng)
  };
   return (
-    <LoadScript
-      googleMapsApiKey={process.env.GOOGLE_API}>
-      <GoogleMap
-          mapContainerStyle={mapStyles}
-          zoom={12}
-          center={center}>
-          <Marker position={center}/>
-     </GoogleMap>
-    </LoadScript>
+    // <LoadScript
+    //   googleMapsApiKey={process.env.GOOGLE_API}>
+    //   <GoogleMap
+    //       mapContainerStyle={mapStyles}
+    //       zoom={12}
+    //       center={center}>
+    //       <Marker position={center}/>
+    //  </GoogleMap>
+    // </LoadScript>
+    <div>
+
+    </div>
   );
 };
 

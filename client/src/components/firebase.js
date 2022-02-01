@@ -17,9 +17,9 @@ import {
   addDoc,
 } from 'firebase/firestore';
 import 'regenerator-runtime/runtime';
-import config from '../../../config';
+import firebaseConfig from '../../../config';
 
-const app = initializeApp(config.firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
