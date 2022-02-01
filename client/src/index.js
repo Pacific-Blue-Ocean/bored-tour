@@ -10,7 +10,6 @@ import Interests from './components/interests';
 import NotFound from './components/notfound';
 
 import { Register } from './components/register.jsx';
-import { Login } from './components/Login.jsx';
 import Preferences from './components/preferences/Preferences.jsx';
 import EventDetail from './components/eventDetail';
 
