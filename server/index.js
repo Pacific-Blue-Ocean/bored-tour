@@ -16,6 +16,14 @@ app.use(express.static('client/public'));
 app.use(express.json());
 app.use(middleware.logger);
 
+app.get('/google/auth', (req, res) => {
+  if (process.env.GOOGLE_API) {
+    res.send(process.env.GOOGLE_API)
+  } else {
+    res.status(403).send('Access denied. Please set up a Google_API token in your server\'s .env file.')
+  }
+});
+
 app.get('/api/events', events.getAllEvents);
 app.get('/api/categories', preferences.getAllCategories);
 app.get('/api/events/:id', events.getSpecificEvent);
