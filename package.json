@@ -26,6 +26,7 @@
     "@emotion/styled": "^11.6.0",
     "@react-google-maps/api": "^2.7.0",
     "axios": "^0.25.0",
+    "buffer": "^6.0.3",
     "dayjs": "^1.10.7",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
