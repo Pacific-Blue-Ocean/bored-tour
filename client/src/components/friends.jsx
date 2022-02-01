@@ -2,7 +2,6 @@ import {
   Box, Flex, Heading, Button, Input, extendTheme, ChakraProvider
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Header } from './header';
 import Friend from './friends/friend.jsx';
@@ -23,8 +22,7 @@ function Friends() {
   const [id, setUserId] = useState(1);
   const [friends, setFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
-  const { state } = useLocation();
-  const [event_id, setEventId] = useState(state.event_id);
+  const [event_id, setEventId] = useState();
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
