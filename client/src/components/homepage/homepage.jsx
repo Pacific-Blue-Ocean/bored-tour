@@ -98,7 +98,6 @@ const HomePage = () => {
             cursor='pointer'
             onClick={() => {categories.current.scrollBy(300, 0)}}
           />
-
       </div>
     </div>
   )
