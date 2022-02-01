@@ -37,9 +37,9 @@ function Friend({ user_id, friend, event_id }) {
   const handleInvite = (e) => {
     const body = {
       event_id,
-      friend_id: parseInt(friend.id, 10),
+      user_id: parseInt(friend.id, 10),
     };
-    // TODO: Call api route to add user to event
+    axios.post('/api/events/users', body);
     setIsInvited(true);
   };
 
@@ -77,7 +77,7 @@ function Friend({ user_id, friend, event_id }) {
 
       {isFriend ? (
         <Button m={2} onClick={handleFriendClick} value="remove">
-          ❌ &nbsp; Remove Friend
+          💩 &nbsp; Remove Friend
         </Button>
       ) : (
         <Button m={2} onClick={handleFriendClick} value="add">

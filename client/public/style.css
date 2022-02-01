@@ -1,6 +1,6 @@
 
 .homePageBackground {
-  background-image: url('./images/Homepage.jpeg');
+  background-image: url('./images/RaccoonParty.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 30% 50%;
@@ -66,3 +66,34 @@
   overflow-x: hidden;
 }
 
+.eventContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.eventRows {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin-top: 5vw;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+  width: 100%;
+}
+
+.homePageEventCard {
+  width: 25vh;
+  height: 40vh;
+  text-align: center;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+}
+
+.homePageEventPhoto {
+  width: 27vh;
+  height: 35vh;
+  text-align: center;
+  border-radius: 5%;
+  object-fit: cover;
+}

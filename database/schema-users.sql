@@ -8,9 +8,10 @@ drop table if exists users cascade;
 
 -- Create tables
 create table users (
-  id          bigserial not null primary key,
-  full_name   varchar(50) not null,
-  location_id bigserial not null
+  id                    bigserial not null primary key,
+  full_name             varchar(50) not null,
+  has_completed_survey  boolean default false,
+  location_id           bigserial not null
 );
 
 -- Foreign key
