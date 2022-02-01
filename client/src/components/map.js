@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 import Geocode from "react-geocode";
-import config from '../../../config';
 
 const Map = ({ address }) => {
   const mapStyles = {
@@ -15,11 +14,11 @@ const Map = ({ address }) => {
   const theme = extendTheme({
     colors: {
       brand: {
-        100: "#2E2F30",  //black
-        200: "#8DD8E0",  //blue
-        300: "#E3444B",  //red
-        400: "#EC7C71",  //orange
-        500: "#FBFAFA",  //white
+        100: "#2E2F30",  //black {header}
+        200: "#8DD8E0",  //blue {border color}
+        300: "#E3444B",  //red  {buttons}
+        400: "#EC7C71",  //orange {button border}
+        500: "#FBFAFA",  //white {subheaders, text}
       },
     },
   })
@@ -27,7 +26,7 @@ const Map = ({ address }) => {
 
   const [location, setLocation] = useState({});
 
-  Geocode.setApiKey(config.GOOGLE_API);
+  Geocode.setApiKey(process.env.GOOGLE_API);
   useEffect(() => {
     Geocode.fromAddress(address).then(
       (response) => {
@@ -41,7 +40,7 @@ const Map = ({ address }) => {
  };
   return (
     <LoadScript
-      googleMapsApiKey={config.GOOGLE_API}>
+      googleMapsApiKey={process.env.GOOGLE_API}>
       <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={12}

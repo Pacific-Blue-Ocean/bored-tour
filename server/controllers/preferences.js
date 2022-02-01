@@ -6,6 +6,7 @@ const getSurvey = async (req, res) => {
 }
 
 const getUserPreferences = async (req, res) => {
+  console.log('getUserPreferences')
   const { id } = req.params;
   const { rows } = await models.getUserPreferences(id);
 
@@ -16,6 +17,8 @@ const postUserPreferences = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
 
+  await models.removeUserPreferences(id);
+
   const { rows } = await models.postUserPreferences({userId: id, preferences: body});
   res.send(rows);
 }
@@ -25,5 +28,3 @@ module.exports = {
   getUserPreferences,
   postUserPreferences
 };
-
-

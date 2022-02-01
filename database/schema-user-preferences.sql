@@ -9,15 +9,16 @@
 drop table if exists preferences_steps cascade;
 drop table if exists preferences cascade;
 drop table if exists users_preferences cascade;
-drop table if exists locations_types cascade;
-drop table if exists locations cascade;
 
 -- Create tables
+create type stepType AS ENUM ('options', 'location');
+
 create table preferences_steps (
   id             bigserial not null primary key,
   label          varchar(50) not null,
   question       varchar(50) not null,
-  showingOrder   integer not null
+  showingOrder   integer not null,
+  type           stepType
 );
 
 create table preferences (
@@ -37,25 +38,13 @@ create table users_preferences (
   foreign key (preferences_id) references preferences(id)
 );
 
-create table locations_types (
-  id  bigserial not null primary key,
-  label varchar(255) null
-);
-
-create table locations (
-  id        bigserial not null primary key,
-  location_type_id  bigserial not null,
-  label     varchar(255) null,
-  foreign key (location_type_id) references locations_types(id)
-);
-
 -- Populate preferences_steps table
 insert into preferences_steps
-  (label, question, showingOrder)
+  (label, question, showingOrder, type)
 values
-  ('About Me', 'What best describes you?', 1), -- id 1
-  ('My Interests', 'What type of activities are you interested on?', 2), -- id 2
-  ('My Location', 'Where would you like to go out?', 3); -- id 3
+  ('About Me', 'What best describes you?', 1, 'options'), -- id 1
+  ('My Interests', 'What type of activities are you interested on?', 2, 'options'), -- id 2
+  ('My Location', 'Where would you like to go out?', 3, 'location'); -- id 3
 
 -- -- Populate preferences table
 insert into preferences
@@ -90,29 +79,8 @@ values
   (4, 9),
   (4, 16);
 
--- Populate locations_types table
-insert into locations_types
-  (label)
-values
-  ('City'), -- id 1
-  ('Region'); -- id 2
-
--- Populate locations table
-insert into locations
-  (location_type_id, label)
-values
-  (1, 'San Francisco'), -- id 1
-  (1, 'Los Angeles'), -- id 2
-  (1, 'New York'), -- id 3
-  (2, 'Bay Area'); -- id 4
-
-
 -- Update users rows and update user 4 with a location preference.
 -- As per PR feedback this will be implemented on a different schema.
 -- alter table users add location_id bigint not null;
 -- alter table users add constraint user_location_fk foreign key (location_id) references locations(id);
 -- UPDATE users SET location_id = 1 WHERE id = 4; -- Update user Feranda with the location San Francisco
-
-
-
-

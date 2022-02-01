@@ -5,15 +5,12 @@ import axios from 'axios';
 const theme = extendTheme({
   colors: {
     brand: {
-      100: "#2E2F30",  //black
-      200: "#8DD8E0",  //blue
-      300: "#E3444B",  //red
-      400: "#EC7C71",  //orange
-      500: "#FBFAFA",  //white
+      100: "#2E2F30",  //black {header}
+      200: "#8DD8E0",  //blue {border color}
+      300: "#E3444B",  //red  {buttons}
+      400: "#EC7C71",  //orange {button border}
+      500: "#FBFAFA",  //white {subheaders, text}
     },
-    button: {
-      300: "#E3444B",  //red
-    }
   },
 })
 
@@ -40,9 +37,9 @@ function Friend({ user_id, friend, event_id }) {
   const handleInvite = (e) => {
     const body = {
       event_id,
-      friend_id: parseInt(friend.id, 10),
+      user_id: parseInt(friend.id, 10),
     };
-    // TODO: Call api route to add user to event
+    axios.post('/api/events/users', body);
     setIsInvited(true);
   };
 
@@ -80,7 +77,7 @@ function Friend({ user_id, friend, event_id }) {
 
       {isFriend ? (
         <Button m={2} onClick={handleFriendClick} value="remove">
-          ❌ &nbsp; Remove Friend
+          💩 &nbsp; Remove Friend
         </Button>
       ) : (
         <Button m={2} onClick={handleFriendClick} value="add">
