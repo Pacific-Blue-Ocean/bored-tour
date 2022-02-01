@@ -1,5 +1,5 @@
 import {
-  Box, Flex, Heading, Button, Input, extendTheme, ChakraProvider
+  Box, Flex, Heading, Input,
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -27,9 +27,9 @@ function Friends() {
       return friendName.includes(searchText.toLowerCase());
     });
     setFilteredFriends(filteredFriends);
-  }, [searchText])
+  }, [searchText]);
 
-  const handleChange = (e) => { setSearchText(e.target.value); }
+  const handleChange = (e) => { setSearchText(e.target.value); };
 
   return (
     <Box>
