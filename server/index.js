@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(middleware.logger);
 
 app.get('/api/events', events.getAllEvents);
+app.get('/api/categories', preferences.getAllCategories);
 app.get('/api/events/:id', events.getSpecificEvent);
 app.get('/api/events/users/:id', events.getUsersForEvent);
 app.post('/api/events/users', events.addUserToEvent);

@@ -2,8 +2,7 @@ import { Heading, Container, Box, Spacer, Flex, Button, ButtonGroup, FormControl
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 
-const Events = ({ event }) => {
-  const backgroundImage = event.mainphoto
+const Event = ({ event }) => {
   return (
     <div className='homePageEventCard'>
       <div
@@ -17,4 +16,4 @@ const Events = ({ event }) => {
   )
 }
 
-export default Events;
+export default Event;

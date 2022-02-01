@@ -1,3 +1,9 @@
+#app {
+  font-family: 'Questrial', sans-serif;
+  letter-spacing: .1rem;
+}
+
+
 
 .homePageBackground {
   background-image: url('./images/RaccoonParty.jpeg');
@@ -69,31 +75,44 @@
 .eventContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
+  margin: 0;
+  font-family: 'Questrial', sans-serif;
+  font-size: 2vh;
 }
 
 .eventRows {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   flex-direction: row;
   margin-top: 5vw;
   margin-left: 2.5vw;
   margin-right: 2.5vw;
-  width: 100%;
 }
 
 .homePageEventCard {
-  width: 25vh;
-  height: 40vh;
+  width: 35vh;
+  height: 50vh;
   text-align: center;
   margin-left: 1.5vw;
   margin-right: 1.5vw;
 }
 
 .homePageEventPhoto {
-  width: 27vh;
-  height: 35vh;
+  width: 32vh;
+  height: 48vh;
   text-align: center;
   border-radius: 5%;
   object-fit: cover;
+}
+
+.calendar {
+  z-index: 1000;
+  position: relative;
+  top: 40%;
+  left: -50%;
+}
+
+.homePageRelative {
+  position: relative;
 }
