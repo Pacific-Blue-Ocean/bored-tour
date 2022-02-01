@@ -2,6 +2,7 @@
 drop table if exists preferences_steps cascade;
 drop table if exists preferences cascade;
 drop table if exists users_preferences cascade;
+drop type if exists stepType;
 
 -- Create tables
 create type stepType AS ENUM ('options', 'location');
