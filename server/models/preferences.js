@@ -5,6 +5,7 @@ const getSurvey = () => {
     'stepId', id,
     'label', label,
     'question', question,
+    'type', type,
     'preferences', (
       SELECT json_agg(preferences)
       FROM (
@@ -26,11 +27,13 @@ const getUserPreferences = (userId) => {
   return db.pool.query(query);
 }
 
+const removeUserPreferences = (userId) => {
+  const query = `DELETE from users_preferences WHERE user_id = ${userId}`;
+  return db.pool.query(query);
+}
+
 const postUserPreferences = ({userId, preferences}) => {
-
   const values = preferences.map(preferenceId => `(${userId} , ${preferenceId})`).join(',');
-
-  console.log('values', values);
   const query = `insert into users_preferences (user_id, preferences_id) values ${values};`
 
   return db.pool.query(query);
@@ -39,5 +42,6 @@ const postUserPreferences = ({userId, preferences}) => {
 module.exports = {
   getSurvey,
   getUserPreferences,
-  postUserPreferences
+  postUserPreferences,
+  removeUserPreferences
 };
