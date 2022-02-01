@@ -21,7 +21,7 @@ import moment from "moment";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EventDetail = ({}) => {
+const EventDetail = ({userId}) => {
   const params = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
@@ -50,6 +50,17 @@ const EventDetail = ({}) => {
       });
     }
   }, []);
+
+
+  // app.post('/api/events/users', events.addUserToEvent);
+  const ReserveEvent = (e) => {
+    e.preventDefault();
+    // axios.post('/api/events/users', )
+
+  };
+
+
+
 
   return (
     <Box>
@@ -84,7 +95,7 @@ const EventDetail = ({}) => {
               </Text>
             </Box>
             <Box>
-              <Heading size="lg">About this event:</Heading>
+              <Heading size="lg"> About this event:</Heading>
               <Text pt="1em" pb="1em">
                 {event.description}
               </Text>
@@ -141,7 +152,13 @@ const EventDetail = ({}) => {
                 bg="#E3444B"
                 fontWeight="bold"
                 color="white"
-                variant="solid">
+                variant="solid"
+                onClick={() => {
+                  navigate('/friends', {
+                    state: { event_id: event.id }
+                  })
+                }}
+                >
                 Add Friends <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
               </Button>
             </HStack>
