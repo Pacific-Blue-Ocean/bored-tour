@@ -1,3 +1,8 @@
+#app {
+  font-family: 'Questrial', sans-serif;
+  letter-spacing: .1rem;
+}
+
 
 .homePageBackground {
   background-image: url('./images/RaccoonParty.jpeg');
@@ -71,6 +76,8 @@
   flex-direction: column;
   width: 100vw;
   margin: 0;
+  font-family: 'Questrial', sans-serif;
+  font-size: 2vh;
 }
 
 .eventRows {
