@@ -2,7 +2,6 @@ import {
   Box, Flex, Heading, Button, Input, extendTheme, ChakraProvider
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Header } from './header';
 import Friend from './friends/friend.jsx';
