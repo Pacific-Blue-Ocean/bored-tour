@@ -40,7 +40,8 @@ export const Header = () => {
     >
       <Flex style={{ borderBottom: '5px solid black' }}>
         <Link to="/">
-          <Heading as='h1' fontSize='6vh' color='whiteAlpha.900' p={8}>Bored Tour</Heading>
+          <Heading as='h1' fontSize='6vh' color='whiteAlpha.900' p={8}
+          >bored tour</Heading>
         </Link>
         <Spacer />
         <Box p={4}>
@@ -52,7 +53,7 @@ export const Header = () => {
             <Link to="/events"><MenuItem>My Events</MenuItem></Link>
             <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
             <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-            <Link to="/login"><MenuItem>Log in</MenuItem></Link>
+            <Link to="/register"><MenuItem>Register</MenuItem></Link>
           </MenuList>
         </Menu>
         </Box>

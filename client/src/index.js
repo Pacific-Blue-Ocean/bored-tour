@@ -8,7 +8,6 @@ import Friends from './components/friends.jsx';
 import Events from './components/events/events.js';
 import Interests from './components/interests';
 import NotFound from './components/notfound';
-
 import { Register } from './components/register.jsx';
 import Preferences from './components/preferences/Preferences.jsx';
 import EventDetail from './components/eventDetail';

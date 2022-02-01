@@ -13,6 +13,12 @@ const getUserPreferences = async (req, res) => {
   res.send(rows[0].json_agg);
 }
 
+const getAllCategories = async (req, res) => {
+  console.log('getCategories')
+  const { rows } = await models.getAllCategories();
+  res.send(rows);
+}
+
 const postUserPreferences = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
@@ -26,5 +32,6 @@ const postUserPreferences = async (req, res) => {
 module.exports = {
   getSurvey,
   getUserPreferences,
+  getAllCategories,
   postUserPreferences
 };

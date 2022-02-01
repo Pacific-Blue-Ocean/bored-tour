@@ -3,8 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Events = ({ event }) => {
-  const backgroundImage = event.mainphoto
+const Event = ({ event }) => {
   return (
     <Link to={`/events/${event.id}`} style={{textDecoration: 'none'}}>
     <div className='homePageEventCard'>
@@ -20,4 +19,4 @@ const Events = ({ event }) => {
   )
 }
 
-export default Events;
+export default Event;
