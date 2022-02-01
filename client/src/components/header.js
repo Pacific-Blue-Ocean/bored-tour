@@ -33,22 +33,32 @@ export const Header = () => {
 
 
   return (
-    <Flex style={{ borderBottom: '5px solid black' }}>
-    <Link to="/"><Heading as='h1' fontSize='6vh' p={8}>Bored Tour</Heading></Link>
-      <Spacer />
-      <Box p={4}>
-      <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-         Username
-        </MenuButton>
-        <MenuList>
-          <Link to="/events"><MenuItem>My Events</MenuItem></Link>
-          <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
-          <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-          <Link to="/login"><MenuItem>Log in</MenuItem></Link>
-        </MenuList>
-      </Menu>
-      </Box>
-  </Flex>
+    <Box
+      backgroundImage="url('./images/RaccoonParty.jpeg')"
+      backgroundPosition="25% 70%"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+    >
+      <Flex style={{ borderBottom: '5px solid black' }}>
+        <Link to="/">
+          <Heading as='h1' fontSize='6vh' color='whiteAlpha.900' p={8}>Bored Tour</Heading>
+        </Link>
+        <Spacer />
+        <Box p={4}>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          Username
+          </MenuButton>
+          <MenuList>
+            <Link to="/events"><MenuItem>My Events</MenuItem></Link>
+            <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
+            <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
+            <Link to="/login"><MenuItem>Log in</MenuItem></Link>
+          </MenuList>
+        </Menu>
+        </Box>
+      </Flex>
+    </Box>
+
   )
 }
