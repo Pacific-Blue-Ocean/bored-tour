@@ -1,10 +1,11 @@
-import { Flex, Button, extendTheme, ChakraProvider } from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
 
 function Friend({ user_id, friend, event_id }) {
+  const navigate = useNavigate();
   const [isFriend, setIsFriend] = useState(friend.friend);
-  // TODO: Read from db if user is invited to event
   const [isInvited, setIsInvited] = useState(false);
 
   const handleFriendClick = (e) => {
@@ -24,7 +25,11 @@ function Friend({ user_id, friend, event_id }) {
 
   const handleFriendEvents = (e) => {
     console.log(`Show events for user_id: ${friend.id}`);
-  }
+    navigate({
+      pathname: '/events',
+      user_id: `${friend.id}`
+    });
+  };
 
   const handleInvite = (e) => {
     const body = {
@@ -79,7 +84,7 @@ function Friend({ user_id, friend, event_id }) {
 
       {isFriend ? (
         <Button m={2} onClick={handleFriendEvents}>
-         🎉 &nbsp; Friend's Events
+          🎉 &nbsp; Friend&apos;s Events
         </Button>
       ) : null}
 
