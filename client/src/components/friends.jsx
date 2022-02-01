@@ -6,18 +6,6 @@ import axios from 'axios';
 import { Header } from './header';
 import Friend from './friends/friend.jsx';
 
-const theme = extendTheme({
-  colors: {
-    brand: {
-      100: "#2E2F30",  //black {header}
-      200: "#8DD8E0",  //blue {border color}
-      300: "#E3444B",  //red  {buttons}
-      400: "#EC7C71",  //orange {button border}
-      500: "#FBFAFA",  //white {subheaders, text}
-    },
-  },
-})
-
 function Friends() {
   const [id, setUserId] = useState(1);
   const [friends, setFriends] = useState([]);

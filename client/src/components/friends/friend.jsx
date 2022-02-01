@@ -2,18 +2,6 @@ import { Flex, Button, extendTheme, ChakraProvider } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const theme = extendTheme({
-  colors: {
-    brand: {
-      100: "#2E2F30",  //black {header}
-      200: "#8DD8E0",  //blue {border color}
-      300: "#E3444B",  //red  {buttons}
-      400: "#EC7C71",  //orange {button border}
-      500: "#FBFAFA",  //white {subheaders, text}
-    },
-  },
-})
-
 function Friend({ user_id, friend, event_id }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
   // TODO: Read from db if user is invited to event
@@ -33,6 +21,10 @@ function Friend({ user_id, friend, event_id }) {
     }
     setIsFriend(!isFriend);
   };
+
+  const handleFriendEvents = (e) => {
+    console.log(`Show events for user_id: ${friend.id}`);
+  }
 
   const handleInvite = (e) => {
     const body = {
@@ -77,13 +69,19 @@ function Friend({ user_id, friend, event_id }) {
 
       {isFriend ? (
         <Button m={2} onClick={handleFriendClick} value="remove">
-          💩 &nbsp; Remove Friend
+          ❌ &nbsp; Remove Friend
         </Button>
       ) : (
         <Button m={2} onClick={handleFriendClick} value="add">
           ➕ &nbsp; Add Friend
         </Button>
       )}
+
+      {isFriend ? (
+        <Button m={2} onClick={handleFriendEvents}>
+         🎉 &nbsp; Friend's Events
+        </Button>
+      ) : null}
 
       { inviteButton }
     </Flex>
