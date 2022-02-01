@@ -42,10 +42,10 @@ const App = () => {
         <Spacer />
         <Box p={4}>
         <Menu>
-          <MenuButton color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
+          <MenuButton padding='1vw' fontSize='2.5vh' color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
           Username
           </MenuButton>
-          <MenuList color='brand.400'>
+          <MenuList fontSize='2.5vh' color='brand.400'>
             <Link to="/events"><MenuItem>My Events</MenuItem></Link>
             <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
             <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
@@ -57,7 +57,7 @@ const App = () => {
         <div className='homePageBackground'>
           <div className='searchBarFlex'>
             <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-            <button className='homePageSearchButton' backgroundColor='#EC7C71' color='#FBFAFA' onSubmit={searchEvents(search)}>
+            <button className='homePageSearchButton' color='#EC7C71' onSubmit={searchEvents(search)}>
               Go!
             </button>
           </div>

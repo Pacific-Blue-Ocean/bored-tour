@@ -32,10 +32,10 @@ export const Header = () => {
             <Spacer />
             <Box p={4}>
             <Menu>
-              <MenuButton color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
+              <MenuButton padding='1vw' fontSize='2.5vh' color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
               Username
               </MenuButton>
-              <MenuList  color='brand.400'>
+              <MenuList fontSize='2.5vh' color='brand.400'>
                 <Link to="/events"><MenuItem>My Events</MenuItem></Link>
                 <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
                 <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>

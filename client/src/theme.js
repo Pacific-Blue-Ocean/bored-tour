@@ -14,6 +14,11 @@ const theme = extendTheme({
       500: "#FBFAFA",  //white {subheaders, text}
     },
   },
+  textStyles: {
+    button: {
+      letterSpacing: "0.1rem",
+    }
+  }
 })
 
 export default theme

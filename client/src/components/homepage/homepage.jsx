@@ -56,11 +56,11 @@ const HomePage = () => {
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Button backgroundColor='brand.400' color='brand.500' size='lg' onClick={() => {setShowCalendar(!showCalendar)}}>
+          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg' onClick={() => {setShowCalendar(!showCalendar)}}>
             Date
           </Button>
           {/* {viewCalendar()} */}
-          <Button backgroundColor='brand.400' color='brand.500' size='lg'>
+          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
             Time
           </Button>
         </ButtonGroup>
@@ -81,6 +81,8 @@ const HomePage = () => {
                 backgroundColor='brand.400'
                 color='brand.500'
                 size='lg'
+                textStyle='button'
+                fontSize='1vw'
                 key={idx}
                 //need category label in events
                 // onClick={() => {setHomePageEvents(category.label)}}
