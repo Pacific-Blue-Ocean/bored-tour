@@ -41,7 +41,7 @@ const searchEventsByTitle = (searchTerm,limit = 10, page = 0) => {
   const query = `
     select *
     from events
-    where title like '${searchTerm}%'
+    where title ilike '${searchTerm}%'
     limit ${limit}
     offset ${offset};
   `
