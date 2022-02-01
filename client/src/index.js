@@ -23,7 +23,6 @@ render(
       <Route path="/events/:eventId" element={<EventDetail />} />
       <Route path="interests" element={<Interests />} />
       <Route path="register" element={<Register />} />
-      <Route path="login" element={<Login />} />
       <Route path="preferences" element={<Preferences userId={1} />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
