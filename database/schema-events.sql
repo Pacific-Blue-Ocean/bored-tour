@@ -39,7 +39,8 @@ insert into
     online_address,
     address_line_1,
     address_state,
-    address_zip
+    address_zip,
+    price
   )
 values
   (
@@ -54,7 +55,8 @@ values
     '',
     '123 Main Street',
     'CA',
-    '94107'
+    '94107',
+    '50'
   );
 
 insert into
@@ -70,7 +72,8 @@ insert into
     online_address,
     address_line_1,
     address_state,
-    address_zip
+    address_zip,
+    price
   )
 values
   (
@@ -85,7 +88,8 @@ values
     '',
     '2675 Geary Blvd',
     'CA',
-    '94118'
+    '94118',
+    '120'
   );
 
 insert into
@@ -101,7 +105,8 @@ insert into
     online_address,
     address_line_1,
     address_state,
-    address_zip
+    address_zip,
+    price
   )
 values
   (
@@ -116,7 +121,8 @@ values
     '',
     '2263 Sacramento Street',
     'CA',
-    '94115'
+    '94115',
+    '15'
   );
 
 insert into
@@ -129,7 +135,8 @@ insert into
     event_length_minutes,
     mainPhoto,
     digital,
-    online_address
+    online_address,
+    price
   )
 values
   (
@@ -141,7 +148,8 @@ values
     '120',
     'https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/120540528/original/bf5e866a13321269fa485cf423038158ae586320/create-a-stream-overlay-for-your-needs.jpg',
     'true',
-    'http://twitch.com/test'
+    'http://twitch.com/test',
+    '3000'
   );
 
 insert into
@@ -157,7 +165,8 @@ insert into
     online_address,
     address_line_1,
     address_state,
-    address_zip
+    address_zip,
+    price
   )
 values
   (
@@ -172,7 +181,8 @@ values
     '',
     '44 Tahema Street',
     'CA',
-    '94105'
+    '94105',
+    '17000'
   );
 
   insert into
@@ -188,7 +198,8 @@ values
     online_address,
     address_line_1,
     address_state,
-    address_zip
+    address_zip,
+    price
   )
 values
   (
@@ -203,7 +214,8 @@ values
     '',
     '774 Emerson St ',
     'CA',
-    '94301'
+    '94301',
+    '420'
   );
 
     insert into
@@ -219,7 +231,8 @@ values
     online_address,
     address_line_1,
     address_state,
-    address_zip
+    address_zip,
+    price
   )
 values
   (
@@ -234,7 +247,8 @@ values
     '',
     '100 Century Center ',
     'CA',
-    '95112'
+    '95112',
+    '7500'
   );
 
 
@@ -248,7 +262,8 @@ values
     event_length_minutes,
     mainPhoto,
     digital,
-    online_address
+    online_address,
+    price
   )
 values
   (
@@ -260,5 +275,6 @@ values
     '360',
     'https://i.ytimg.com/vi/ZBDSNy4Yn9Q/maxresdefault.jpg',
     'true',
-    'https://www.youtube.com/'
+    'https://www.youtube.com/',
+    '5'
   );
