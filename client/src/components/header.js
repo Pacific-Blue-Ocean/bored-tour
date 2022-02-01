@@ -31,7 +31,7 @@ export const Header = () => {
     },
   })
 
-
+ return(
     <Box
       backgroundImage="url('./images/RaccoonParty.jpeg')"
       backgroundPosition="25% 70%"
