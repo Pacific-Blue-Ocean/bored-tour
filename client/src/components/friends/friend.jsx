@@ -1,6 +1,6 @@
 import { Flex, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Friend({ user_id, friend, event_id }) {
