@@ -5,7 +5,7 @@ import { auth, registerWithEmailAndPassword } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
-export const Login = () => {
+export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
   const [name, setName] = useState('');
