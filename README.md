@@ -8,15 +8,16 @@ npm install
 ```
 2. Setup Postgres database to match settings in `/database/index.js`.
 3. Copy `.env.example`, rename the copy to `.env`, and fill in the environment variables.
-4. Build scripts:
+4. Copy `config.example.js`, rename the copy to `config.js`, and fill in the [Firebase config](https://firebase.google.com/docs/web/setup).
+5. Build scripts:
 ```
 npm run build
 ```
-5. Start the server:
+6. Start the server:
 ```
 npm start
 ```
-6. Open the site:
+7. Open the site:
 ```
 http://localhost:3000
 ```
@@ -25,7 +26,6 @@ http://localhost:3000
 - Andrew Lam
 - Cat Chiu
 - Eric Baldwin
-- James Song
 - Nanda Silva
 - Sean Welch
 - Yulan Rong
