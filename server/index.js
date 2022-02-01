@@ -29,6 +29,7 @@ app.get('/api/categories', preferences.getAllCategories);
 app.get('/api/events/:id', events.getSpecificEvent);
 app.get('/api/events/users/:id', events.getUsersForEvent);
 app.post('/api/events/users', events.addUserToEvent);
+app.delete('/api/events/users', events.removeUserFromEvent);
 
 app.get('/api/events/m', events.getEventsByTime);
 app.get('/api/events/s', events.searchEventsByTitle);
