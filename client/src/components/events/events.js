@@ -27,7 +27,7 @@ const Events = () => {
     <Header />
     <Box p={4} m={4}>
     <Flex>
-    <Heading size='lg' mb={4}>Upcoming Events</Heading>
+    <Heading size='lg' mb={4} fontSize='5vh'>Upcoming Events</Heading>
     <Spacer />
     <Box>
       <IconButton onClick={() => {setListStyle('list')}} variant='outline' icon={<HamburgerIcon />} mr={3}></IconButton>

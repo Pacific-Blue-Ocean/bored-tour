@@ -32,13 +32,12 @@ function Friends() {
   const handleChange = (e) => { setSearchText(e.target.value); };
 
   return (
-    <Box>
+    <Box backgroundColor="brand.500">
       <Header />
-      <Flex p={4} m={4} flexDirection="column" border="1px" borderRadius="10px" borderColor="#8F8F8F">
-
-        <Heading>Friends</Heading>
+      <Flex p={4} m={4} flexDirection="column">
+        <Heading fontSize="5vh">Friends</Heading>
         <Flex p={4} m={8} flexDirection="row">
-          <Input type="text" placeholder="Search for a user" value={searchText} onChange={handleChange} />
+          <Input type="text" focusBorderColor="brand.400" placeholder="Search for a user" value={searchText} fontSize="3vh" onChange={handleChange} />
         </Flex>
         <Flex p={4} m={4} flexDirection="row" flexWrap="wrap">
           {filteredFriends.length ? filteredFriends.map((friend) => (

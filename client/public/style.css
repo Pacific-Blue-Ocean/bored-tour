@@ -3,6 +3,7 @@
   letter-spacing: .1rem;
   background-color: #FBFAFA;
   color: #EC7C71;
+  margin: 0;
 }
 
 .header {
@@ -152,4 +153,10 @@
 
 .homePageRelative {
   position: relative;
+}
+
+.pepe {
+  height: 10vw;
+  width: 10vw;
+  border-radius: 50%;
 }
