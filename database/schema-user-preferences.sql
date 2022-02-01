@@ -1,10 +1,3 @@
--- NOTE: This schema depends on schema-friends
-
--- psql -d pacific -f database/schema-user-preferences.sql
-
--- Connect to database
-\c pacific
-
 -- Drop tables
 drop table if exists preferences_steps cascade;
 drop table if exists preferences cascade;

@@ -1,8 +1,3 @@
--- psql -d pacific -f database/schema-users-event.sql
-
--- Connect to database
--- \c pacific
-
 -- Drop tables
 drop table if exists events_users cascade;
 
