@@ -32,7 +32,7 @@ const Map = ({ address }) => {
       (response) => {
         setLocation(response.results[0].geometry.location);
       }).catch((err) => { console.log(err)});
-  }, [address]);
+  }, []);
 
  let center = {
    lat: parseFloat(location.lat),

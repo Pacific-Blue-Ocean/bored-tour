@@ -9,34 +9,19 @@ import {
   Button,
   Icon,
   Spacer,
-  extendTheme, ChakraProvider,
+  extendTheme, ChakraProvider
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Header } from "./header";
 import eventData from "../../../eventData.js";
 import Map from "./map";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import moment from 'moment';
-import axios from 'axios';
-import { useParams } from "react-router-dom";
 
-const EventDetail = () => {
-  const params = useParams();
-  const [event, setEvent] = useState([]);
-
-  useEffect(() => {
-    if (params.eventId) {
-
-      axios.get(`/api/events/${params.eventId}`).then((res) => {
-        console.log(res.data[0]);
-        setEvent(res.data[0]);
-
-      }).catch((err) => { console.log(err) });
-    }
-  }, []);
-  const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
-
+const EventDetail = ({ event_id }) => {
+  const [event, setEvent] = useState(eventData);
+  const address = `${eventData.address_line1} ${eventData.address_state} ${eventData.address_zip}`;
 
   const theme = extendTheme({
     colors: {
@@ -50,6 +35,7 @@ const EventDetail = () => {
     },
   })
 
+
   return (
     <Box>
       <Header />
@@ -57,20 +43,20 @@ const EventDetail = () => {
         <Box>
           <Flex>
             <Image
-              boxSize="500px"
+              boxSize="400px"
               objectFit="cover"
               align="center"
-              src={event.mainphoto}
+              src={eventData.mainPhoto}
               alt="event image"
             />
             <Spacer />
-            <Heading as="h3">
+            <Heading as="h3" size="md">
               {" "}
-              {event.title}{" "}
+              {eventData.title}{" "}
             </Heading>
           </Flex>
         </Box>
-        <Box> Price: {event.price === null ? 'free' : event.price}</Box>
+        <Box>{eventData.price}</Box>
         <Flex>
           <Box>
             <Icon as={MdFavoriteBorder} w={8} h={8} />
@@ -80,7 +66,7 @@ const EventDetail = () => {
             borderTopRadius="md"
             align="center"
             size="lg"
-            colorScheme="pink"
+            colorScheme="teal"
             variant="solid"
           >
             {" "}
@@ -88,16 +74,16 @@ const EventDetail = () => {
           </Button>
         </Flex>
         <Box>
-          <Text>{event.details}</Text>
+          <Text>{eventData.details}</Text>
         </Box>
         <Heading>Time:</Heading>
         <Text>
-          {moment(event.date).format('MMMM Do YYYY')}, {event.start_time}
+          {moment(eventData.date).format('MMMM Do YYYY')}, {eventData.start_time}
         </Text>
         <Heading>Duration:</Heading>
-        <Text>{event.event_length_minutes}min</Text>
+        <Text>{eventData.event_length_minutes}min</Text>
         <Heading>About the event:</Heading>
-        <Text>{event.description}</Text>
+        <Text>{eventData.description}</Text>
       <Box>
         <Heading>Location:</Heading>
         <Text>{address}</Text>
