@@ -52,7 +52,7 @@ export const Header = () => {
             <Link to="/events"><MenuItem>My Events</MenuItem></Link>
             <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
             <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-            <Link to="/login"><MenuItem>Log in</MenuItem></Link>
+            <Link to="/register"><MenuItem>Register</MenuItem></Link>
           </MenuList>
         </Menu>
         </Box>

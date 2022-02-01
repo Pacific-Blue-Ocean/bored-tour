@@ -16,7 +16,6 @@ export const Register = () => {
 
   const register = (event) => {
     event.preventDefault();
-    if (!name) alert('Please enter name');
     registerWithEmailAndPassword(name, email, password);
   };
 
@@ -33,8 +32,8 @@ export const Register = () => {
   })
   useEffect(() => {
     const navigateHome = () => navigate('/');
-    if (error) return <img src="https://i.kym-cdn.com/entries/icons/facebook/000/017/143/YaOfwyS.jpg" alt="Error" />;
-    if (loading) return <img className="loading-image" src="./img/Loading.jpeg" alt="Loading" />;
+    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
+    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
     if (user) navigateHome();
   }, [user, loading, navigate]);
 
