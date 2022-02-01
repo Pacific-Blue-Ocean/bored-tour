@@ -117,11 +117,12 @@ const Preferences = ({userId}) => {
   const handlePreferenceCheckboxOnChange = (evt) => {
     const preferenceId = parseInt(evt.target.value);
     const isCurrentlyChecked = userPreferences.includes(preferenceId);
+    let newPreferences = [];
 
     if (isCurrentlyChecked) {
-      const newPreferences = userPreferences.filter(prefId =>  prefId !== preferenceId);
+      newPreferences = userPreferences.filter(prefId =>  prefId !== preferenceId);
     } else {
-      const newPreferences = [...userPreferences, preferenceId];
+      newPreferences = [...userPreferences, preferenceId];
     }
 
     setUserPreferences(newPreferences);
