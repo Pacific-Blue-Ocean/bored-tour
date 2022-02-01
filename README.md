@@ -29,3 +29,10 @@ http://localhost:3000
 - Nanda Silva
 - Sean Welch
 - Yulan Rong
+
+## Note
+To access the google map content, you need a Googlemap API key, store your API key as:
+module.exports = {
+  GOOGLE_API: your key,
+};
+then name it '.googleConfig.js'. Now you can access the map.
