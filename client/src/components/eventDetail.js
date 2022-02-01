@@ -11,17 +11,20 @@ import {
   Spacer,
   extendTheme, ChakraProvider
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "./header";
-import eventData from "../../../eventData.js";
 import Map from "./map";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import moment from 'moment';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const EventDetail = ({ event_id }) => {
-  const [event, setEvent] = useState(eventData);
-  const address = `${eventData.address_line1} ${eventData.address_state} ${eventData.address_zip}`;
+const EventDetail = ({}) => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [event, setEvent] = useState([]);
+  const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
 
   const theme = extendTheme({
     colors: {
@@ -35,6 +38,18 @@ const EventDetail = ({ event_id }) => {
     },
   })
 
+  useEffect(() => {
+    if (params.eventId) {
+      axios.get(`/api/events/${params.eventId}`).then((res) => {
+        if (res.data[0]) {
+          setEvent(res.data[0]);
+        } else {
+          navigate('/events');
+        }
+      })
+    }
+  }, []);
+
 
   return (
     <Box>
@@ -43,20 +58,21 @@ const EventDetail = ({ event_id }) => {
         <Box>
           <Flex>
             <Image
-              boxSize="400px"
+              boxSize="500px"
               objectFit="cover"
               align="center"
-              src={eventData.mainPhoto}
+              src={event.mainphoto}
               alt="event image"
             />
             <Spacer />
-            <Heading as="h3" size="md">
+            <Heading as="h3">
               {" "}
-              {eventData.title}{" "}
+              {event.title}{" "}
             </Heading>
           </Flex>
         </Box>
-        <Box>{eventData.price}</Box>
+        <Box> Price: {event.price}</Box>
+        <Box>Type: {event.digital? 'Digital': 'In Person'}</Box>
         <Flex>
           <Box>
             <Icon as={MdFavoriteBorder} w={8} h={8} />
@@ -66,7 +82,7 @@ const EventDetail = ({ event_id }) => {
             borderTopRadius="md"
             align="center"
             size="lg"
-            colorScheme="teal"
+            colorScheme="pink"
             variant="solid"
           >
             {" "}
@@ -74,16 +90,16 @@ const EventDetail = ({ event_id }) => {
           </Button>
         </Flex>
         <Box>
-          <Text>{eventData.details}</Text>
+          <Text>{event.details}</Text>
         </Box>
         <Heading>Time:</Heading>
         <Text>
-          {moment(eventData.date).format('MMMM Do YYYY')}, {eventData.start_time}
+          {moment(event.date).format('MMMM Do YYYY')}, {event.start_time}
         </Text>
         <Heading>Duration:</Heading>
-        <Text>{eventData.event_length_minutes}min</Text>
+        <Text>{event.event_length_minutes}min</Text>
         <Heading>About the event:</Heading>
-        <Text>{eventData.description}</Text>
+        <Text>{event.description}</Text>
       <Box>
         <Heading>Location:</Heading>
         <Text>{address}</Text>
