@@ -35,17 +35,17 @@ const App = () => {
 
   return (
     <div>
-      <Flex style={{ borderBottom: '5px solid black' }}>
+      <Flex>
         <Link to="/">
-          <Heading as='h1' fontSize='6vh' h='11.5vh' color='brand.100' p={8}>bored tour</Heading>
+          <Heading as='h1' fontSize='6vh' h='11.5vh' color='brand.400' p={8}>bored tour</Heading>
         </Link>
         <Spacer />
         <Box p={4}>
         <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          <MenuButton color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
           Username
           </MenuButton>
-          <MenuList>
+          <MenuList color='brand.400'>
             <Link to="/events"><MenuItem>My Events</MenuItem></Link>
             <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
             <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
@@ -57,7 +57,7 @@ const App = () => {
         <div className='homePageBackground'>
           <div className='searchBarFlex'>
             <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-            <button className='homePageSearchButton' onSubmit={searchEvents(search)}>
+            <button className='homePageSearchButton' backgroundColor='#EC7C71' color='#FBFAFA' onSubmit={searchEvents(search)}>
               Go!
             </button>
           </div>

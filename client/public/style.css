@@ -1,6 +1,33 @@
 #app {
   font-family: 'Questrial', sans-serif;
   letter-spacing: .1rem;
+  background-color: #FBFAFA;
+}
+
+.header {
+  color: rgba(0, 0, 0, 0);
+  position: relative;
+}
+
+.headerContainer {
+  width: 100%;
+}
+
+.headerBackGround {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+  url('./images/RaccoonParty.jpeg');
+  position: relative;
+  height: 11.5vh;
+  background-position: 25% 70%;
+}
+
+.headerBackGround::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
 .homepageSubheading {

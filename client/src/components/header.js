@@ -20,33 +20,33 @@ export const Header = () => {
 
 
  return(
-    <Box
-      backgroundImage="url('./images/RaccoonParty.jpeg')"
-      backgroundPosition="25% 70%"
-      backgroundRepeat="no-repeat"
-      backgroundSize="cover"
-    >
-      <Flex style={{ borderBottom: '5px solid black' }}>
-        <Link to="/">
-          <Heading as='h1' h='11.5vh' fontSize='6vh' color='whiteAlpha.900' p={8}
-          >bored tour</Heading>
-        </Link>
-        <Spacer />
-        <Box p={4}>
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-          Username
-          </MenuButton>
-          <MenuList>
-            <Link to="/events"><MenuItem>My Events</MenuItem></Link>
-            <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
-            <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-            <Link to="/register"><MenuItem>Register</MenuItem></Link>
-          </MenuList>
-        </Menu>
-        </Box>
-      </Flex>
-    </Box>
+    <div className="headerContainer">
+      <div className="headerBackGround">
+        <div className="header" >
+          <Flex>
+            <Link to="/">
+              <Heading as='h1' h='11.5vh' fontSize='6vh' color='brand.400' p={8}
+              >bored tour
+              </Heading>
+            </Link>
+            <Spacer />
+            <Box p={4}>
+            <Menu>
+              <MenuButton color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
+              Username
+              </MenuButton>
+              <MenuList  color='brand.400'>
+                <Link to="/events"><MenuItem>My Events</MenuItem></Link>
+                <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
+                <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
+                <Link to="/register"><MenuItem>Register</MenuItem></Link>
+              </MenuList>
+            </Menu>
+            </Box>
+          </Flex>
+        </div>
+      </div>
+    </div>
 
   )
 }
