@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 import Geocode from "react-geocode";
+import api from '../../../.googleConfig.js';
 
 const Map = ({ address }) => {
   const mapStyles = {
@@ -26,13 +27,13 @@ const Map = ({ address }) => {
 
   const [location, setLocation] = useState({});
 
-  Geocode.setApiKey(process.env.GOOGLE_API);
+  Geocode.setApiKey(api.GOOGLE_API);
   useEffect(() => {
     Geocode.fromAddress(address).then(
       (response) => {
         setLocation(response.results[0].geometry.location);
       }).catch((err) => { console.log(err)});
-  }, []);
+  }, [address]);
 
  let center = {
    lat: parseFloat(location.lat),
@@ -40,7 +41,7 @@ const Map = ({ address }) => {
  };
   return (
     <LoadScript
-      googleMapsApiKey={process.env.GOOGLE_API}>
+      googleMapsApiKey={api.GOOGLE_API}>
       <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={12}
