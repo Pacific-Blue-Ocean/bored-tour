@@ -1,5 +1,4 @@
-import {
-  Button, ButtonGroup, extendTheme } from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
@@ -34,18 +33,6 @@ const HomePage = () => {
         console.log(err)
       })
   }, [])
-
-  const theme = extendTheme({
-    colors: {
-      brand: {
-        100: "#2E2F30",  //black {header}
-        200: "#8DD8E0",  //blue {border color}
-        300: "#E3444B",  //red  {buttons}
-        400: "#EC7C71",  //orange {button border}
-        500: "#FBFAFA",  //white {subheaders, text}
-      },
-    },
-  })
 
   const eventRows = events.reduce(function(rows, key, index) {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;

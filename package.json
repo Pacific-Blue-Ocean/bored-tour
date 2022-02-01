@@ -24,6 +24,7 @@
     "@chakra-ui/react": "^1.8.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@fontsource/questrial": "^4.5.1",
     "@react-google-maps/api": "^2.7.0",
     "axios": "^0.25.0",
     "dayjs": "^1.10.7",
