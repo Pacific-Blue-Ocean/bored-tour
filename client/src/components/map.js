@@ -26,6 +26,10 @@ const Map = ({ address }) => {
 
   const [location, setLocation] = useState({});
 
+  axios.get('/google/auth').then((res) => {
+    console.log(res.data);
+  })
+
   Geocode.setApiKey(api.GOOGLE_API);
   useEffect(() => {
     Geocode.fromAddress(address)
