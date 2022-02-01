@@ -27,6 +27,11 @@ const getUserPreferences = (userId) => {
   return db.pool.query(query);
 }
 
+const getAllCategories = () => {
+  const query = `SELECT label, COUNT(label) AS categories FROM preferences GROUP BY label`
+  return db.pool.query(query);
+}
+
 const removeUserPreferences = (userId) => {
   const query = `DELETE from users_preferences WHERE user_id = ${userId}`;
   return db.pool.query(query);
@@ -42,6 +47,7 @@ const postUserPreferences = ({userId, preferences}) => {
 module.exports = {
   getSurvey,
   getUserPreferences,
+  getAllCategories,
   postUserPreferences,
   removeUserPreferences
 };
