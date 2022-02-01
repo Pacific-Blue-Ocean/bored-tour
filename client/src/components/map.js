@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
 import Geocode from "react-geocode";
-import api from "../../../.googleConfig.js";
 
 const Map = ({ address }) => {
   const mapStyles = {
@@ -25,12 +24,21 @@ const Map = ({ address }) => {
   });
 
   const [location, setLocation] = useState({});
+  const [api, getApi] = useState();
+  const [loading, isLoading] = useState(true);
 
-  axios.get('/google/auth').then((res) => {
-    console.log(res.data);
-  })
+  useEffect(() => {
+    axios.get('/google/auth').then(
+      (res) => {
+        getApi((res.data));
+        isLoading(false);
+      });
+  }, []);
 
-  Geocode.setApiKey(api.GOOGLE_API);
+  if(!loading) {
+    Geocode.setApiKey(api);
+  }
+
   useEffect(() => {
     Geocode.fromAddress(address)
       .then((response) => {
@@ -41,17 +49,24 @@ const Map = ({ address }) => {
       });
   }, [address]);
 
+
+
   let center = {
     lat: parseFloat(location.lat),
     lng: parseFloat(location.lng),
   };
-  return (
-    <LoadScript googleMapsApiKey={api.GOOGLE_API}>
+
+  if (!loading) {
+    return (
+      <LoadScript googleMapsApiKey={api}>
       <GoogleMap mapContainerStyle={mapStyles} zoom={12} center={center}>
         <Marker position={center} />
       </GoogleMap>
     </LoadScript>
-  );
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Map;
