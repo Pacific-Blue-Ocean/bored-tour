@@ -40,7 +40,7 @@ export const Header = () => {
     >
       <Flex style={{ borderBottom: '5px solid black' }}>
         <Link to="/">
-          <Heading as='h1' fontSize='6vh' color='whiteAlpha.900' p={8}
+          <Heading as='h1' h='11.5vh' fontSize='6vh' color='whiteAlpha.900' p={8}
           >bored tour</Heading>
         </Link>
         <Spacer />

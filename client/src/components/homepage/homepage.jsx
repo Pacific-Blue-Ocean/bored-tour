@@ -112,6 +112,9 @@ const HomePage = () => {
           />
       </div>
     </div>
+      <h2 className='homepageSubheading'>
+        Popular near you...
+      </h2>
       <div className='eventContainer'>
         {eventRows.map((row, idx) => (
           <div
