@@ -8,6 +8,8 @@ import Friends from './components/friends.jsx';
 import Events from './components/events/events.js';
 import Interests from './components/interests';
 import NotFound from './components/notfound';
+
+import { Register } from './components/register.jsx';
 import { Login } from './components/Login.jsx';
 import Preferences from './components/preferences/Preferences.jsx';
 import EventDetail from './components/eventDetail';
@@ -21,6 +23,7 @@ render(
       <Route path="events" element={<Events />} />
       <Route path="/events/:eventId" element={<EventDetail />} />
       <Route path="interests" element={<Interests />} />
+      <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route path="preferences" element={<Preferences userId={1} />} />
       <Route path='*' element={<NotFound />} />
