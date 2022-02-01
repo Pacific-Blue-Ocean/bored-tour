@@ -19,11 +19,12 @@ app.use(middleware.logger);
 app.get('/api/events', events.getAllEvents);
 app.get('/api/events/:id', events.getSpecificEvent);
 app.get('/api/events/users/:id', events.getUsersForEvent);
-
+app.post('/api/events/users', events.addUserToEvent);
 
 app.get('/api/events/m', events.getEventsByTime);
 app.get('/api/events/s', events.searchEventsByTitle);
 
+// friends
 app.get('/api/friends', friends.getFriends);
 app.post('/api/friends', friends.addFriend);
 app.delete('/api/friends', friends.removeFriend);
