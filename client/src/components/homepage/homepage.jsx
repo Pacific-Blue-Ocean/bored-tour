@@ -1,27 +1,38 @@
-import { Heading, Container, Box, Spacer, Flex, Button, ButtonGroup, FormControl, extendTheme, ChakraProvider } from '@chakra-ui/react';
+import {
+  Button, ButtonGroup, extendTheme } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
 import axios from 'axios';
 import Event from './event.jsx'
 
 const HomePage = () => {
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
+
+  // const { isOpen, onOpen, onClose } = useDisclosure()
+
   const [events, setEvents] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [value, onChange] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState(false)
+
 
   useEffect(() => {
-    axios.get('/api/events', {
-      params: {
-        limit: 10,
-        page: 0
-      }
-    })
-      .then((response) => {
-        setEvents(response.data)
+    const getEvents = axios.get('/api/events', { params: { limit: 10, page: 0 } })
+      .then((response) => { setEvents(response.data) })
+    const getAllCategories = axios.get('/api/categories')
+      .then((response) => { setCategoriesList(response.data) })
+    const promises = [getEvents, getAllCategories];
+    Promise.all(promises)
+      .then(() => { setIsLoading(false) })
+      .catch((err) => {
+        console.log(err)
       })
-      .catch((err) => { console.log(err) });
   }, [])
 
   const theme = extendTheme({
@@ -37,17 +48,31 @@ const HomePage = () => {
   })
 
   const eventRows = events.reduce(function(rows, key, index) {
-    return (index % 6 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
+    return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
   }, [])
 
+  const viewCalendar = () => {
+    if (showCalendar) {
+      return (
+        <div className="calendar">
+          <Calendar
+            onChange={onChange}
+            value={value}
+          />
+        </div>
+      )
+    }
+  }
+
   return (
-    <div>
+    <div className='homePageRelative'>
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Button colorScheme='teal' size='lg' variant='outline'>
+          <Button colorScheme='teal' size='lg' variant='outline' onClick={() => {setShowCalendar(!showCalendar)}}>
             Date
           </Button>
+          {/* {viewCalendar()} */}
           <Button colorScheme='teal' size='lg' variant='outline'>
             Time
           </Button>
@@ -60,55 +85,21 @@ const HomePage = () => {
             h={8}
             color='black.500'
             cursor='pointer'
-            onClick={() => {categories.current.scrollBy(-300, 0)}}
+            onClick={() => {categories.current.scrollBy(-500, 0)}}
           />
         <div ref={categories} className='categories'>
           <ButtonGroup spacing={6} direction='row' align='center'>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Parks
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Massage
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Concerts
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Tournaments
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Bars
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Video Game
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Twitch/Youtube Streams
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Yoga
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Sports
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Museums
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Sports
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Sports
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Sports
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Sports
-            </Button>
-            <Button colorScheme='teal' size='lg' variant='outline'>
-              Sports
-            </Button>
+            {categoriesList.map((category, idx) => (
+              <Button
+                colorScheme='teal'
+                size='lg'
+                variant='outline'
+                key={idx}
+                //need category label in events
+                // onClick={() => {setHomePageEvents(category.label)}}
+              >{category.label}
+              </Button>
+            ))}
           </ButtonGroup>
         </div>
           <ChevronRightIcon
@@ -117,7 +108,7 @@ const HomePage = () => {
             h={8}
             color='black.500'
             cursor='pointer'
-            onClick={() => {categories.current.scrollBy(300, 0)}}
+            onClick={() => {categories.current.scrollBy(500, 0)}}
           />
       </div>
     </div>
