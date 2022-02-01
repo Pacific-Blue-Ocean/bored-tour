@@ -8,7 +8,6 @@ const friends = require("./controllers/friends");
 const preferences = require("./controllers/preferences");
 const locations = require("./controllers/locations");
 const users = require("./controllers/users");
-const e = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +22,7 @@ app.get('/google/auth', (req, res) => {
   } else {
     res.status(403).send('Access denied. Please set up a Google_API token in your server\'s .env file.')
   }
-})
+});
 
 app.get('/api/events', events.getAllEvents);
 app.get('/api/events/:id', events.getSpecificEvent);
