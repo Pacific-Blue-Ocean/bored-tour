@@ -9,14 +9,13 @@ const Events = () => {
 
   let [events, setEvents] = useState([]);
   let [listStyle, setListStyle] = useState('block');
+  //dynamically set used id based on login, set to 1 right now
+  let [user_id, setUserId] = useState(1);
 
   useEffect(() => {
-    axios.get('/api/events', { params: {
-      limit: 10,
-      page: 0
-      }
-    })
+    axios.get(`/api/events/user/${user_id}`)
     .then((response) => {
+      console.log(response.data);
       setEvents(response.data);
     })
     .catch((err) => {console.log(err)});
@@ -27,7 +26,7 @@ const Events = () => {
     <Header />
     <Box p={4} m={4}>
     <Flex>
-    <Heading size='lg' mb={4} fontSize='5vh'>Upcoming Events</Heading>
+    <Heading size='lg' mb={4} fontSize='5vh'>My Events</Heading>
     <Spacer />
     <Box>
       <IconButton onClick={() => {setListStyle('list')}} variant='outline' icon={<HamburgerIcon />} mr={3}></IconButton>

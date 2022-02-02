@@ -84,6 +84,24 @@ const getUsersForEvent = async (req, res) => {
   }
 }
 
+const getEventsForUser = async (req, res) => {
+  let user_id = req.params.id;
+  try {
+    await models.getEventsForUser(user_id).then(async (data) => {
+      let events = [];
+      for (let i = 0; i < data.rows.length; i++) {
+        await models.getSpecificEvent(data.rows[i].events_id)
+        .then((data) => { events.push(data.rows[0]); });
+      }
+      return events;
+    }).then((data) => {
+      res.send(data);
+    });
+  } catch (e) {
+    res.status(500).send(e);
+  }
+}
+
 const addUserToEvent = async (req, res) => {
   let user = req.body.user_id;
   let event = req.body.event_id;
@@ -109,5 +127,5 @@ const removeUserFromEvent = async (req, res) => {
 
 
 module.exports = {
-   getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, getSpecificEvent, removeUserFromEvent
+   getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, getSpecificEvent, removeUserFromEvent, getEventsForUser
 };

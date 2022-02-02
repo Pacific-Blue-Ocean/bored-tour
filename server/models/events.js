@@ -53,6 +53,15 @@ const getUsersForEvent = (event_id) => {
   return db.pool.query(query);
 }
 
+const getEventsForUser = (user_id) => {
+  const query = `
+    select events_id
+    from events_users
+    where user_id = $1
+  `
+  return db.pool.query(query, [user_id]);
+}
+
 const addUserToEvent = (user_id, event_id) => {
   const query = `
     insert into events_users
@@ -79,5 +88,5 @@ const getEventCategoriesIds = (events_id) => {
 };
 
 module.exports = {
- getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent, getSpecificEvent, getEventCategoriesIds
+ getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent, getSpecificEvent, getEventCategoriesIds, getEventsForUser
 };

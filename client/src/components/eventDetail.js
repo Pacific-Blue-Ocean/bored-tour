@@ -26,6 +26,7 @@ const EventDetail = ({userId}) => {
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
   const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
+  const currentUser_id = 1;
 
   const theme = extendTheme({
     colors: {
@@ -45,7 +46,7 @@ const EventDetail = ({userId}) => {
         if (res.data[0]) {
           setEvent(res.data[0]);
         } else {
-          navigate("/events");
+          navigate("/events", { event_id: params.eventId });
         }
       });
     }
@@ -55,12 +56,8 @@ const EventDetail = ({userId}) => {
   // app.post('/api/events/users', events.addUserToEvent);
   const ReserveEvent = (e) => {
     e.preventDefault();
-    // axios.post('/api/events/users', )
-
+    axios.post('/api/events/users', { user_id: currentUser_id, event_id: params.eventId });
   };
-
-
-
 
   return (
     <Box>
@@ -135,6 +132,7 @@ const EventDetail = ({userId}) => {
                 fontWeight="bold"
                 color="white"
                 variant="solid"
+                onClick={(e) => {ReserveEvent(e)}}
               >
                 {" "}
                 RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
