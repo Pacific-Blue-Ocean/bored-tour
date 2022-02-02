@@ -17,6 +17,7 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import {logout} from './firebase';
 
 
 const App = () => {
@@ -50,6 +51,8 @@ const App = () => {
             <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
             <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
             <Link to="/login"><MenuItem>Log in</MenuItem></Link>
+            <Link to="/register"><MenuItem>Register</MenuItem></Link>
+            <Button onClick={logout}> Log Out </Button>
           </MenuList>
         </Menu>
         </Box>

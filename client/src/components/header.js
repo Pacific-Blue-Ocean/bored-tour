@@ -16,6 +16,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from "react-router-dom";
 
 
+
 export const Header = () => {
 
 
@@ -39,8 +40,6 @@ export const Header = () => {
                 <Link to="/events"><MenuItem>My Events</MenuItem></Link>
                 <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
                 <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-                <Link to="/register"><MenuItem>Register</MenuItem></Link>
-                <Link to="/login"><MenuItem>Log In</MenuItem></Link>
               </MenuList>
             </Menu>
             </Box>
