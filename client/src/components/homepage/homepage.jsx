@@ -1,11 +1,18 @@
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button, ButtonGroup,   MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider, } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import Event from './event.jsx'
 
-const HomePage = () => {
+const HomePage = ( { searchEvent } ) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -13,13 +20,9 @@ const HomePage = () => {
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
 
-  // const { isOpen, onOpen, onClose } = useDisclosure()
-
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [value, onChange] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false)
-
 
   useEffect(() => {
     const getEvents = axios.get('/api/events', { params: { limit: 10, page: 0 } })
@@ -34,32 +37,35 @@ const HomePage = () => {
       })
   }, [])
 
+  useEffect(() => {
+    if (searchEvent.length > 0) {
+      setEvents(searchEvent)
+    }
+  }, [searchEvent])
+
   const eventRows = events.reduce(function(rows, key, index) {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
   }, [])
-
-  const viewCalendar = () => {
-    if (showCalendar) {
-      return (
-        <div className="calendar">
-          <Calendar
-            onChange={onChange}
-            value={value}
-          />
-        </div>
-      )
-    }
-  }
 
   return (
     <div className='homePageRelative'>
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg' onClick={() => {setShowCalendar(!showCalendar)}}>
-            Date
-          </Button>
-          {/* {viewCalendar()} */}
+          <Menu>
+            <MenuButton className='dateCalendarButton' backgroundColor='brand.400' color='brand.500' size='lg'
+            >Date
+            </MenuButton>
+            <MenuList>
+              <MenuItem>
+                <Calendar
+                  onChange={onChange}
+                  value={value}
+                />
+              </MenuItem>
+            </MenuList>
+          </Menu>
+
           <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
             Time
           </Button>
