@@ -5,12 +5,14 @@ import { auth, registerWithEmailAndPassword } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
+
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, loading, error] = useAuthState(auth);
+
 
   const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ export const Register = () => {
     },
   })
   useEffect(() => {
-    const navigateToSurvey = () => navigate('/preferences');
+    const navigateToSurvey = () => navigate('/interests');
     if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
     if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
     if (user) navigateToSurvey();

@@ -33,10 +33,12 @@ const logInWithEmailAndPassword = async (email, password) => {
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const response = await createUserWithEmailAndPassword(auth, email, password);
-    const { user } = response;
+    console.log("registered user response", response)
+    const user = response.user;
+    console.log(user)
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
-      name,
+      displayName: name,
       authProvider: 'local',
       email,
     });
