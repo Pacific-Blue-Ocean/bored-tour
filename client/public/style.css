@@ -109,9 +109,10 @@
   padding-left: 1vw;
   padding-right: 1vw;
   text-align: center;
+  cursor: pointer;
 }
 
-.dateCalendarButton:hover {
+.calendar:hover {
   background-color: rgba(235, 235, 235, 0.7);
 }
 
