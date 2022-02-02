@@ -72,7 +72,7 @@ const EventDetail = ({userId}) => {
             bg="tomato"
               boxSize="500px"
               objectFit="cover"
-              align="left"
+              align="center"
               src={event.mainphoto}
               alt="event image"
             />
