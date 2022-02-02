@@ -34,7 +34,7 @@ function Friends() {
   return (
     <Box backgroundColor="brand.500">
       <Header />
-      <Flex p={4} m={4} flexDirection="column">
+      <Flex p={4} m={4} flexDirection="column" backgroundColor="brand.500">
         <Heading fontSize="5vh">Friends</Heading>
         <Flex p={4} m={8} flexDirection="row">
           <Input type="text" focusBorderColor="brand.400" placeholder="Search for a user" value={searchText} fontSize="3vh" onChange={handleChange} />
