@@ -1,4 +1,11 @@
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button, ButtonGroup,   MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider, } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -6,15 +13,13 @@ import '../../../../node_modules/react-datepicker/dist/react-datepicker.css'
 import axios from 'axios';
 import Event from './event.jsx'
 
-const HomePage = () => {
+const HomePage = ( { searchEvent } ) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
-
-  // const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
@@ -35,22 +40,15 @@ const HomePage = () => {
       })
   }, [])
 
+  useEffect(() => {
+    if (searchEvent.length > 0) {
+      setEvents(searchEvent)
+    }
+  }, [searchEvent])
+
   const eventRows = events.reduce(function(rows, key, index) {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
   }, [])
-
-  const viewCalendar = () => {
-    if (showCalendar) {
-      return (
-        <div className="calendar">
-          <Calendar
-            onChange={onChange}
-            value={value}
-          />
-        </div>
-      )
-    }
-  }
 
   return (
     <div className='homePageRelative'>
