@@ -8,7 +8,10 @@ import { Button, ButtonGroup,   MenuButton,
   MenuDivider, } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
+import DatePicker from 'react-datepicker';
+import '../../../../node_modules/react-datepicker/dist/react-datepicker.css'
+// import TimeRangePicker from '@wojtekmaj/react-timerange-picker'
+import TimeRangePicker from '@wojtekmaj/react-timerange-picker/dist/entry.nostyle'
 import axios from 'axios';
 import Event from './event.jsx'
 
@@ -22,7 +25,8 @@ const HomePage = ( { searchEvent } ) => {
 
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [value, onChange] = useState(['10:00', '11:00']);
 
   useEffect(() => {
     const getEvents = axios.get('/api/events', { params: { limit: 10, page: 0 } })
@@ -52,23 +56,16 @@ const HomePage = ( { searchEvent } ) => {
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Menu>
-            <MenuButton className='dateCalendarButton' backgroundColor='brand.400' color='brand.500' size='lg'
-            >Date
-            </MenuButton>
-            <MenuList>
-              <MenuItem>
-                <Calendar
-                  onChange={onChange}
-                  value={value}
-                />
-              </MenuItem>
-            </MenuList>
-          </Menu>
-
-          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
-            Time
-          </Button>
+          <DatePicker
+            className='calendar'
+            closeOnScroll={true}
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+          <TimeRangePicker
+            className='react-timerange-picker'
+            onChange={onChange}
+            value={value} />
         </ButtonGroup>
       </div>
       <div className='categoriesFlex'>
