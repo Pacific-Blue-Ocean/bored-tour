@@ -84,19 +84,17 @@ const getUsersForEvent = async (req, res) => {
   }
 }
 
+
 const getEventsForUser = async (req, res) => {
   let user_id = req.params.id;
   try {
-    await models.getEventsForUser(user_id).then(async (data) => {
-      let events = [];
-      for (let i = 0; i < data.rows.length; i++) {
-        await models.getSpecificEvent(data.rows[i].events_id)
-        .then((data) => { events.push(data.rows[0]); });
-      }
-      return events;
-    }).then((data) => {
-      res.send(data);
-    });
+    const { rows } = await models.getEventsForUser(user_id);
+    let events = [];
+    for (let i = 0; i < rows.length; i++) {
+      const event = await models.getSpecificEvent(rows[i].events_id);
+      events.push(event.rows[0]);
+    };
+    res.send(events);
   } catch (e) {
     res.status(500).send(e);
   }
