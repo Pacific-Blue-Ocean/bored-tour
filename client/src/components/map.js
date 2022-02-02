@@ -1,4 +1,4 @@
-import { Flex, extendTheme, ChakraProvider } from "@chakra-ui/react";
+import { Flex, extendTheme } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
@@ -12,17 +12,6 @@ const Map = ({ address }) => {
     float: "right",
   };
 
-  const theme = extendTheme({
-    colors: {
-      brand: {
-        100: "#2E2F30", //black {header}
-        200: "#8DD8E0", //blue {border color}
-        300: "#E3444B", //red  {buttons}
-        400: "#EC7C71", //orange {button border}
-        500: "#FBFAFA", //white {subheaders, text}
-      },
-    },
-  });
 
   const [location, setLocation] = useState({});
   const [api, getApi] = useState();
