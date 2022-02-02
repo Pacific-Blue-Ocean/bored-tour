@@ -9,12 +9,15 @@ import Events from './components/events/events.js';
 import Interests from './components/interests';
 import NotFound from './components/notfound';
 import { Register } from './components/register.jsx';
+import { Login } from './components/login.jsx';
 import Preferences from './components/preferences/Preferences.jsx';
 import EventDetail from './components/eventDetail';
 
+import theme from './theme.js';
+
 render(
   <BrowserRouter>
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
   <Routes>
       <Route path="/" element={<App />} />
       <Route path="friends" element={<Friends />} />
@@ -22,6 +25,7 @@ render(
       <Route path="/events/:eventId" element={<EventDetail />} />
       <Route path="interests" element={<Interests />} />
       <Route path="register" element={<Register />} />
+      <Route path="login" element={<Login />} />
       <Route path="preferences" element={<Preferences userId={1} />} />
       <Route path='*' element={<NotFound />} />
     </Routes>

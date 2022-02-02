@@ -40,6 +40,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: 'local',
       email,
     });
+    signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     alert(err.message);
   }
