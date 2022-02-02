@@ -1,7 +1,6 @@
 const db = require('../../database');
 
 const getAllEvents = (limit = 10, page = 0) => {
-  console.log(limit, page)
   let offset = limit * page;
   const query = `
     select *
@@ -18,8 +17,6 @@ const getSpecificEvent = (id) => {
     from events
     where id = ${id}
   `
-  console.log(query)
-
   return db.pool.query(query);
 }
 
@@ -32,7 +29,6 @@ const getEventsByTime = (minutes,limit = 10, page = 0) => {
     limit ${limit}
     offset ${offset};
   `
-  console.log('time ', query);
   return db.pool.query(query);
 }
 
@@ -45,7 +41,6 @@ const searchEventsByTitle = (searchTerm,limit = 10, page = 0) => {
     limit ${limit}
     offset ${offset};
   `
-  console.log('title ', query);
   return db.pool.query(query);
 }
 
@@ -75,6 +70,14 @@ const removeUserFromEvent = (user_id, event_id) => {
   return db.pool.query(query);
 }
 
+const getEventCategoriesIds = (events_id) => {
+  const query = `select preference_id
+  from events_categories
+  where events_id = $1
+  `;
+  return db.pool.query(query, [events_id])
+};
+
 module.exports = {
- getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent, getSpecificEvent
+ getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent, getSpecificEvent, getEventCategoriesIds
 };
