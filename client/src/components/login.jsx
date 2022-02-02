@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement, extendTheme, ChakraProvider } from "@chakra-ui/react";
+import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -15,21 +15,11 @@ export const Login = () => {
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const signin = () => {
+  const signin = (event) => {
+    event.preventDefault();
     logInWithEmailAndPassword(email, password);
   };
 
-  const theme = extendTheme({
-    colors: {
-      brand: {
-        100: "#2E2F30",  //black {header}
-        200: "#8DD8E0",  //blue {border color}
-        300: "#E3444B",  //red  {buttons}
-        400: "#EC7C71",  //orange {button border}
-        500: "#FBFAFA",  //white {subheaders, text}
-      },
-    },
-  })
   useEffect(() => {
     const navigateHome = () => navigate('/');
     if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
@@ -40,7 +30,6 @@ export const Login = () => {
 
 
   return (
-    <ChakraProvider theme={theme}>
       <Box
         backgroundImage="url('./images/RaccoonParty.jpeg')"
         backgroundPosition="center"
@@ -121,6 +110,5 @@ export const Login = () => {
         </Box>
       </Flex>
     </Box>
-    </ChakraProvider >
   );
 }

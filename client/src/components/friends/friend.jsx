@@ -2,13 +2,11 @@ import { Flex, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-<<<<<<< HEAD
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-=======
 import pepe from '../../../public/images/PepeProfile.jpeg';
->>>>>>> 35871c840c8760b301892fb96ad712bce575ba10
+
 
 function Friend({ user_id, friend, event_id }) {
   const navigate = useNavigate();
