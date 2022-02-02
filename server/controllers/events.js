@@ -1,11 +1,40 @@
+
 const models = require('../models/events');
+const pref = require('../models/preferences');
 
 const getAllEvents = async (req, res) => {
   let limit = req.query.limit || 10;
   let page = req.query.page || 0;
+
   try {
-    const { rows } = await models.getAllEvents(limit,page);
-    res.send(rows);
+    //get event rows
+    let eventsPromise = new Promise( async (resolve, reject) => {
+      const { rows } = await models.getAllEvents(limit,page);
+      resolve(rows);
+    });
+
+    eventsPromise.then((data) => {
+      let catPromise = new Promise(async (resolve, reject) => {
+        let events = [];
+        for (let i = 0; i < data.length; i++) {
+
+          //for each event, get the category ID
+          let cat = await models.getEventCategoriesIds(data[i].id);
+          data[i].categories = [];
+
+          //for each category id, get the category labels and add them to a categories array
+          for (let j = 0; j < cat.rows.length; j++) {
+            let label = await pref.getLabelOfPrefById(cat.rows[j].preference_id);
+            data[i].categories.push(label.rows[0].label);
+          }
+          events.push(data[i]);
+        }
+        resolve(events);
+      });
+      catPromise.then((data) => {
+        res.send(data);
+      });
+    });
   } catch (e) {
     res.status(500).send(e);
   }
@@ -76,6 +105,7 @@ const removeUserFromEvent = async (req, res) => {
     res.status(500).send(e);
   }
 }
+
 
 
 module.exports = {
