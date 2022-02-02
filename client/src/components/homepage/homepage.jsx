@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, GridItem, Flex, Heading } from '@chakra-ui/react';
+import { Button, ButtonGroup, Grid, GridItem, Flex, Heading, Box } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -41,22 +41,22 @@ const HomePage = ( { searchEvent } ) => {
   }, [searchEvent])
 
   return (
-    <Flex alignItems='center'>
+    <Flex alignItems='center' w='100vw'>
     <div >
-    <Flex marginTop='2vw' marginBottom='0'flexDirection='row' justifyContent='space-around' w='100%'>
-      <Flex flexDirection='row' w='30vw' alignItems='center' justifyContent='flex-start'>
-          <DatePicker
-            className='calendar'
-            closeOnScroll={true}
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
-          <TimeRangePicker
-            className='react-timerange-picker'
-            onChange={onChange}
-            value={value} />
-        </Flex>
-      <Flex flexDirection='row' w='70vw' alignItems='center' justifyContent='space-around'>
+    <Flex marginTop='2vw' marginBottom='0'flexDirection='row' justifyContent='center'>
+      <Flex flexDirection='row' alignItems='center' justifyContent='center' marginLeft='2vw'>
+        <DatePicker
+          className='calendar'
+          closeOnScroll={true}
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+        />
+        <TimeRangePicker
+          className='react-timerange-picker'
+          onChange={onChange}
+          value={value} />
+      </Flex>
+      <Flex flexDirection='row' w='70vw' alignItems='center' justifyContent='space-around' marginRight='2vw'>
         <ChevronLeftIcon
             ref={slideLeft}
             w={8}
@@ -65,7 +65,8 @@ const HomePage = ( { searchEvent } ) => {
             cursor='pointer'
             onClick={() => {categories.current.scrollBy(-500, 0)}}
           />
-        <div ref={categories} className='categories'>
+        {/* <div ref={categories} className='categories'> */}
+        <Box w='90%' overflowX='auto'>
           <ButtonGroup spacing={6} direction='row' align='center'>
             {categoriesList.map((category, idx) => (
               <Button
@@ -81,7 +82,8 @@ const HomePage = ( { searchEvent } ) => {
               </Button>
             ))}
           </ButtonGroup>
-        </div>
+        </Box>
+        {/* </div> */}
           <ChevronRightIcon
             ref={slideRight}
             w={8}
@@ -92,7 +94,7 @@ const HomePage = ( { searchEvent } ) => {
           />
       </Flex>
     </Flex>
-      <Heading fontSize='5vh'  marginLeft='5vw' marginTop='2vw' marginBottom='0'>
+      <Heading fontSize='5vh'  marginLeft='5vw' marginTop='2vw' marginBottom='2vw'>
         Popular near you...
       </Heading>
       <Grid
@@ -101,7 +103,9 @@ const HomePage = ( { searchEvent } ) => {
         justify-content='space-evenly'
         justify-items='center'
         align-content='space-evenly'
-        align-items='center'>
+        align-items='center'
+        marginBottom='1.5vw'
+      >
         {events.map((event, idx) => {
           return (
             <Event
