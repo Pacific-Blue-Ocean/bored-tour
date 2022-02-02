@@ -1,5 +1,6 @@
 client/public/bundle.js
 config.js
+.googleConfig.js
 # Logs
 logs
 *.log
