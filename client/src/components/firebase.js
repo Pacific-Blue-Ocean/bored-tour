@@ -33,9 +33,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const response = await createUserWithEmailAndPassword(auth, email, password);
-    console.log("registered user response", response)
     const user = response.user;
-    console.log(user)
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
       displayName: name,
@@ -44,7 +42,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     });
     signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-   console.log(err)
+   alert(err.message);
   }
 };
 
