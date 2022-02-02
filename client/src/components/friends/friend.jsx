@@ -2,11 +2,15 @@ import { Flex, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { auth } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 
 function Friend({ user_id, friend, event_id }) {
   const navigate = useNavigate();
   const [isFriend, setIsFriend] = useState(friend.friend);
   const [isInvited, setIsInvited] = useState(false);
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     axios.get(`/api/events/users/${event_id}`)
@@ -16,6 +20,13 @@ function Friend({ user_id, friend, event_id }) {
         });
       });
   }, [friend, event_id]);
+
+  useEffect(() => {
+    const navigateHome = () => navigate('/');
+    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
+    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
+    if (!user) navigateHome();
+  }, [user, loading]);
 
   /*******************************
   * BUTTON HANDLERS

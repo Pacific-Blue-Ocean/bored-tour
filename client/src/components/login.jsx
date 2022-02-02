@@ -15,8 +15,7 @@ export const Login = () => {
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const signin = (event) => {
-    event.preventDefault();
+  const signin = () => {
     logInWithEmailAndPassword(email, password);
   };
 
@@ -118,6 +117,7 @@ export const Login = () => {
           </Box>
         </Stack>
         <Box>
+        <Link to="/register"><Heading color="brand.500" size="sm">Sign up for Bored Tours</Heading></Link>
         </Box>
       </Flex>
     </Box>
