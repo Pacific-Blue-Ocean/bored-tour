@@ -1,6 +1,6 @@
 import { Header } from './header';
 import HomePage from './homepage/homepage.jsx';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box, Heading, Spacer, Menu, Stack, FormControl,
   MenuButton,
@@ -22,12 +22,15 @@ import {logout} from './firebase';
 
 const App = () => {
 
-  const [search, setSearch] = useState(null)
 
-  const searchEvents = (search) => {
-    axios.get('/api/events/s', { params: { search: search }})
+  const [search, setSearch] = useState(null)
+  const [searchEvent, setSearchEvent] = useState([])
+
+
+  const searchEvents = () => {
+    axios.get('/api/searchEvents/title', { params: { search: search }})
       .then((response) => {
-        console.log(response.data)
+        setSearchEvent(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -60,12 +63,14 @@ const App = () => {
         <div className='homePageBackground'>
           <div className='searchBarFlex'>
             <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-            <button className='homePageSearchButton' color='#EC7C71' onSubmit={searchEvents(search)}>
+            <button className='homePageSearchButton' color='#EC7C71' onClick={searchEvents(search)}>
               Go!
             </button>
           </div>
         </div>
-      <HomePage/>
+      <HomePage
+        searchEvent={searchEvent}
+      />
     </div>
   )
 }
