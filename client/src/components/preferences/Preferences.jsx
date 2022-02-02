@@ -156,7 +156,7 @@ const Preferences = ({userId}) => {
 
     return (
       <>
-        <List spacing={3}>
+        <List spacing={3} mb={4}>
           {preferences.map(pref => (
             <ListItem display="flex" alignItems="center" key={pref.id}>
               <Checkbox
@@ -198,7 +198,7 @@ const Preferences = ({userId}) => {
 
     return (
       <div>
-        <Box bg='tomato' w='100%' p={4} mt={2} mb={2} color='white'>
+        <Box bg='tomato' w='100%' p={4} mt={2} mb={4} color='white'>
           <Heading>{currentStepData.label}</Heading>
           <p>{currentStepData.question}</p>
         </Box>
