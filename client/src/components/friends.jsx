@@ -10,7 +10,7 @@ function Friends() {
   const [id, setUserId] = useState(1);
   const [friends, setFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
-  const [event_id, setEventId] = useState();
+  const [event_id, setEventId] = useState(5);
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {

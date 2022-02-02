@@ -1,8 +1,3 @@
--- psql -d pacific -f database/schema-friends.sql
-
--- Connect to database
-\c pacific
-
 -- Drop tables
 drop table if exists relationships cascade;
 
