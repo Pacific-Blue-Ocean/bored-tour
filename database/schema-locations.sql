@@ -1,6 +1,3 @@
--- psql -d pacific -f database/schema-locations.sql
-\c pacific
-
 drop table if exists locations_types cascade;
 drop table if exists locations cascade;
 

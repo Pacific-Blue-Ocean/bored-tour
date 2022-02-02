@@ -1,5 +1,5 @@
 import { Flex, Button } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,39 +8,48 @@ function Friend({ user_id, friend, event_id }) {
   const [isFriend, setIsFriend] = useState(friend.friend);
   const [isInvited, setIsInvited] = useState(false);
 
+  useEffect(() => {
+    axios.get(`/api/events/users/${event_id}`)
+      .then((res) => {
+        res.data.forEach((user) => {
+          if (user.user_id === friend.id) { setIsInvited(true); }
+        });
+      });
+  }, [friend, event_id]);
+
+  /*******************************
+  * BUTTON HANDLERS
+  *******************************/
   const handleFriendClick = (e) => {
     const request = e.target.value;
-    const body = {
-      user_id,
-      friend_id: parseInt(friend.id, 10),
-    };
-
+    const body = { user_id, friend_id: parseInt(friend.id, 10) };
     if (request === 'add') {
       axios.post('/api/friends', body);
     } else if (request === 'remove') {
-      axios.delete('/api/friends/', { data: body });
+      axios.delete('/api/friends', { data: body });
     }
     setIsFriend(!isFriend);
   };
 
   const handleFriendEvents = (e) => {
     console.log(`Show events for user_id: ${friend.id}`);
-    navigate({
-      pathname: '/events',
-      user_id: `${friend.id}`
-    });
+    navigate({ pathname: '/events', user_id: `${friend.id}` });
   };
 
   const handleInvite = (e) => {
-    const body = {
-      event_id,
-      user_id: parseInt(friend.id, 10),
-    };
-    axios.post('/api/events/users', body);
-    setIsInvited(true);
+    const request = e.target.value;
+    const body = { event_id, user_id: parseInt(friend.id, 10), };
+    if (request === 'invite') {
+      axios.post('/api/events/users', body);
+    } else if (request === 'uninvite') {
+      axios.delete('/api/events/users', { data: body });
+    }
+    setIsInvited(!isInvited);
   };
 
-  // Conditionally render invitation based on event, invitation, friend status
+  /*******************************
+  * INVITATION BUTTON
+  *******************************/
   let inviteButton;
   if (event_id && !isInvited && isFriend) {
     inviteButton = (
@@ -50,14 +59,17 @@ function Friend({ user_id, friend, event_id }) {
     );
   } else if (event_id && isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="invite">
-        ✅ &nbsp; Invitation Sent!
+      <Button m={2} onClick={handleInvite} value="uninvite">
+        👋 &nbsp; Uninvite to Event
       </Button>
     );
   } else {
     inviteButton = null;
   }
 
+  /*******************************
+  * RENDER
+  *******************************/
   return (
     <Flex
       flexDirection="column"

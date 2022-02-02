@@ -1,69 +1,182 @@
-import { Box, Grid, GridItem, Flex, Heading, Image, Text, Button, extendTheme } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { Header } from './header';
-import eventData from '../../../eventData.js';
-import Map from './map';
+import {
+  Box,
+  Stack,
+  HStack,
+  VStack,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  Button,
+  Icon,
+  Spacer,
+  extendTheme,
+  ChakraProvider,
+} from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Header } from "./header";
+import Map from "./map";
+import { MdAddBox, MdOutlineGroupAdd } from "react-icons/md";
+import moment from "moment";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const EventDetail = () => {
-  const [event, setEvent] = useState(eventData);
-  const address = `${eventData.address_line1} ${eventData.address_city} ${eventData.address_state} ${eventData.address_zip}`;
+const EventDetail = ({userId}) => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [event, setEvent] = useState([]);
+  const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
+
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#2E2F30", //black {header}
+        200: "#8DD8E0", //blue {border color}
+        300: "#E3444B", //red  {buttons}
+        400: "#EC7C71", //orange {button border}
+        500: "#FBFAFA", //white {subheaders, text}
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (params.eventId) {
+      axios.get(`/api/events/${params.eventId}`).then((res) => {
+        if (res.data[0]) {
+          setEvent(res.data[0]);
+        } else {
+          navigate("/events");
+        }
+      });
+    }
+  }, []);
+
+
+  // app.post('/api/events/users', events.addUserToEvent);
+  const ReserveEvent = (e) => {
+    e.preventDefault();
+    // axios.post('/api/events/users', )
+
+  };
+
+
+
 
   return (
     <Box>
       <Header />
-  <Grid
-      pl='5em'
-      pr='5em'
-      pt='2em'
-      h='auto'
-      templateRows='repeat(4, 1fr)'
-      templateColumns='repeat(2, 1fr)'
-      gap={5}>
-  <GridItem row={1} column={1} bg='red.300' align='center'>
-  <Image boxSize='400px'
-    objectFit='cover' src={eventData.mainPhoto} alt='event image' />
-  </GridItem>
+      <Box pl="8em" pr="8em" pd="2em">
+        <HStack spacing="80px">
+          <VStack align="left" w="500px" spacing="60px">
+            <Image
+            bg="tomato"
+              boxSize="500px"
+              objectFit="cover"
+              align="left"
+              src={event.mainphoto}
+              alt="event image"
+            />
+            <Box pt="2em">
+              <Heading size="lg">Detail:</Heading>
+              <Text pt="1em" pb="1em">
+                {event.details}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="lg">Time:</Heading>
+              <Text pt="1em" pb="1em">
+                {moment(event.date).format("MMMM Do YYYY")}, {event.start_time}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="lg">Duration:</Heading>
+              <Text pt="1em" pb="1em">
+                {event.event_length_minutes}min
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="lg"> About this event:</Heading>
+              <Text pt="1em" pb="1em">
+                {event.description}
+              </Text>
+            </Box>
+          </VStack>
 
-  <GridItem row={1} column={2} colSpan={1}>
-  <Heading as='h3' size='md'> {eventData.title} </Heading>
-  <Box>{eventData.price}</Box>
-  </GridItem>
-  <GridItem w="100%" h="20px" row={2} column={1}>
-    <Box h='20px'>
-      <Text>Fave</Text>
+          <VStack align="left" w="500px" spacing="80px" pt="5em" >
+            <Box pb="5em">
+
+            <Heading pb="2em">{event.title}</Heading>
+            <VStack align="left" spacing="4" pb="5em">
+              <Box>
+                <Text fontWeight="bold" display="inline-block">
+                  Price:{" "}
+                </Text>
+                {event.price ? ` $${event.price}` : " Free"}
+              </Box>
+              <Box>
+                <Text fontWeight="bold" display="inline-block">
+                  Type:{" "}
+                </Text>
+                {event.digital ? " Digital" : " In Person"}
+              </Box>
+            </VStack>
+            <HStack>
+              <Button
+                h="50px"
+                w="30%"
+                borderTopRadius="md"
+                align="center"
+                size="lg"
+                _hover={{
+                  background: "white",
+                  color: "#EC7C71",
+                }}
+                bg="#E3444B"
+                fontWeight="bold"
+                color="white"
+                variant="solid"
+              >
+                {" "}
+                RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
+              </Button>
+
+              <Button h="50px"
+                w="30%"
+                borderTopRadius="md"
+                align="center"
+                size="lg"
+                _hover={{
+                  background: "white",
+                  color: "#EC7C71",
+                }}
+                bg="#E3444B"
+                fontWeight="bold"
+                color="white"
+                variant="solid"
+                onClick={() => {
+                  navigate('/friends', {
+                    state: { event_id: event.id }
+                  })
+                }}
+                >
+                Add Friends <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
+              </Button>
+            </HStack>
+            </Box>
+            <VStack pt="5em" spacing="30px" align="left" pb="2em">
+
+            <Box>
+              <Heading size="lg">Location:</Heading>
+              <Text pt="1em" pb="1em">
+                {address}
+              </Text>
+            </Box>
+            <Map address={address} />
+            </VStack>
+          </VStack>
+        </HStack>
+      </Box>
     </Box>
-  </GridItem>
-
-  <GridItem w="100%" height='10px' row={2} column={2} align='center'>
-    <Box h='20px'>
-
-  <Button borderTopRadius="md" align='center' size='lg' colorScheme='teal' variant='solid'> RSVP Now </Button>
-    </Box>
-  </GridItem>
-
-  <GridItem rowSpan={3} column={1}>
-    <Box>
-    <Text>{eventData.details}</Text>
-    </Box>
-    <Heading>Time:</Heading>
-    <Text>{eventData.date} {eventData.start_time}</Text>
-    <Heading>Duration:</Heading>
-    <Text>{eventData.event_length_minutes}min</Text>
-    <Heading>About the event:</Heading>
-    <Text>{eventData.description}</Text>
-  </GridItem>
-
-  <GridItem row={3} column={2}>
-    <Box>
-    <Heading>Location:</Heading>
-    <Text>{address}</Text>
-    </Box>
-  </GridItem>
-  <GridItem row={4} column={2}>
-  <Map address={address} />
-  </GridItem>
-</Grid>
-  </Box>
   );
 };
 
