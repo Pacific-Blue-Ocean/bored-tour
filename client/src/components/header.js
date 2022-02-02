@@ -40,6 +40,7 @@ export const Header = () => {
                 <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
                 <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
                 <Link to="/register"><MenuItem>Register</MenuItem></Link>
+                <Link to="/login"><MenuItem>Log In</MenuItem></Link>
               </MenuList>
             </Menu>
             </Box>
@@ -47,6 +48,5 @@ export const Header = () => {
         </div>
       </div>
     </div>
-
   )
 }

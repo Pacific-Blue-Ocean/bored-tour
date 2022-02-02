@@ -16,6 +16,9 @@ import {
   Checkbox,
   CheckboxGroup
 } from '@chakra-ui/react';
+import { auth } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 
 const Preferences = ({userId}) => {
   const navigate = useNavigate();
@@ -31,6 +34,14 @@ const Preferences = ({userId}) => {
   const [userPreferences, setUserPreferences] = useState([]);
   // current user selected location
   const [userLocation, setUserLocation] = useState(null);
+  const [user, loading, error] = useAuthState(auth);
+
+  useEffect(() => {
+    const navigateHome = () => navigate('/');
+    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
+    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
+    if (!user) navigateHome();
+  }, [user, loading]);
 
   /**
    * DidInsertElement
