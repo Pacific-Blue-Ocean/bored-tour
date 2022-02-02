@@ -27,6 +27,11 @@ const getUserPreferences = (userId) => {
   return db.pool.query(query);
 }
 
+const getLabelOfPrefById = (id) => {
+  const query = `SELECT label FROM preferences where id = ${id}`
+  return db.pool.query(query);
+}
+
 const getAllCategories = () => {
   const query = `SELECT label, COUNT(label) AS categories FROM preferences GROUP BY label`
   return db.pool.query(query);
@@ -49,5 +54,6 @@ module.exports = {
   getUserPreferences,
   getAllCategories,
   postUserPreferences,
-  removeUserPreferences
+  removeUserPreferences,
+  getLabelOfPrefById
 };
