@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword } from './firebase';
+import { auth, logInWithEmailAndPassword, PasswordReset } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 

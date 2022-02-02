@@ -42,7 +42,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     });
     signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    alert(err.message);
+   console.log(err)
   }
 };
 
