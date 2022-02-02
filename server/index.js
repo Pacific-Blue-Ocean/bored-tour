@@ -31,8 +31,8 @@ app.get('/api/events/users/:id', events.getUsersForEvent);
 app.post('/api/events/users', events.addUserToEvent);
 app.delete('/api/events/users', events.removeUserFromEvent);
 
-app.get('/api/events/m', events.getEventsByTime);
-app.get('/api/events/s', events.searchEventsByTitle);
+app.get('/api/searchEvents/time', events.getEventsByTime);
+app.get('/api/searchEvents/title', events.searchEventsByTitle);
 
 // friends
 app.get('/api/friends', friends.getFriends);

@@ -23,8 +23,8 @@ const App = () => {
 
   const [search, setSearch] = useState(null)
 
-  const searchEvents = (search) => {
-    axios.get('/api/events/s', { params: { search: search }})
+  const searchEvents = () => {
+    axios.get('/api/searchEvents/title', { params: { search: search }})
       .then((response) => {
         console.log(response.data)
       })
@@ -57,7 +57,7 @@ const App = () => {
         <div className='homePageBackground'>
           <div className='searchBarFlex'>
             <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-            <button className='homePageSearchButton' color='#EC7C71' onSubmit={searchEvents(search)}>
+            <button className='homePageSearchButton' color='#EC7C71' onClick={searchEvents(search)}>
               Go!
             </button>
           </div>

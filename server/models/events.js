@@ -36,7 +36,7 @@ const getEventsByTime = (minutes,limit = 10, page = 0) => {
   return db.pool.query(query);
 }
 
-const searchEventsByTitle = (searchTerm,limit = 10, page = 0) => {
+const searchEventsByTitle = (searchTerm, limit = 10, page = 0) => {
   let offset = limit * page;
   const query = `
     select *
