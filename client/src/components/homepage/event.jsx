@@ -1,21 +1,19 @@
-import { Heading, Container, Box, Spacer, Flex, Button, ButtonGroup, FormControl } from '@chakra-ui/react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import React, { useRef, useEffect, useState } from 'react';
+import { Spacer, GridItem, Image, Flex } from '@chakra-ui/react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Event = ({ event }) => {
   return (
-    <Link to={`/events/${event.id}`} style={{textDecoration: 'none'}}>
-    <div className='homePageEventCard'>
-      <div
-        className='homePageEventInfo'>
-        <img className='homePageEventPhoto' src={event.mainphoto}/>
-        {event.title}
-        <Spacer/>
-        $ {event.price}
-      </div>
-    </div>
-    </Link>
+    <GridItem fontSize='2vh' textAlign='center' justifyContent='center' alignItems='center' h='48vh' marginLeft='auto' marginRight='auto'>
+      <Flex alignItems='center' justifyContent='space-around' w='32vh'>
+        <Link to={`/events/${event.id}`} style={{textDecoration: 'none'}}>
+          <Image src={event.mainphoto} align='center'  w='32vh' h='40vh' objectFit='cover' borderRadius='5%'/>
+          {event.title}
+          <Spacer/>
+          $ {event.price}
+        </Link>
+      </Flex>
+    </GridItem>
   )
 }
 
