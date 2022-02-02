@@ -10,6 +10,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import '../../../../node_modules/react-datepicker/dist/react-datepicker.css'
+// import TimeRangePicker from '@wojtekmaj/react-timerange-picker'
+import TimeRangePicker from '@wojtekmaj/react-timerange-picker/dist/entry.nostyle'
 import axios from 'axios';
 import Event from './event.jsx'
 
@@ -24,7 +26,7 @@ const HomePage = ( { searchEvent } ) => {
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-
+  const [value, onChange] = useState(['10:00', '11:00']);
 
   useEffect(() => {
     const getEvents = axios.get('/api/events', { params: { limit: 10, page: 0 } })
@@ -60,9 +62,10 @@ const HomePage = ( { searchEvent } ) => {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
           />
-          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
-            Time
-          </Button>
+          <TimeRangePicker
+            className='react-timerange-picker'
+            onChange={onChange}
+            value={value} />
         </ButtonGroup>
       </div>
       <div className='categoriesFlex'>

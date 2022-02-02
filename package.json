@@ -26,6 +26,7 @@
     "@emotion/styled": "^11.6.0",
     "@fontsource/questrial": "^4.5.1",
     "@react-google-maps/api": "^2.7.0",
+    "@wojtekmaj/react-timerange-picker": "^3.4.2",
     "axios": "^0.25.0",
     "dayjs": "^1.10.7",
     "dotenv": "^14.3.2",
