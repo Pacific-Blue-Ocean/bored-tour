@@ -5,7 +5,7 @@ import Calendar from 'react-calendar';
 import axios from 'axios';
 import Event from './event.jsx'
 
-const HomePage = () => {
+const HomePage = ( { searchEvent } ) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,6 +33,12 @@ const HomePage = () => {
         console.log(err)
       })
   }, [])
+
+  useEffect(() => {
+    if (searchEvent.length > 0) {
+      setEvents(searchEvent)
+    }
+  }, [searchEvent])
 
   const eventRows = events.reduce(function(rows, key, index) {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;

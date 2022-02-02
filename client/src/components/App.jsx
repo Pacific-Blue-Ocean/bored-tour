@@ -1,6 +1,6 @@
 import { Header } from './header';
 import HomePage from './homepage/homepage.jsx';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box, Heading, Spacer, Menu, Stack, FormControl,
   MenuButton,
@@ -21,12 +21,15 @@ import axios from 'axios';
 
 const App = () => {
 
+
   const [search, setSearch] = useState(null)
+  const [searchEvent, setSearchEvent] = useState([])
+
 
   const searchEvents = () => {
     axios.get('/api/searchEvents/title', { params: { search: search }})
       .then((response) => {
-        console.log(response.data)
+        setSearchEvent(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -62,7 +65,9 @@ const App = () => {
             </button>
           </div>
         </div>
-      <HomePage/>
+      <HomePage
+        searchEvent={searchEvent}
+      />
     </div>
   )
 }
