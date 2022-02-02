@@ -1,4 +1,11 @@
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button, ButtonGroup,   MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider, } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
@@ -62,10 +69,19 @@ const HomePage = ( { searchEvent } ) => {
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg' onClick={() => {setShowCalendar(!showCalendar)}}>
-            Date
-          </Button>
-          {/* {viewCalendar()} */}
+          <Menu>
+            <MenuButton className='dateCalendarButton' backgroundColor='brand.400' color='brand.500' size='lg'
+            >Date
+            </MenuButton>
+            <MenuList>
+              <MenuItem>
+                <Calendar
+                  onChange={onChange}
+                  value={value}
+                />
+              </MenuItem>
+            </MenuList>
+          </Menu>
           <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
             Time
           </Button>
