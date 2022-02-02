@@ -54,13 +54,13 @@ function Friend({ user_id, friend, event_id }) {
   let inviteButton;
   if (event_id && !isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="invite">
+      <Button m={2} onClick={handleInvite} value="invite" fontSize="2vh">
         ✉️ &nbsp; Invite to Event
       </Button>
     );
   } else if (event_id && isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="uninvite">
+      <Button m={2} onClick={handleInvite} value="uninvite" fontSize="2vh">
         👋 &nbsp; Uninvite to Event
       </Button>
     );
