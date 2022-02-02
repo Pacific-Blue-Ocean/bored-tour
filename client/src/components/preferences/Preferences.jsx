@@ -19,6 +19,25 @@ import {
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+const groupByParent = (arr) => {
+  const grouped = [];
+  for(let i = 0; i < arr.length; i++) {
+    const el = arr[i];
+    const isParent = !el.parent_preference_id;
+    if (isParent) {
+      grouped.push(el);
+    } else {
+      const parent = grouped.find(par => par.id === el.parent_preference_id);
+      if (parent.child) {
+        parent.child.push(el);
+      } else {
+        parent.child = [el];
+      }
+    }
+  }
+  return grouped;
+}
+
 
 const Preferences = ({userId}) => {
   const navigate = useNavigate();
@@ -35,6 +54,8 @@ const Preferences = ({userId}) => {
   // current user selected location
   const [userLocation, setUserLocation] = useState(null);
   const [user, loading, error] = useAuthState(auth);
+
+
 
   useEffect(() => {
     const navigateHome = () => navigate('/');
@@ -154,12 +175,24 @@ const Preferences = ({userId}) => {
     setUserPreferences(newPreferences);
   }
 
+  const rendeChild = (par) => {
+    if (!par.child.length) {
+      return null;
+    }
+
+    return (
+      oi
+    )
+  }
+
   /**
    * Renders the options step component
    * @returns locationStepComponent
    */
   const renderOptionsStep = () => {
-    const preferences = steps[stepIndex].preferences;
+    const preferences =  groupByParent(steps[stepIndex].preferences);
+
+    console.log(preferences)
 
     if (!preferences) {
       return null;
@@ -175,16 +208,28 @@ const Preferences = ({userId}) => {
                 spacing='1rem'
                 onChange={handlePreferenceCheckboxOnChange}
                 value={pref.id}
-              >{pref.label}</Checkbox>
-
-
-              {/* <input
-
-                value={pref.id}
-                checked={userPreferences.includes(pref.id)}
-                type="checkbox"
-              /> */}
-
+              >
+                {pref.label}
+              </Checkbox>
+              {
+                pref.child && pref.child.length > 0 &&
+                (
+                  <List spacing={3} mb={4}>
+                    {pref.child.map(child => (
+                      <ListItem display="flex" alignItems="center" key={child.id}>
+                          <Checkbox
+                            isChecked={userPreferences.includes(child.id)}
+                            spacing='1rem'
+                            onChange={handlePreferenceCheckboxOnChange}
+                            value={child.id}
+                          >
+                            {child.label}
+                          </Checkbox>
+                      </ListItem>
+                    ))}
+                  </List>
+                )
+              }
             </ListItem>
           ))}
         </List>
