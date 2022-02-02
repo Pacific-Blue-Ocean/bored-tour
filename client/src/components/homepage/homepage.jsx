@@ -1,7 +1,8 @@
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
+import DatePicker from 'react-datepicker';
+import '../../../../node_modules/react-datepicker/dist/react-datepicker.css'
 import axios from 'axios';
 import Event from './event.jsx'
 
@@ -17,7 +18,7 @@ const HomePage = () => {
 
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false)
 
 
@@ -56,10 +57,11 @@ const HomePage = () => {
     <div className='homePageSelector'>
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
-          <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg' onClick={() => {setShowCalendar(!showCalendar)}}>
-            Date
-          </Button>
-          {/* {viewCalendar()} */}
+          <DatePicker
+            closeOnScroll={true}
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
           <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
             Time
           </Button>
