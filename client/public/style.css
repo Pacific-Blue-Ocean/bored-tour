@@ -3,6 +3,7 @@
   letter-spacing: .1rem;
   background-color: #FBFAFA;
   color: #EC7C71;
+  margin: 0;
 }
 
 .header {
@@ -86,16 +87,17 @@
   margin-bottom: 0;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   width: 100%;
+
 }
 
 .dateTimeFlex {
   display: flex;
-  margin-left: 5vw;
+  margin-left: 3.5vw;
 }
 
 .categoriesFlex {
-  margin-left: 10vw;
   display: flex;
   flex: row;
   width: 70vw;
@@ -152,4 +154,10 @@
 
 .homePageRelative {
   position: relative;
+}
+
+.pepe {
+  height: 10vw;
+  width: 10vw;
+  border-radius: 50%;
 }
