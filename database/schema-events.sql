@@ -1,6 +1,4 @@
--- psql -d pacific -f database/schema-events.sql
--- Connect to database
--- \ c pacific -- Drop tables
+-- Drop tables
 drop table if exists events cascade;
 
 create table events (

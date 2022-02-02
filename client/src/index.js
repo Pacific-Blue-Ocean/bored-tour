@@ -13,9 +13,11 @@ import { Login } from './components/login.jsx';
 import Preferences from './components/preferences/Preferences.jsx';
 import EventDetail from './components/eventDetail';
 
+import theme from './theme.js';
+
 render(
   <BrowserRouter>
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
   <Routes>
       <Route path="/" element={<App />} />
       <Route path="friends" element={<Friends />} />

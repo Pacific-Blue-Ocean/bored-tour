@@ -2,9 +2,13 @@ import { Flex, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+<<<<<<< HEAD
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+=======
+import pepe from '../../../public/images/PepeProfile.jpeg';
+>>>>>>> 35871c840c8760b301892fb96ad712bce575ba10
 
 function Friend({ user_id, friend, event_id }) {
   const navigate = useNavigate();
@@ -64,13 +68,13 @@ function Friend({ user_id, friend, event_id }) {
   let inviteButton;
   if (event_id && !isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="invite">
+      <Button m={2} onClick={handleInvite} value="invite" fontSize="2vh">
         ✉️ &nbsp; Invite to Event
       </Button>
     );
   } else if (event_id && isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="uninvite">
+      <Button m={2} onClick={handleInvite} value="uninvite" fontSize="2vh">
         👋 &nbsp; Uninvite to Event
       </Button>
     );
@@ -86,27 +90,28 @@ function Friend({ user_id, friend, event_id }) {
       flexDirection="column"
       p={4}
       m={4}
-      border="1px"
+      backgroundColor="white"
       borderRadius="10px"
-      borderColor="#8F8F8F"
+      fontSize="2.5vh"
     >
+      <img className="pepe" src={pepe}/>
       {friend.full_name}
       <br />
       {friend.location}
       <br />
 
       {isFriend ? (
-        <Button m={2} onClick={handleFriendClick} value="remove">
+        <Button m={2} onClick={handleFriendClick} value="remove" fontSize="2vh">
           ❌ &nbsp; Remove Friend
         </Button>
       ) : (
-        <Button m={2} onClick={handleFriendClick} value="add">
+        <Button m={2} onClick={handleFriendClick} value="add" fontSize="2vh">
           ➕ &nbsp; Add Friend
         </Button>
       )}
 
       {isFriend ? (
-        <Button m={2} onClick={handleFriendEvents}>
+        <Button m={2} onClick={handleFriendEvents} fontSize="2vh">
           🎉 &nbsp; Friend&apos;s Events
         </Button>
       ) : null}
