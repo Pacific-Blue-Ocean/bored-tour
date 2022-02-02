@@ -21,11 +21,12 @@ import moment from "moment";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EventDetail = ({userId}) => {
+const EventDetail = ({ userId }) => {
   const params = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
   const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
+  const [startDate, setStartDate] = useState(new Date());
 
   const theme = extendTheme({
     colors: {
@@ -51,16 +52,11 @@ const EventDetail = ({userId}) => {
     }
   }, []);
 
-
   // app.post('/api/events/users', events.addUserToEvent);
   const ReserveEvent = (e) => {
     e.preventDefault();
     // axios.post('/api/events/users', )
-
   };
-
-
-
 
   return (
     <Box>
@@ -69,7 +65,7 @@ const EventDetail = ({userId}) => {
         <HStack spacing="80px">
           <VStack align="left" w="500px" spacing="60px">
             <Image
-            bg="tomato"
+              bg="tomato"
               boxSize="500px"
               objectFit="cover"
               align="center"
@@ -102,77 +98,89 @@ const EventDetail = ({userId}) => {
             </Box>
           </VStack>
 
-          <VStack align="left" w="500px" spacing="80px" pt="5em" >
+          <VStack align="left" w="500px" spacing="80px" pt="5em">
             <Box pb="5em">
-
-            <Heading pb="2em">{event.title}</Heading>
-            <VStack align="left" spacing="4" pb="5em">
-              <Box>
-                <Text fontWeight="bold" display="inline-block">
-                  Price:{" "}
-                </Text>
-                {event.price ? ` $${event.price}` : " Free"}
-              </Box>
-              <Box>
-                <Text fontWeight="bold" display="inline-block">
-                  Type:{" "}
-                </Text>
-                {event.digital ? " Digital" : " In Person"}
-              </Box>
-            </VStack>
-            <HStack>
-              <Button
-                h="50px"
-                w="30%"
-                borderTopRadius="md"
-                align="center"
-                size="lg"
-                _hover={{
-                  background: "white",
-                  color: "#EC7C71",
-                }}
-                bg="#E3444B"
-                fontWeight="bold"
-                color="white"
-                variant="solid"
-              >
-                {" "}
-                RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
-              </Button>
-
-              <Button h="50px"
-                w="30%"
-                borderTopRadius="md"
-                align="center"
-                size="lg"
-                _hover={{
-                  background: "white",
-                  color: "#EC7C71",
-                }}
-                bg="#E3444B"
-                fontWeight="bold"
-                color="white"
-                variant="solid"
-                onClick={() => {
-                  navigate('/friends', {
-                    state: { event_id: event.id }
-                  })
-                }}
+              <Heading pb="2em">{event.title}</Heading>
+              <VStack align="left" spacing="4" pb="5em">
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
+                    Price:{" "}
+                  </Text>
+                  {event.price ? ` $${event.price}` : " Free"}
+                </Box>
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
+                    Type:{" "}
+                  </Text>
+                  {event.digital ? " Digital" : " In Person"}
+                </Box>
+              </VStack>
+              <HStack>
+                <Button
+                  h="50px"
+                  w="30%"
+                  borderTopRadius="md"
+                  align="center"
+                  size="lg"
+                  _hover={{
+                    background: "white",
+                    color: "#EC7C71",
+                  }}
+                  bg="#E3444B"
+                  fontWeight="bold"
+                  color="white"
+                  variant="solid"
                 >
-                Add Friends <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
-              </Button>
-            </HStack>
-            </Box>
-            <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                  {" "}
+                  RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
+                </Button>
 
-            <Box>
-              <Heading size="lg">Location:</Heading>
-              <Text pt="1em" pb="1em">
-                {address}
-              </Text>
+                <Button
+                  h="50px"
+                  w="30%"
+                  borderTopRadius="md"
+                  align="center"
+                  size="lg"
+                  _hover={{
+                    background: "white",
+                    color: "#EC7C71",
+                  }}
+                  bg="#E3444B"
+                  fontWeight="bold"
+                  color="white"
+                  variant="solid"
+                  onClick={() => {
+                    navigate("/friends", {
+                      state: { event_id: event.id },
+                    });
+                  }}
+                >
+                  Add Friends{" "}
+                  <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
+                </Button>
+              </HStack>
             </Box>
-            <Map address={address} />
-            </VStack>
+              {address !== 'null null null' ? (
+                <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                  <Box>
+                    <Heading size="lg">Location:</Heading>
+                    <Text pt="1em" pb="1em">
+                      {address}
+                    </Text>
+                  </Box>
+                  <Map address={address} />
+                </VStack>
+              ) : (
+                <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                  <Box>
+
+                  <Heading size="lg">Location:</Heading>
+                  <Text pb="35em" pt="1em">
+                    Online Only
+                  </Text>
+                  </Box>
+                </VStack>
+              )}
           </VStack>
         </HStack>
       </Box>
