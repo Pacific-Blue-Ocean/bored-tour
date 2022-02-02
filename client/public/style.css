@@ -1,3 +1,44 @@
+#app {
+  font-family: 'Questrial', sans-serif;
+  letter-spacing: .1rem;
+  background-color: #FBFAFA;
+  color: #EC7C71;
+  margin: 0;
+}
+
+.header {
+  color: rgba(0, 0, 0, 0);
+  position: relative;
+}
+
+.headerContainer {
+  width: 100%;
+}
+
+.headerBackGround {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+  url('./images/RaccoonParty.jpeg');
+  position: relative;
+  height: 11.5vh;
+  background-position: 25% 70%;
+}
+
+.headerBackGround::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.homepageSubheading {
+  font-size: 5vh;
+  margin-left: 5vw;
+  margin-top: 2vw;
+  margin-bottom: 0;
+  color: #EC7C71;
+}
 
 .homePageBackground {
   background-image: url('./images/RaccoonParty.jpeg');
@@ -5,7 +46,7 @@
   background-repeat: no-repeat;
   background-position: 30% 50%;
   width: 100vw;
-  height: 60vh;
+  height: 56vh;
 }
 
 .searchBarFlex {
@@ -31,29 +72,32 @@
 }
 
 .homePageSearchButton {
-  background:rgba(255, 255, 255, 0.9);
+  background-color: #EC7C71;
+  color: #FBFAFA;
   width: 5vw;
   cursor: pointer;
   padding: 15px;
   border-radius: 5px;
-  font-size: 2vh;
+  font-size: 2.5vh;
   margin-top: 30vh;
 }
 
 .homePageSelector {
-  margin-top: 2.5vw;
+  margin-top: 2vw;
+  margin-bottom: 0;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   width: 100%;
+
 }
 
 .dateTimeFlex {
   display: flex;
-  margin-left: 5vw;
+  margin-left: 3.5vw;
 }
 
 .categoriesFlex {
-  margin-left: 10vw;
   display: flex;
   flex: row;
   width: 70vw;
@@ -69,31 +113,51 @@
 .eventContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
+  margin: 0;
+  font-family: 'Questrial', sans-serif;
+  font-size: 2vh;
 }
 
 .eventRows {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   flex-direction: row;
-  margin-top: 5vw;
+  margin-top: 2vw;
+  margin-bottom: 5vw;
   margin-left: 2.5vw;
   margin-right: 2.5vw;
-  width: 100%;
 }
 
 .homePageEventCard {
-  width: 25vh;
-  height: 40vh;
+  width: 35vh;
+  height: 50vh;
   text-align: center;
   margin-left: 1.5vw;
   margin-right: 1.5vw;
 }
 
 .homePageEventPhoto {
-  width: 27vh;
-  height: 35vh;
+  width: 32vh;
+  height: 48vh;
   text-align: center;
   border-radius: 5%;
   object-fit: cover;
+}
+
+.calendar {
+  z-index: 1000;
+  position: relative;
+  top: 40%;
+  left: -50%;
+}
+
+.homePageRelative {
+  position: relative;
+}
+
+.pepe {
+  height: 10vw;
+  width: 10vw;
+  border-radius: 50%;
 }

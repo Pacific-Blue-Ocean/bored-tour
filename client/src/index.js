@@ -11,9 +11,11 @@ import NotFound from './components/notfound';
 import { Register } from './components/register.jsx';
 import EventDetail from './components/eventDetail';
 
+import theme from './theme.js';
+
 render(
   <BrowserRouter>
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
   <Routes>
       <Route path="/" element={<App />} />
       <Route path="friends" element={<Friends />} />

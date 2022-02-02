@@ -1,89 +1,106 @@
-import { Flex, Button, extendTheme, ChakraProvider } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Flex, Button } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-const theme = extendTheme({
-  colors: {
-    brand: {
-      100: "#2E2F30",  //black {header}
-      200: "#8DD8E0",  //blue {border color}
-      300: "#E3444B",  //red  {buttons}
-      400: "#EC7C71",  //orange {button border}
-      500: "#FBFAFA",  //white {subheaders, text}
-    },
-  },
-})
+import pepe from '../../../public/images/PepeProfile.jpeg';
 
 function Friend({ user_id, friend, event_id }) {
+  const navigate = useNavigate();
   const [isFriend, setIsFriend] = useState(friend.friend);
-  // TODO: Read from db if user is invited to event
   const [isInvited, setIsInvited] = useState(false);
 
+  useEffect(() => {
+    axios.get(`/api/events/users/${event_id}`)
+      .then((res) => {
+        res.data.forEach((user) => {
+          if (user.user_id === friend.id) { setIsInvited(true); }
+        });
+      });
+  }, [friend, event_id]);
+
+  /*******************************
+  * BUTTON HANDLERS
+  *******************************/
   const handleFriendClick = (e) => {
     const request = e.target.value;
-    const body = {
-      user_id,
-      friend_id: parseInt(friend.id, 10),
-    };
-
+    const body = { user_id, friend_id: parseInt(friend.id, 10) };
     if (request === 'add') {
       axios.post('/api/friends', body);
     } else if (request === 'remove') {
-      axios.delete('/api/friends/', { data: body });
+      axios.delete('/api/friends', { data: body });
     }
     setIsFriend(!isFriend);
   };
 
-  const handleInvite = (e) => {
-    const body = {
-      event_id,
-      user_id: parseInt(friend.id, 10),
-    };
-    axios.post('/api/events/users', body);
-    setIsInvited(true);
+  const handleFriendEvents = (e) => {
+    console.log(`Show events for user_id: ${friend.id}`);
+    navigate({ pathname: '/events', user_id: `${friend.id}` });
   };
 
-  // Conditionally render invitation based on event, invitation, friend status
+  const handleInvite = (e) => {
+    const request = e.target.value;
+    const body = { event_id, user_id: parseInt(friend.id, 10), };
+    if (request === 'invite') {
+      axios.post('/api/events/users', body);
+    } else if (request === 'uninvite') {
+      axios.delete('/api/events/users', { data: body });
+    }
+    setIsInvited(!isInvited);
+  };
+
+  /*******************************
+  * INVITATION BUTTON
+  *******************************/
   let inviteButton;
   if (event_id && !isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="invite">
+      <Button m={2} onClick={handleInvite} value="invite" fontSize="2vh">
         ✉️ &nbsp; Invite to Event
       </Button>
     );
   } else if (event_id && isInvited && isFriend) {
     inviteButton = (
-      <Button m={2} onClick={handleInvite} value="invite">
-        ✅ &nbsp; Invitation Sent!
+      <Button m={2} onClick={handleInvite} value="uninvite" fontSize="2vh">
+        👋 &nbsp; Uninvite to Event
       </Button>
     );
   } else {
     inviteButton = null;
   }
 
+  /*******************************
+  * RENDER
+  *******************************/
   return (
     <Flex
       flexDirection="column"
       p={4}
       m={4}
-      border="1px"
+      backgroundColor="white"
       borderRadius="10px"
-      borderColor="#8F8F8F"
+      fontSize="2.5vh"
     >
+      <img className="pepe" src={pepe}/>
       {friend.full_name}
       <br />
       {friend.location}
       <br />
 
       {isFriend ? (
-        <Button m={2} onClick={handleFriendClick} value="remove">
-          💩 &nbsp; Remove Friend
+        <Button m={2} onClick={handleFriendClick} value="remove" fontSize="2vh">
+          ❌ &nbsp; Remove Friend
         </Button>
       ) : (
-        <Button m={2} onClick={handleFriendClick} value="add">
+        <Button m={2} onClick={handleFriendClick} value="add" fontSize="2vh">
           ➕ &nbsp; Add Friend
         </Button>
       )}
+
+      {isFriend ? (
+        <Button m={2} onClick={handleFriendEvents} fontSize="2vh">
+          🎉 &nbsp; Friend&apos;s Events
+        </Button>
+      ) : null}
 
       { inviteButton }
     </Flex>

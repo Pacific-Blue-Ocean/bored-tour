@@ -69,10 +69,10 @@ const addUserToEvent = (user_id, event_id) => {
 
 const removeUserFromEvent = (user_id, event_id) => {
   const query = `
-  delete from events_users
-  where (events_id = ${event_id}, user_id = ${user_id})
+    delete from events_users
+    where events_id = $1 and user_id = $2;
   `
-  return db.pool.query(query);
+  return db.pool.query(query, [event_id, user_id]);
 }
 
 module.exports = {

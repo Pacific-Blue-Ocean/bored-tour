@@ -1,8 +1,3 @@
--- psql -d pacific -f database/schema-users.sql
-
--- Connect to database
-\c pacific
-
 -- Drop tables
 drop table if exists users cascade;
 
@@ -22,7 +17,6 @@ insert into users (full_name, location_id) values ('Andrew Lam', 1);
 insert into users (full_name, location_id) values ('Catherine Chiu', 2);
 insert into users (full_name, location_id) values ('Eric Baldwin', 3);
 insert into users (full_name, location_id) values ('Fernanda Silva', 4);
-insert into users (full_name, location_id) values ('James Song', 1);
 insert into users (full_name, location_id) values ('Sean Welch', 2);
 insert into users (full_name, location_id) values ('Yulan Rong', 3);
 
