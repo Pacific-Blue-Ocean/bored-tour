@@ -31,10 +31,9 @@ const App = () => {
 
 
 
-  const searchEvents = (e) => {
+  const searchEvents = () => {
     axios.get('/api/searchEvents/title', { params: { search: search }})
       .then((response) => {
-        console.log('searching');
         setSearchEvent(response.data)
       })
       .catch((error) => {
