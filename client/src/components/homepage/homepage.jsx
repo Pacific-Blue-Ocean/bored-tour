@@ -20,13 +20,9 @@ const HomePage = ( { searchEvent } ) => {
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
 
-  // const { isOpen, onOpen, onClose } = useDisclosure()
-
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [value, onChange] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false)
-
 
   useEffect(() => {
     const getEvents = axios.get('/api/events', { params: { limit: 10, page: 0 } })
@@ -51,19 +47,6 @@ const HomePage = ( { searchEvent } ) => {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
   }, [])
 
-  const viewCalendar = () => {
-    if (showCalendar) {
-      return (
-        <div className="calendar">
-          <Calendar
-            onChange={onChange}
-            value={value}
-          />
-        </div>
-      )
-    }
-  }
-
   return (
     <div className='homePageRelative'>
     <div className='homePageSelector'>
@@ -82,6 +65,7 @@ const HomePage = ( { searchEvent } ) => {
               </MenuItem>
             </MenuList>
           </Menu>
+
           <Button textStyle='button' fontSize='1vw' backgroundColor='brand.400' color='brand.500' size='lg'>
             Time
           </Button>
