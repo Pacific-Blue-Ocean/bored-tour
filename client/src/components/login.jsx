@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement, extendTheme, ChakraProvider } from "@chakra-ui/react";
+import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, registerWithEmailAndPassword } from './firebase';
+import { auth, logInWithEmailAndPassword } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
-export const Register = () => {
+export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, loading, error] = useAuthState(auth);
@@ -16,32 +15,21 @@ export const Register = () => {
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const register = (event) => {
+  const signin = (event) => {
     event.preventDefault();
-    registerWithEmailAndPassword(name, email, password);
+    logInWithEmailAndPassword(email, password);
   };
 
-  const theme = extendTheme({
-    colors: {
-      brand: {
-        100: "#2E2F30",  //black {header}
-        200: "#8DD8E0",  //blue {border color}
-        300: "#E3444B",  //red  {buttons}
-        400: "#EC7C71",  //orange {button border}
-        500: "#FBFAFA",  //white {subheaders, text}
-      },
-    },
-  })
   useEffect(() => {
-    const navigateToSurvey = () => navigate('/preferences');
+    const navigateHome = () => navigate('/');
     if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
     if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
-    if (user) navigateToSurvey();
-  }, [user, loading, navigate]);
+    if (user) navigateHome();
+  }, [user, loading]);
+
 
 
   return (
-    <ChakraProvider theme={theme}>
       <Box
         backgroundImage="url('./images/RaccoonParty.jpeg')"
         backgroundPosition="center"
@@ -65,7 +53,7 @@ export const Register = () => {
           >
             <Avatar bg="brand.100" />
             <Link to="/"><Heading color="brand.500">Bored Tour</Heading></Link>
-            <Heading color="brand.500">Register</Heading>
+            <Heading color="brand.500">Log In</Heading>
           <Box minW={{ base: "90%", md: "468px" }}>
             <form>
               <Stack
@@ -74,14 +62,6 @@ export const Register = () => {
                 backgroundColor="brand.500"
                 boxShadow="md"
               >
-                <FormControl>
-                <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                    />
-                    <Input type="text" placeholder="name" onChange={(e) => setName(e.target.value)}/>
-                  </InputGroup>
-                </FormControl>
                 <FormControl>
                   <InputGroup>
                     <InputLeftElement
@@ -107,6 +87,9 @@ export const Register = () => {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
+                  <FormHelperText textAlign="right">
+                    <Heading size="xs">forgot password?</Heading>
+                  </FormHelperText>
                 </FormControl>
                 <Button
                   borderRadius={0}
@@ -114,19 +97,18 @@ export const Register = () => {
                   variant="solid"
                   colorScheme="red"
                   width="full"
-                  onClick={register}
+                  onClick={signin}
                 >
-                  Register
+                  Log In
                 </Button>
               </Stack>
             </form>
           </Box>
         </Stack>
         <Box>
-          <Link to="/login"><Heading color="brand.500" size="sm">Sign in for Bored Tours</Heading></Link>
+        <Link to="/register"><Heading color="brand.500" size="sm">Sign up for Bored Tours</Heading></Link>
         </Box>
       </Flex>
     </Box>
-    </ChakraProvider >
   );
-};
+}
