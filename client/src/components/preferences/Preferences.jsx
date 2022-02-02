@@ -1,6 +1,21 @@
 import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Flex,
+  Heading,
+  extendTheme,
+  ChakraProvider,
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+  Text,
+  Checkbox,
+  CheckboxGroup
+} from '@chakra-ui/react';
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -109,7 +124,7 @@ const Preferences = ({userId}) => {
 
     return (
       <div>
-        <p>Locations</p>
+        {/* <p>Locations</p> */}
         <select onChange={handleLocationChange} name="locations" defaultValue={userLocation}>
           {locations.map(loc => {
             console.log(userLocation===loc.id, userLocation, loc.id)
@@ -152,20 +167,27 @@ const Preferences = ({userId}) => {
 
     return (
       <>
-        <p>preferences</p>
-        <ul>
+        <List spacing={3} mb={4}>
           {preferences.map(pref => (
-            <li key={pref.id}>
-              <input
+            <ListItem display="flex" alignItems="center" key={pref.id}>
+              <Checkbox
+                isChecked={userPreferences.includes(pref.id)}
+                spacing='1rem'
                 onChange={handlePreferenceCheckboxOnChange}
+                value={pref.id}
+              >{pref.label}</Checkbox>
+
+
+              {/* <input
+
                 value={pref.id}
                 checked={userPreferences.includes(pref.id)}
                 type="checkbox"
-              />
-              <label>{pref.label}</label>
-            </li>
+              /> */}
+
+            </ListItem>
           ))}
-        </ul>
+        </List>
       </>
     )
   }
@@ -187,8 +209,10 @@ const Preferences = ({userId}) => {
 
     return (
       <div>
-        <p>{currentStepData.label}</p>
-        <p>{currentStepData.question}</p>
+        <Box bg='tomato' w='100%' p={4} mt={2} mb={4} color='white'>
+          <Heading>{currentStepData.label}</Heading>
+          <p>{currentStepData.question}</p>
+        </Box>
 
         { currentStepData.type === 'location' && renderLocationStep() }
         { currentStepData.type === 'options' && renderOptionsStep() }
@@ -202,18 +226,28 @@ const Preferences = ({userId}) => {
 
   return (
     <div className="preferences">
-
       <div className="step-content">
         <p>Step {stepIndex + 1} of {steps.length}</p>
         {renderStep(stepIndex)}
       </div>
 
       <div className="controls">
-        {stepIndex > 0 && <button onClick={handlePrevious}>Previous</button>}
-        {stepIndex < steps.length - 1 && <button onClick={handleNext}>Next</button>}
-        {stepIndex === steps.length - 1 && <button onClick={handleFinish}>Finish</button>}
+        {stepIndex > 0 &&
+          <Box as='button' onClick={handlePrevious} borderRadius='md' bg='tomato' color='white' mr={2} px={4} h={8}>
+           Previous
+          </Box>
+        }
+        {stepIndex < steps.length - 1 &&
+          <Box as='button' onClick={handleNext} borderRadius='md' bg='tomato' color='white' px={4} h={8}>
+            Next
+          </Box>
+        }
+        {stepIndex === steps.length - 1 &&
+          <Box as='button' onClick={handleFinish} borderRadius='md' bg='tomato' color='white' px={4} h={8}>
+            Finish
+          </Box>
+        }
       </div>
-
     </div>
   )
 }
