@@ -64,10 +64,12 @@ const App = () => {
       </Flex>
         <div className='homePageBackground'>
           <div className='searchBarFlex'>
-            <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-            <button className='homePageSearchButton' color='#EC7C71' onClick={searchEvents(search)}>
-              Go!
-            </button>
+            <form>
+              <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
+              <button className='homePageSearchButton' color='#EC7C71' onClick={() => { searchEvents(search) }}>
+                Go!
+              </button>
+            </form>
           </div>
         </div>
       <HomePage
