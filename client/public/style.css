@@ -97,11 +97,15 @@
   margin-left: 3.5vw;
 }
 
-.dateCalendarButton {
+.calendar {
   border-radius: 8px;
   font-size: 2vh;
   font-family: 'Questrial', sans-serif;
   letter-spacing: 0.1rem;
+  background-color: #EC7C71;
+  color:#FBFAFA;
+  width: 8vw;
+  height: 2.25vw;
   padding-left: 1vw;
   padding-right: 1vw;
 }
@@ -158,12 +162,6 @@
   object-fit: cover;
 }
 
-.calendar {
-  z-index: 1000;
-  position: relative;
-  top: 40%;
-  left: -50%;
-}
 
 .homePageRelative {
   position: relative;

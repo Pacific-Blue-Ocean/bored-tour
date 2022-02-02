@@ -24,7 +24,6 @@ const HomePage = ( { searchEvent } ) => {
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false)
 
 
   useEffect(() => {
@@ -56,6 +55,7 @@ const HomePage = ( { searchEvent } ) => {
       <div className='dateTimeFlex'>
         <ButtonGroup spacing={6} direction='row' align='center'>
           <DatePicker
+            className='calendar'
             closeOnScroll={true}
             selected={startDate}
             onChange={(date) => setStartDate(date)}
