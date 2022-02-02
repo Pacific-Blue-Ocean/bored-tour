@@ -31,7 +31,8 @@ const App = () => {
 
 
 
-  const searchEvents = () => {
+  const searchEvents = (e) => {
+    e.preventDefault();
     axios.get('/api/searchEvents/title', { params: { search: search }})
       .then((response) => {
         setSearchEvent(response.data)
@@ -64,9 +65,9 @@ const App = () => {
       </Flex>
         <div className='homePageBackground'>
           <div className='searchBarFlex'>
-            <form>
+            <form onSubmit={searchEvents}>
               <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-              <button className='homePageSearchButton' color='#EC7C71' onClick={() => { searchEvents(search) }}>
+              <button className='homePageSearchButton' color='#EC7C71' type="submit">
                 Go!
               </button>
             </form>
@@ -99,10 +100,12 @@ const App = () => {
        </Flex>
          <div className='homePageBackground'>
            <div className='searchBarFlex'>
-             <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
-             <button className='homePageSearchButton' color='#EC7C71' onClick={searchEvents(search)}>
-               Go!
-             </button>
+            <form onSubmit={searchEvents}>
+              <input type='text' className='homePageSearch' placeholder='What do you want to do?' onChange={(e) => {setSearch(e.target.value)}}/>
+              <button className='homePageSearchButton' color='#EC7C71' type="submit">
+                Go!
+              </button>
+             </form>
            </div>
          </div>
        <HomePage

@@ -37,11 +37,11 @@ const searchEventsByTitle = (searchTerm, limit = 10, page = 0) => {
   const query = `
     select *
     from events
-    where title ilike '${searchTerm}%'
-    limit ${limit}
-    offset ${offset};
+    where lower(title) like lower($1)
+    limit $2
+    offset $3;
   `
-  return db.pool.query(query);
+  return db.pool.query(query, [`%${searchTerm}%`, limit, offset]);
 }
 
 const getUsersForEvent = (event_id) => {
