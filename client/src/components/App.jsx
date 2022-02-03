@@ -29,9 +29,6 @@ const App = () => {
   const [search, setSearch] = useState(null)
   const [searchEvent, setSearchEvent] = useState([])
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [value, onChange] = useState(['10:00', '11:00']);
-
   const searchEvents = (e) => {
     e.preventDefault();
     axios.get('/api/searchEvents/title', { params: { search: search }})
@@ -43,16 +40,6 @@ const App = () => {
       })
   }
 
-  const searchEventsTime = (e) => {
-    e.preventDefault();
-    axios.get('/api/searchEvents/time', { params: { date: startDate, validFrom: value[0], validTo: value[1]}})
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
 
  if (user) {
   return (
@@ -116,10 +103,6 @@ const App = () => {
         </Box>
       <HomePage
         searchEvent={searchEvent}
-        startDate={startDate}
-        setStartDate={setStartDate}
-        value={value}
-        onChange={onChange}
       />
     </div>
   )
@@ -182,10 +165,6 @@ const App = () => {
           </Box>
         <HomePage
           searchEvent={searchEvent}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          value={value}
-          onChange={onChange}
         />
       </div>
     )
