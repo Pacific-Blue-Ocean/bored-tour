@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Box, Icon, HStack, Grid } from "@chakra-ui/react";
 import React, { useRef, useEffect, useState } from "react";
-import { GrPowerReset } from "react-icons/gr";
+import { MdSettingsBackupRestore } from "react-icons/md";
 import Event from "./event.jsx";
 
 const FilterList = ({ category, events, handleReset }) => {
@@ -16,10 +16,10 @@ const FilterList = ({ category, events, handleReset }) => {
 
   return (
     <Box pl="5em">
-      <HStack spacing="5">
+      <HStack spacing="5" pb="1em">
         <Box>Filter by: {category}</Box>
-        <Button onClick={handleReset}>
-          Reset <Icon as={GrPowerReset} w={4} h={4} pl="2px" />
+        <Button align="center" size='sm' onClick={handleReset}>
+          Reset {" "} <Icon as={MdSettingsBackupRestore} w={6} h={6} pl="2px" color="#EC7C71"/>
         </Button>
       </HStack>
       <Grid
