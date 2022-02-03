@@ -2,7 +2,6 @@ import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { render } from 'react-dom';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import App from './components/App.jsx';
 import Friends from './components/friends.jsx';
@@ -14,16 +13,6 @@ import { Login } from './components/login.jsx';
 import EventDetail from './components/eventDetail';
 
 import theme from './theme.js';
-
-
-const auth = getAuth();
-const user = auth.currentUser;
-
-if (user) {
-  const uid = user.uid;
-  const displayName = user.displayName;
-  const email = user.email;
-}
 
 render(
   <BrowserRouter>

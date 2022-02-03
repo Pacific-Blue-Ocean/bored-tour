@@ -6,23 +6,29 @@ import axios from 'axios';
 import { Header } from './header';
 import Friend from './friends/friend.jsx';
 import { useLocation } from 'react-router-dom';
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Friends() {
-  const [id, setUserId] = useState(1);
+  const [user, loading, error] = useAuthState(auth);
   const [friends, setFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
   const [event_id, setEventId] = useState(null);
   const [searchText, setSearchText] = useState('');
   const { state } = useLocation();
 
+  // fetch the user's friends
   useEffect(() => {
-    axios.get('/api/friends', { params: { id } })
-      .then((res) => {
-        setFriends(res.data);
-        setFilteredFriends(res.data);
-      });
-  }, [id]);
+    if (user) {
+      axios.get('/api/friends', { params: { id: user.email } })
+        .then((res) => {
+          setFriends(res.data);
+          setFilteredFriends(res.data);
+        });
+      }
+  }, [user]);
 
+  // search for friends
   useEffect(() => {
     let filteredFriends = friends.filter(friend => {
       const friendName = friend.full_name.toLowerCase();
@@ -35,7 +41,7 @@ function Friends() {
     if (state !== null) {
       setEventId(state.event_id)
     }
-  },[state])
+  }, [state])
 
   const handleChange = (e) => { setSearchText(e.target.value); };
 
@@ -51,7 +57,7 @@ function Friends() {
           {filteredFriends.length ? filteredFriends.map((friend) => (
             <Friend
               key={friend.id}
-              user_id={id}
+              user_id={user.email}
               friend={friend}
               event_id={event_id}
             />
