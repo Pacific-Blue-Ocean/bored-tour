@@ -15,6 +15,7 @@ const getFriends = (id) => {
       on u.location_id = l.id
     left join relationships r
       on u.id = r.from_user_id
+      and r.to_user_id = $1
     where u.id <> $1
     order by friend desc, u.id
   `;

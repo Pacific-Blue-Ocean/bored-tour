@@ -20,25 +20,16 @@ import { MdAddBox, MdOutlineGroupAdd } from "react-icons/md";
 import moment from "moment";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const EventDetail = ({ userId }) => {
+  const [user, loading, error] = useAuthState(auth);
   const params = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
+  const [reserved, isReserved] = useState(false);
   const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
-  const currentUser_id = 1;
-
-  const theme = extendTheme({
-    colors: {
-      brand: {
-        100: "#2E2F30", //black {header}
-        200: "#8DD8E0", //blue {border color}
-        300: "#E3444B", //red  {buttons}
-        400: "#EC7C71", //orange {button border}
-        500: "#FBFAFA", //white {subheaders, text}
-      },
-    },
-  });
 
   useEffect(() => {
     if (params.eventId) {
@@ -54,7 +45,10 @@ const EventDetail = ({ userId }) => {
 
   const ReserveEvent = (e) => {
     e.preventDefault();
-    axios.post('/api/events/users', { user_id: currentUser_id, event_id: params.eventId });
+    if (user) {
+      axios.post('/api/events/users', { user_id: user.email, event_id: params.eventId });
+      isReserved(true);
+    }
   };
 
   return (
@@ -115,71 +109,89 @@ const EventDetail = ({ userId }) => {
                 </Box>
               </VStack>
               <HStack>
-              <Button
-                h="50px"
-                w="30%"
-                borderTopRadius="md"
-                align="center"
-                size="lg"
-                _hover={{
-                  background: "white",
-                  color: "#EC7C71",
-                }}
-                bg="#E3444B"
-                fontWeight="bold"
-                color="white"
-                variant="solid"
-                onClick={(e) => {ReserveEvent(e)}}
-              >
-                {" "}
-                RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
-              </Button>
-
-              <Button h="50px"
-                w="30%"
-                borderTopRadius="md"
-                align="center"
-                size="lg"
-                _hover={{
-                  background: "white",
-                  color: "#EC7C71",
-                }}
-                bg="#E3444B"
-                fontWeight="bold"
-                color="white"
-                variant="solid"
-                onClick={() => {
-                  navigate('/friends', {
-                    state: { event_id: event.id }
-                  })
-                }}
+                {!reserved ? (
+                  <Button
+                    h="50px"
+                    w="30%"
+                    borderTopRadius="md"
+                    align="center"
+                    size="lg"
+                    _hover={{
+                      background: "white",
+                      color: "#EC7C71",
+                    }}
+                    bg="#E3444B"
+                    fontWeight="bold"
+                    color="white"
+                    variant="solid"
+                    onClick={(e) => {
+                      ReserveEvent(e);
+                    }}
+                  >
+                    {" "}
+                    RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
+                  </Button>
+                ) : (
+                  <Text
+                    h="50px"
+                    w="30%"
+                    pt="5px"
+                    align="center"
+                    fontSize="25px"
+                    fontWeight="bold"
+                    bg="#EC7C71"
+                    color="white"
+                    borderRadius="md"
+                  >
+                    {" "}
+                    Thank You!
+                  </Text>
+                )}
+                <Button
+                  h="50px"
+                  w="30%"
+                  borderTopRadius="md"
+                  align="center"
+                  size="lg"
+                  _hover={{
+                    background: "white",
+                    color: "#EC7C71",
+                  }}
+                  bg="#E3444B"
+                  fontWeight="bold"
+                  color="white"
+                  variant="solid"
+                  onClick={() => {
+                    navigate("/friends", {
+                      state: { event_id: event.id },
+                    });
+                  }}
                 >
                   Add Friends{" "}
                   <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
                 </Button>
               </HStack>
-              </Box>
-              {address !== 'null null null' ? (
-                <VStack pt="5em" spacing="30px" align="left" pb="2em">
-                  <Box>
-                    <Heading size="lg">Location:</Heading>
-                    <Text pt="1em" pb="1em">
-                      {address}
-                    </Text>
-                  </Box>
-                  <Map address={address} />
-                </VStack>
-              ) : (
-                <VStack pt="5em" spacing="30px" align="left" pb="2em">
-                  <Box>
-
+            </Box>
+            {address !== "null null null" ? (
+              <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                <Box>
+                  <Heading size="lg">Location:</Heading>
+                  <Text pt="1em" pb="1em">
+                    {address}
+                  </Text>
+                </Box>
+                <Map address={address} />
+              </VStack>
+            ) : (
+              <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                <Box>
                   <Heading size="lg">Location:</Heading>
                   <Text pb="35em" pt="1em">
                     Online Only
                   </Text>
-                  </Box>
-                </VStack>
-              )}
+                </Box>
+              </VStack>
+            )}
           </VStack>
         </HStack>
       </Box>

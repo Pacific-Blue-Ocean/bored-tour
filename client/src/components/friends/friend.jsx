@@ -4,9 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
 import pepe from '../../../public/images/PepeProfile.jpeg';
-
 
 function Friend({ user_id, friend, event_id }) {
   const navigate = useNavigate();
@@ -35,7 +33,7 @@ function Friend({ user_id, friend, event_id }) {
   *******************************/
   const handleFriendClick = (e) => {
     const request = e.target.value;
-    const body = { user_id, friend_id: parseInt(friend.id, 10) };
+    const body = { user_id, friend_id: friend.id };
     if (request === 'add') {
       axios.post('/api/friends', body);
     } else if (request === 'remove') {
@@ -46,12 +44,12 @@ function Friend({ user_id, friend, event_id }) {
 
   const handleFriendEvents = (e) => {
     console.log(`Show events for user_id: ${friend.id}`);
-    navigate({ pathname: '/events', user_id: `${friend.id}` });
+    navigate( '/events', {state: { user_id: `${friend.id}`, name: `${friend.full_name}` }});
   };
 
   const handleInvite = (e) => {
     const request = e.target.value;
-    const body = { event_id, user_id: parseInt(friend.id, 10), };
+    const body = { event_id, user_id: friend.id };
     if (request === 'invite') {
       axios.post('/api/events/users', body);
     } else if (request === 'uninvite') {

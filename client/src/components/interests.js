@@ -33,7 +33,7 @@ const Interests = () => {
     <Header />
     <Box p={4} m={4} border='1px' borderRadius='10px' borderColor='#8F8F8F'>
       <Heading fontSize='5vh'>Interests</Heading>
-      <Preferences userId={1} />
+      <Preferences userId={user.email} />
     </Box>
   </Box>
   )

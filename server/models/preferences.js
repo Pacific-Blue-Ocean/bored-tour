@@ -23,8 +23,8 @@ const getSurvey = () => {
 }
 
 const getUserPreferences = (userId) => {
-  const query = `SELECT json_agg(preferences_id) FROM  users_preferences where user_id = ${userId}`
-  return db.pool.query(query);
+  const query = 'SELECT json_agg(preferences_id) FROM  users_preferences where user_id = $1'
+  return db.pool.query(query, [userId]);
 }
 
 const getLabelOfPrefById = (id) => {
@@ -38,12 +38,12 @@ const getAllCategories = () => {
 }
 
 const removeUserPreferences = (userId) => {
-  const query = `DELETE from users_preferences WHERE user_id = ${userId}`;
-  return db.pool.query(query);
+  const query = 'DELETE from users_preferences WHERE user_id = $1';
+  return db.pool.query(query, [userId]);
 }
 
 const postUserPreferences = ({userId, preferences}) => {
-  const values = preferences.map(preferenceId => `(${userId} , ${preferenceId})`).join(',');
+  const values = preferences.map(preferenceId => `('${userId}' , ${preferenceId})`).join(',');
   const query = `insert into users_preferences (user_id, preferences_id) values ${values};`
 
   return db.pool.query(query);
