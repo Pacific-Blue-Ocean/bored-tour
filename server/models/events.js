@@ -67,6 +67,7 @@ const addUserToEvent = (user_id, event_id) => {
     insert into events_users
     (events_id, user_id)
     values ($1, $2)
+    ON CONFLICT DO NOTHING
   `
   return db.pool.query(query, [event_id, user_id]);
 }
