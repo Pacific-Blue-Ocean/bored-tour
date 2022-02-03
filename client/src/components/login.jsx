@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, Box, Avatar, FormControl, FormHelperText, InputRightElement,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { logInWithEmailAndPassword, PasswordReset } from './firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, logInWithEmailAndPassword, PasswordReset } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, loading, error] = useAuthState(auth);
   const handleShowClick = () => setShowPassword(!showPassword);
+  const navigate = useNavigate();
 
   const signin = (event) => {
     event.preventDefault();
     logInWithEmailAndPassword(email, password);
   };
+
+  useEffect(() => {
+    const navigateHome = () => navigate('/');
+    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
+    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
+    if (user) navigateHome();
+  }, [user, loading]);
 
   return (
     <Box
