@@ -82,11 +82,9 @@ const Preferences = ({userId}) => {
   const handleFinish = async () => {
     const sortedUserPreferences = userPreferences.sort((a,b) => a - b)
     await axios.post(`/api/users/${userId}/preferences`, userPreferences);
-
     await axios.put(`/api/users/${userId}/location`, {locationId: parseInt(userLocation)});
 
     const hasUserCompletedSurvey = await axios.get(`/api/users/${userId}/has-completed-survey`);
-
 
     if (!hasUserCompletedSurvey.data[0].has_completed_survey) {
       await axios.post(`/api/users/${userId}/has-completed-survey`);

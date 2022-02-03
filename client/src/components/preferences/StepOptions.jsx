@@ -16,7 +16,6 @@ import {
 } from '@chakra-ui/react';
 import groupByParent from '../../helpers/groupByParent.js';
 
-
 const StepOptions= ({
   steps,
   stepIndex,
@@ -36,8 +35,8 @@ const StepOptions= ({
     const hasChild = children.length > 0;
     const isChild = !isParent;
     const isCurrentlyChecked = userPreferences.includes(clickedPreferenceId);
-    let newPreferences = [];
     const parentId = clickedPreference.parent_preference_id;
+    let newPreferences = [];
 
     if (isParent) {
       if(hasChild) {
@@ -65,41 +64,44 @@ const StepOptions= ({
       const siblingsIds = parent.child.map(el => el.id);
       const isParentChecked = userPreferences.includes(parentId);
 
-
       if (isParentChecked) {
-        // if parent is checked, that means all children should be checked and unselecting a child, should unselect parent
+        // if parent is checked, that means all children should be checked
+        // unselecting a child, should unselect parent
         newPreferences = userPreferences.filter(prefId => {
           return prefId !== parentId && prefId !== clickedPreferenceId;
         })
       } else {
-        // debugger
-        // if parent is unselected, selecting last unselect child should select parent
-        const currentCheckedSiblings = userPreferences.filter(id => siblingsIds.includes(id));
-        const isLastUncheckedSibling = currentCheckedSiblings.length === siblingsIds.length - 1;
 
+        //      T1    T2     T3     T4     T5     T6
+        //  C1     C2     C3     C4     C5     C6     C7
+        //  O      O      O      X      O      O      O
+        //   [O]     X      X     [X]     O      O      O
+        //    O     [O]     X      X     [X]     O      O
+        //    O      O     [O]     X      X     [X]     O
+
+        const currentCheckedSiblings = userPreferences.filter(id => siblingsIds.includes(id));
+        const parentHasOnlyOneChildUnchecked = currentCheckedSiblings.length === siblingsIds.length - 1; // C3 C5
+        const isLastUncheckedSibling = parentHasOnlyOneChildUnchecked && !isCurrentlyChecked;
+
+        // if parent is unselected, selecting last unselect child should select parent
         if (isLastUncheckedSibling) {
           newPreferences = [...userPreferences, clickedPreferenceId, parentId];
-          console.log('newPreferences if ', newPreferences)
         } else {
-          newPreferences = [...userPreferences, clickedPreferenceId];
-          console.log('newPreferences else', newPreferences)
+          if (isCurrentlyChecked) {
+            newPreferences = userPreferences.filter(prefId =>  prefId !== clickedPreferenceId);
+          } else {
+            newPreferences = [...userPreferences, clickedPreferenceId];
+          }
         }
-
       }
-
     }
 
     setUserPreferences(newPreferences);
   }
 
-
-
-  // console.log('preferences', preferences)
-
   if (!currentStepPreferencesGroupedByParent) {
     return null;
   }
-
 
   return (
     <List spacing={3} mb={4}>

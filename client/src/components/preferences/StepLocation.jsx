@@ -2,7 +2,6 @@ import React from 'react';
 import { Select, Box } from '@chakra-ui/react'
 
 const StepLocation = ({userLocation, locations, setUserLocation}) => {
-
   const handleLocationChange = (evt) => {
     setUserLocation(evt.target.value);
   }
@@ -15,7 +14,6 @@ const StepLocation = ({userLocation, locations, setUserLocation}) => {
   if(locations.length === 0) {
     return '...loading';
   }
-
 
   return (
     <Box mb={16} mt={16}>
@@ -34,4 +32,3 @@ const StepLocation = ({userLocation, locations, setUserLocation}) => {
 };
 
 export default StepLocation;
-
