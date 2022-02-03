@@ -19,15 +19,9 @@ export const Register = () => {
     event.preventDefault();
     registerWithEmailAndPassword(name, email, password);
 
-    console.log(user);
-    console.log(user.email)
-    console.log(user.displayName)
-    console.log(user.uid)
-    const {email, displayName, uid} = user;
-
     const body = {
-      email: user.email,
-      full_name: displayName,
+      email,
+      full_name: name,
     }
 
     axios.post('/api/users/add', body)
