@@ -7,16 +7,18 @@ Helping people find things to do with their time.
 npm install
 ```
 2. Setup Postgres database to match settings in `/database/index.js`.
-3. Rename `.env.example` to `.env` and fill in the enironment variables.
-4. Build scripts:
+3. Copy `.env.example`, rename the copy to `.env`, and fill in the environment variables.
+4. Copy `config.example.js`, rename the copy to `config.js`, and fill in the [Firebase config](https://firebase.google.com/docs/web/setup).
+5. Run `bash schema.sh` to create and populate the database schemas.
+6. Build scripts:
 ```
 npm run build
 ```
-5. Start the server:
+7. Start the server:
 ```
 npm start
 ```
-6. Open the site:
+8. Open the site:
 ```
 http://localhost:3000
 ```
@@ -25,7 +27,6 @@ http://localhost:3000
 - Andrew Lam
 - Cat Chiu
 - Eric Baldwin
-- James Song
 - Nanda Silva
 - Sean Welch
 - Yulan Rong

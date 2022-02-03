@@ -1,5 +1,6 @@
 client/public/bundle.js
-
+config.js
+.googleConfig.js
 # Logs
 logs
 *.log
@@ -104,3 +105,8 @@ dist
 
 # TernJS port file
 .tern-port
+.DS_Store
+
+config.js
+
+*_test.js

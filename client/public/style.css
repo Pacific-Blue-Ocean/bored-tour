@@ -1,0 +1,138 @@
+#app {
+  font-family: 'Questrial', sans-serif;
+  letter-spacing: .1rem;
+  background-color: #FBFAFA;
+  color: #EC7C71;
+  margin: 0;
+}
+
+.header {
+  color: rgba(0, 0, 0, 0);
+  position: relative;
+}
+
+.headerContainer {
+  width: 100%;
+}
+
+.headerBackGround {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+  url('./images/RaccoonParty.jpeg');
+  position: relative;
+  background-position: 25% 70%;
+}
+
+.headerBackGround::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.calendar {
+  border-radius: 8px;
+  font-size: 2vh;
+  font-family: 'Questrial', sans-serif;
+  letter-spacing: 0.1rem;
+  background-color: #EC7C71;
+  color:#FBFAFA;
+  width: 8vw;
+  height: 2.25vw;
+  margin-right: 2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar:hover {
+  background-color: rgba(235, 235, 235, 0.7);
+}
+
+
+.categories {
+  width: 90%;
+  /* overflow-x:; */
+}
+
+
+.pepe {
+  height: 10vw;
+  width: 10vw;
+  border-radius: 50%;
+}
+
+
+.react-timerange-picker {
+  display: inline-flex;
+  position: relative;
+}
+.react-timerange-picker,
+.react-timerange-picker *,
+.react-timerange-picker *:before,
+.react-timerange-picker *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.react-timerange-picker--disabled {
+  background-color: black;
+  color: black;
+}
+.react-timerange-picker__wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  align-items: center;
+  color: #FBFAFA;
+  background-color: #EC7C71;
+  border-radius: 8px;
+  width: 17vw;
+  height: 2.25vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  font-size: 2vh;
+}
+.react-timerange-picker__inputGroup {
+  min-width: calc((4px * 3) +  0.54em * 6  +  0.217em * 2);
+  height: 100%;
+  flex-grow: 1;
+  padding: 0 2px;
+  box-sizing: content-box;
+}
+.react-timerange-picker__inputGroup__divider {
+  padding: 1px 0;
+  white-space: pre;
+}
+.react-timerange-picker__inputGroup__input {
+  min-width: 0.54em;
+  height: 100%;
+  position: relative;
+  padding: 0 1px;
+  border: 0;
+  background: none;
+  font: inherit;
+  box-sizing: content-box;
+  -moz-appearance: textfield;
+}
+.react-timerange-picker__inputGroup__input:invalid {
+  background: rgba(255, 0, 0, 0.1);
+}
+.react-timerange-picker__inputGroup__input--hasLeadingZero {
+  margin-left: -0.54em;
+  padding-left: calc(1px +  0.54em);
+}
+.react-timerange-picker__inputGroup__amPm {
+  font: inherit;
+  -moz-appearance: menulist;
+}
+.react-timerange-picker__button {
+  border: 0;
+  background: transparent;
+}
+.react-timerange-picker__button:enabled {
+  cursor: pointer;
+}
