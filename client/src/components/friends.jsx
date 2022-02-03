@@ -6,9 +6,11 @@ import axios from 'axios';
 import { Header } from './header';
 import Friend from './friends/friend.jsx';
 import { useLocation } from 'react-router-dom';
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Friends() {
-  const [id, setUserId] = useState(1);
+  const [user, loading, error] = useAuthState(auth);
   const [friends, setFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
   const [event_id, setEventId] = useState(null);
@@ -16,12 +18,14 @@ function Friends() {
   const { state } = useLocation();
 
   useEffect(() => {
-    axios.get('/api/friends', { params: { id } })
+    if (user) {
+      axios.get('/api/friends', { params: { id: user.uid } })
       .then((res) => {
         setFriends(res.data);
         setFilteredFriends(res.data);
       });
-  }, [id]);
+    }
+  }, [user]);
 
   useEffect(() => {
     let filteredFriends = friends.filter(friend => {
@@ -51,7 +55,7 @@ function Friends() {
           {filteredFriends.length ? filteredFriends.map((friend) => (
             <Friend
               key={friend.id}
-              user_id={id}
+              user_id={user.uid}
               friend={friend}
               event_id={event_id}
             />

@@ -1,11 +1,10 @@
 import { Header } from './header';
 import HomePage from './homepage/homepage.jsx';
 import React, { useState, useEffect } from "react";
-import { Box, Input, Button, Flex} from '@chakra-ui/react';
+import { Box, Input, Button, Flex } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Link } from "react-router-dom";
 import axios from 'axios';
-import { auth, logout} from './firebase';
+import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const App = () => {
