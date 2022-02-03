@@ -38,7 +38,25 @@ const App = () => {
 
   return (
     <div>
-      <Header />
+      <Flex w='100vw'>
+        <Link to="/">
+          <Heading as='h1' fontSize='6vh' h='11.5vh' color='brand.400' p={8}>bored tour</Heading>
+        </Link>
+        <Spacer />
+        <Box p={4}>
+        <Menu>
+          <MenuButton padding='1vw' fontSize='2.5vh' color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
+          Username
+          </MenuButton>
+          <MenuList fontSize='2.5vh' color='brand.400'>
+            <Link to="/events"><MenuItem>My Events</MenuItem></Link>
+            <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
+            <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
+            <Button fontSize='2.5vh' color='brand.400' onClick={logout}> Log Out </Button>
+          </MenuList>
+        </Menu>
+        </Box>
+      </Flex>
       <Box
         backgroundImage="url('./images/RaccoonParty.jpeg')"
         backgroundSize='cover'
