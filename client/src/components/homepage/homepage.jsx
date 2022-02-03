@@ -1,5 +1,5 @@
-import { Button, ButtonGroup, Grid, GridItem, Flex, Heading, Box } from '@chakra-ui/react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
+import { Button, ButtonGroup, Grid, GridItem, Flex, Heading, Box, IconButton} from '@chakra-ui/react';
+import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import '../../../../node_modules/react-datepicker/dist/react-datepicker.css'
@@ -18,6 +18,7 @@ const HomePage = ( { searchEvent } ) => {
 
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
+
   const [startDate, setStartDate] = useState(new Date());
   const [value, onChange] = useState(['10:00', '11:00']);
 
@@ -40,24 +41,50 @@ const HomePage = ( { searchEvent } ) => {
     }
   }, [searchEvent])
 
+  const searchEventsTime = () => {
+    console.log('hi')
+    const newDate = startDate.toLocaleDateString()
+    axios.get('/api/searchEvents/time', { params: { date: newDate, validFrom: value[0], validTo: value[1]}})
+      .then((response) => {
+        setEvents(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   return (
-    <Flex alignItems='center' w='100vw'>
-    <div >
-    <Flex marginTop='2vw' marginBottom='0'flexDirection='row' justifyContent='center'>
-      <Flex flexDirection='row' alignItems='center' justifyContent='center' marginLeft='2vw'>
-        <DatePicker
-          className='calendar'
-          closeOnScroll={true}
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-        <TimeRangePicker
-          className='react-timerange-picker'
-          onChange={onChange}
-          value={value} />
-      </Flex>
-      <Flex flexDirection='row' w='70vw' alignItems='center' justifyContent='space-around' marginRight='2vw'>
-        <ChevronLeftIcon
+    <Flex flexDirection='column'>
+      <Flex marginTop='2vw' marginBottom='0' flexDirection='row' justifyContent='space-evenly'>
+        <Flex flexDirection='row' marginLeft='2vw' justifyContent='space-around'>
+          <DatePicker
+            className='calendar'
+            closeOnScroll={true}
+            selected={startDate}
+            onChange={(date) => {setStartDate(date)}}
+            type='submit'
+          />
+          <TimeRangePicker
+            className='react-timerange-picker'
+            onChange={onChange}
+            value={value}
+            type='submit'
+          />
+          <IconButton aria-label='Search database' icon={<SearchIcon />}
+            backgroundColor='brand.500'
+            color='brand.400'
+            size='lg'
+            textStyle='button'
+            fontSize='1vw'
+            _hover={{
+              backgroundColor: 'brand.400',
+              color: 'brand.500'
+            }}
+            onClick={(e) => {searchEventsTime()}}
+          />
+        </Flex>
+        <Flex flexDirection='row' w='50vw' alignItems='center' justifyContent='space-around' marginRight='2vw'>
+          <ChevronLeftIcon
             ref={slideLeft}
             w={8}
             h={8}
@@ -65,25 +92,23 @@ const HomePage = ( { searchEvent } ) => {
             cursor='pointer'
             onClick={() => {categories.current.scrollBy(-500, 0)}}
           />
-        {/* <div ref={categories} className='categories'> */}
-        <Box w='90%' overflowX='auto'>
-          <ButtonGroup spacing={6} direction='row' align='center'>
-            {categoriesList.map((category, idx) => (
-              <Button
-                backgroundColor='brand.400'
-                color='brand.500'
-                size='lg'
-                textStyle='button'
-                fontSize='1vw'
-                key={idx}
-                //need category label in events
-                // onClick={() => {setHomePageEvents(category.label)}}
-              >{category.label}
-              </Button>
-            ))}
-          </ButtonGroup>
-        </Box>
-        {/* </div> */}
+          <Box w='90%' overflowX='hidden' ref={categories}>
+            <ButtonGroup spacing={6} direction='row' align='center'>
+              {categoriesList.map((category, idx) => (
+                <Button
+                  backgroundColor='brand.400'
+                  color='brand.500'
+                  size='lg'
+                  textStyle='button'
+                  fontSize='1vw'
+                  key={idx}
+                  //need category label in events
+                  // onClick={() => {setHomePageEvents(category.label)}}
+                >{category.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </Box>
           <ChevronRightIcon
             ref={slideRight}
             w={8}
@@ -92,30 +117,28 @@ const HomePage = ( { searchEvent } ) => {
             cursor='pointer'
             onClick={() => {categories.current.scrollBy(500, 0)}}
           />
+        </Flex>
       </Flex>
-    </Flex>
-      <Heading fontSize='5vh'  marginLeft='5vw' marginTop='2vw' marginBottom='2vw'>
-        Popular near you...
-      </Heading>
-      <Grid
-        templateColumns='repeat(4, 1fr)'
-        gap={1} autoRows='auto'
-        justify-content='space-evenly'
-        justify-items='center'
-        align-content='space-evenly'
-        align-items='center'
-        marginBottom='1.5vw'
-      >
-        {events.map((event, idx) => {
-          return (
-            <Event
-              event={event}
-              key={idx}
-            />
-          )
-        })}
-      </Grid>
-    </div>
+      <Flex>
+        <Heading fontSize='5vh'  marginLeft='5vw' marginTop='2vw' marginBottom='2vw'>
+          Popular near you...
+        </Heading>
+      </Flex>
+      <Flex justifyContent='center'>
+        <Grid
+          templateColumns='repeat(4, 1fr)'
+          gap={1}
+        >
+          {events.map((event, idx) => {
+            return (
+              <Event
+                event={event}
+                key={idx}
+              />
+            )
+          })}
+        </Grid>
+      </Flex>
     </Flex>
   )
 }
