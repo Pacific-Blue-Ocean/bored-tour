@@ -17,19 +17,14 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import {logout} from './firebase';
-import { getAuth } from "firebase/auth";
+import { auth, logout} from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 const App = () => {
-
-
   const [search, setSearch] = useState(null)
   const [searchEvent, setSearchEvent] = useState([])
-  const auth = getAuth();
-  const user = auth.currentUser;
-
-
+  const [user, loading, error] = useAuthState(auth);
 
   const searchEvents = (e) => {
     e.preventDefault();
@@ -41,6 +36,7 @@ const App = () => {
         console.log(error)
       })
   }
+
  if (user) {
   return (
     <div>
@@ -52,7 +48,7 @@ const App = () => {
         <Box p={4}>
         <Menu>
           <MenuButton padding='1vw' fontSize='2.5vh' color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
-          Username
+          {user.email}
           </MenuButton>
           <MenuList fontSize='2.5vh' color='brand.400'>
             <Link to="/events"><MenuItem>My Events</MenuItem></Link>
@@ -89,7 +85,7 @@ const App = () => {
          <Box p={4}>
          <Menu>
            <MenuButton padding='1vw' fontSize='2.5vh' color='brand.400' as={Button} rightIcon={<ChevronDownIcon />}>
-           Username
+           Menu
            </MenuButton>
            <MenuList fontSize='2.5vh' color='brand.400'>
              <Link to="/login"><MenuItem>Log in</MenuItem></Link>
