@@ -42,9 +42,10 @@ const HomePage = ( { searchEvent } ) => {
   }, [searchEvent])
 
   const searchEventsTime = () => {
-    console.log('hi')
     const newDate = startDate.toLocaleDateString()
-    axios.get('/api/searchEvents/time', { params: { date: newDate, validFrom: value[0], validTo: value[1]}})
+    const from = value ? value[0] : '00:00'
+    const to = value ? value[1] : '23:59'
+    axios.get('/api/searchEvents/time', { params: { date: newDate, validFrom: from, validTo: to}})
       .then((response) => {
         setEvents(response.data)
       })
