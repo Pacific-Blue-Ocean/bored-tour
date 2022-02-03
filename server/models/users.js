@@ -1,5 +1,10 @@
 const db = require('../../database');
 
+const addUser = (id, email, full_name) => {
+  const query = `insert into users (email, full_name) values ($1, $2);`;
+  return db.pool.query(query, [email, full_name]);
+}
+
 const getUser = (id) => {
   const query = `SELECT * FROM users WHERE id = $1`;
   return db.pool.query(query, [id]);
@@ -21,6 +26,7 @@ const getUserHasCompletedSurvey = (id) => {
 }
 
 module.exports = {
+  addUser,
   updateUserLocation,
   updateUserHasCompletedSurvey,
   getUserHasCompletedSurvey,

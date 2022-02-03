@@ -40,8 +40,12 @@ app.get('/api/friends', friends.getFriends);
 app.post('/api/friends', friends.addFriend);
 app.delete('/api/friends', friends.removeFriend);
 
-app.get('/api/preferences', preferences.getSurvey);
+// user
 app.get('/api/users/:id', users.getUser);
+app.post('/api/users/add', users.addUser);
+
+// preferences
+app.get('/api/preferences', preferences.getSurvey);
 app.get('/api/users/:id/preferences', preferences.getUserPreferences);
 app.get('/api/users/:id/has-completed-survey', users.getUserHasCompletedSurvey);
 app.get('/api/locations', locations.getLocations);
