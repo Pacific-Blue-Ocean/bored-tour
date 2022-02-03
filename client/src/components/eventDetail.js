@@ -59,8 +59,9 @@ const EventDetail = ({ userId }) => {
           <VStack align="left" w="500px" spacing="60px">
             <Image
               bg="tomato"
-              boxSize="500px"
+              boxSize="30vw"
               objectFit="cover"
+              borderRadius='5%'
               align="center"
               src={event.mainphoto}
               alt="event image"
