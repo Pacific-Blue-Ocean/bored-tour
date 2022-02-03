@@ -1,32 +1,29 @@
+import React, { useState } from 'react';
+import {
+  Box, Input, Button, Flex,
+} from '@chakra-ui/react';
+import axios from 'axios';
 import { Header } from './header';
 import HomePage from './homepage/homepage.jsx';
-import React, { useState, useEffect } from "react";
-import { Box, Input, Button, Flex} from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Link } from "react-router-dom";
-import axios from 'axios';
-import { auth, logout} from './firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
-const App = () => {
-  const [search, setSearch] = useState(null)
-  const [searchEvent, setSearchEvent] = useState([])
-  const [user, loading, error] = useAuthState(auth);
+function App() {
+  const [search, setSearch] = useState(null);
+  const [searchEvent, setSearchEvent] = useState([]);
 
   const searchEvents = (e) => {
     e.preventDefault();
-    axios.get('/api/searchEvents/title', { params: { search: search }})
+    axios.get('/api/searchEvents/title', { params: { search } })
       .then((response) => {
-        setSearchEvent(response.data)
+        setSearchEvent(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   return (
     <div>
-      <Header/>
+      <Header />
       <Box
         backgroundImage="url('./images/RaccoonParty.jpeg')"
         backgroundSize='cover'
@@ -68,7 +65,7 @@ const App = () => {
         searchEvent={searchEvent}
       />
     </div>
-  )
+  );
 }
 
 export default App;

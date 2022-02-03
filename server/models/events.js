@@ -20,14 +20,14 @@ const getSpecificEvent = (id) => {
   return db.pool.query(query);
 }
 
-const getEventsByTime = (date, validFrom, validTo, limit = 10, page = 0) => {
+const getEventsByTime = (minutes,limit = 10, page = 0) => {
+  let offset = limit * page;
   const query = `
     select *
     from events
-    where date='${date}'
-    and start_time
-    between '${validFrom}'
-    and '${validTo}';
+    where event_length_minutes < ${minutes}
+    limit ${limit}
+    offset ${offset};
   `
   return db.pool.query(query);
 }

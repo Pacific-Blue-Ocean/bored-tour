@@ -7,7 +7,11 @@ import {
   Heading,
   Box,
   IconButton,
-  SimpleGrid
+  SimpleGrid,
+  Stack,
+  Select,
+  HStack,
+  Icon,
 } from "@chakra-ui/react";
 import {
   ChevronLeftIcon,
@@ -17,14 +21,14 @@ import {
 import React, { useRef, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
-// import TimeRangePicker from '@wojtekmaj/react-timerange-picker'
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker/dist/entry.nostyle";
 import axios from "axios";
 import Event from "./event.jsx";
-import FilterList from "./filterList.jsx";
+import { MdSettingsBackupRestore } from "react-icons/md";
 
 const HomePage = ({ searchEvent }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [reset, setReset] = useState(false);
 
   const categories = useRef(null);
   const slideLeft = useRef(null);
@@ -34,9 +38,9 @@ const HomePage = ({ searchEvent }) => {
   const [categoriesList, setCategoriesList] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
-  const [value, onChange] = useState(["10:00", "11:00"]);
-  const [label, setLabel] = useState([]);
+  const [label, setLabel] = useState("");
   const [initial, setInitial] = useState(true);
+  const [duration, setDuration] = useState("");
 
   useEffect(() => {
     const getEvents = axios
@@ -55,7 +59,7 @@ const HomePage = ({ searchEvent }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [reset]);
 
   useEffect(() => {
     if (searchEvent.length > 0) {
@@ -63,29 +67,52 @@ const HomePage = ({ searchEvent }) => {
     }
   }, [searchEvent]);
 
+  useEffect(() => {
+    setEvents(
+      label.length === 0
+        ? events
+        : events.filter((event) => {
+            return (
+              event.categories
+                .sort()
+                .toString()
+                .replaceAll(" ", "")
+                .replaceAll(",", "")
+                .indexOf(
+                  label
+                    .sort()
+                    .toString()
+                    .replaceAll(" ", "")
+                    .replaceAll(",", "")
+                ) !== -1
+            );
+          })
+    );
+  }, [label]);
+
   const handleClick = (event) => {
     event.preventDefault();
     setInitial(false);
-    setLabel([...label, event.target.name].sort());
+    if (label.indexOf(event.target.name) === -1) {
+      setLabel([...label, event.target.name].sort());
+    }
   };
+
   const handleReset = () => {
-    setLabel([]);
+    setLabel("");
+    setReset(!reset);
+    setStartDate(new Date());
   };
 
   const searchEventsTime = () => {
-    const newDate = startDate.toLocaleDateString();
-    const from = value ? value[0] : "00:00";
-    const to = value ? value[1] : "23:59";
-    axios
-      .get("/api/searchEvents/time", {
-        params: { date: newDate, validFrom: from, validTo: to },
-      })
-      .then((response) => {
-        setEvents(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const newDuration = duration.substring(0, duration.length - 5);
+    const newDate = startDate.toISOString().slice(0, 10);
+    const newEvents = events.filter(
+      (event, idx) =>
+        event.event_length_minutes == newDuration &&
+        event.date.slice(0, 10) === newDate
+    );
+    setEvents(newEvents);
   };
 
   return (
@@ -106,17 +133,39 @@ const HomePage = ({ searchEvent }) => {
             className="calendar"
             closeOnScroll={true}
             selected={startDate}
+            textStyle="button"
             onChange={(date) => {
               setStartDate(date);
             }}
             type="submit"
           />
-          <TimeRangePicker
-            className="react-timerange-picker"
-            onChange={onChange}
-            value={value}
-            type="submit"
-          />
+          <Stack spacing={3}>
+            <Select
+              variant="filled"
+              placeholder="Duration"
+              backgroundColor="brand.400"
+              color="brand.500"
+              size="lg"
+              textStyle="button"
+              fontSize="1vw"
+              w="8vw"
+              textStyle="button"
+              textAlign="center"
+              _selection={{
+                backgroundColor: "brand.400",
+                color: "brand.500",
+              }}
+              onChange={(e) => setDuration(e.target.value)}
+            >
+              {events
+                .map((event, idx) => event.event_length_minutes)
+                .filter((item, i, arr) => arr.indexOf(item) === i)
+                .sort((a, b) => a - b)
+                .map((duration, idx) => (
+                  <option>{duration} mins</option>
+                ))}
+            </Select>
+          </Stack>
           <IconButton
             aria-label="Search database"
             icon={<SearchIcon />}
@@ -189,13 +238,22 @@ const HomePage = ({ searchEvent }) => {
       >
         Popular near you...
       </Heading>
-      <FilterList
-        category={label.length > 0 ? label : "All"}
-        events={events}
-        handleReset={handleReset}
-      />
+      <Box pl="5em" display={{base: 'none', md: 'flex'}}>
+        <HStack spacing="5" marginBottom="2.5vh">
+          <Box fontWeight="bold">
+            Filter by:{" "}
+            <Box display="inline-block" fontSize="20px">
+              {label.length > 0 ? `${label}` : "All"}
+            </Box>
+          </Box>
+          <Button onClick={handleReset}>
+            Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
+          </Button>
+        </HStack>
+      </Box>
+
       {initial ? (
-        <SimpleGrid columns={[1, 2,2, 4]} spacing={10} p={4}>
+        <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}

@@ -3,14 +3,14 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Header } from './header';
-import Friend from './friends/friend.jsx';
 import { useLocation } from 'react-router-dom';
-import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Header } from './header';
+import Friend from './friend.jsx';
+import { auth } from './firebase';
 
 function Friends() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [friends, setFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
   const [event_id, setEventId] = useState(null);
@@ -25,23 +25,23 @@ function Friends() {
           setFriends(res.data);
           setFilteredFriends(res.data);
         });
-      }
+    }
   }, [user]);
 
   // search for friends
   useEffect(() => {
-    let filteredFriends = friends.filter(friend => {
+    const filtered = friends.filter((friend) => {
       const friendName = friend.full_name.toLowerCase();
       return friendName.includes(searchText.toLowerCase());
     });
-    setFilteredFriends(filteredFriends);
+    setFilteredFriends(filtered);
   }, [searchText]);
 
   useEffect(() => {
     if (state !== null) {
-      setEventId(state.event_id)
+      setEventId(state.event_id);
     }
-  }, [state])
+  }, [state]);
 
   const handleChange = (e) => { setSearchText(e.target.value); };
 
