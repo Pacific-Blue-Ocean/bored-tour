@@ -7,11 +7,8 @@ import {
   Heading,
   Box,
   IconButton,
-<<<<<<< HEAD
   Stack,
   Select
-=======
->>>>>>> main
 } from "@chakra-ui/react";
 import {
   ChevronLeftIcon,
@@ -39,12 +36,7 @@ const HomePage = ({ searchEvent }) => {
   const [categoriesList, setCategoriesList] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
-<<<<<<< HEAD
   const [label, setLabel] = useState("");
-=======
-  const [value, onChange] = useState(["10:00", "11:00"]);
-  const [label, setLabel] = useState([]);
->>>>>>> main
   const [initial, setInitial] = useState(true);
   const [duration, setDuration] = useState("");
 
@@ -110,7 +102,6 @@ const HomePage = ({ searchEvent }) => {
             className="calendar"
             closeOnScroll={true}
             selected={startDate}
-<<<<<<< HEAD
             textStyle='button'
             onChange={(date) => {setStartDate(date)}}
             type='submit'
@@ -146,27 +137,6 @@ const HomePage = ({ searchEvent }) => {
             size='lg'
             textStyle='button'
             fontSize='1vw'
-=======
-            onChange={(date) => {
-              setStartDate(date);
-            }}
-            type="submit"
-          />
-          <TimeRangePicker
-            className="react-timerange-picker"
-            onChange={onChange}
-            value={value}
-            type="submit"
-          />
-          <IconButton
-            aria-label="Search database"
-            icon={<SearchIcon />}
-            backgroundColor="brand.500"
-            color="brand.400"
-            size="lg"
-            textStyle="button"
-            fontSize="1vw"
->>>>>>> main
             _hover={{
               backgroundColor: "brand.400",
               color: "brand.500",
@@ -183,7 +153,6 @@ const HomePage = ({ searchEvent }) => {
           justifyContent="space-around"
           marginRight="2vw"
         >
-<<<<<<< HEAD
             <ChevronLeftIcon
               ref={slideLeft}
               w={8}
@@ -260,77 +229,6 @@ const HomePage = ({ searchEvent }) => {
             })}
           </Grid>
         ) : null}
-=======
-          <ChevronLeftIcon
-            ref={slideLeft}
-            w={8}
-            h={8}
-            color="black.500"
-            cursor="pointer"
-            onClick={() => {
-              categories.current.scrollBy(-500, 0);
-            }}
-          />
-          <Box w="90%" overflowX="hidden" ref={categories}>
-            <ButtonGroup spacing={6} direction="row" align="center">
-              {categoriesList.map((category, idx) => (
-                <Button
-                  backgroundColor="brand.400"
-                  color="brand.500"
-                  size="lg"
-                  textStyle="button"
-                  fontSize="1vw"
-                  key={idx}
-                  name={category.label}
-                  onClick={(e) => handleClick(e)}
-                >
-                  {category.label}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-          <ChevronRightIcon
-            ref={slideRight}
-            w={8}
-            h={8}
-            color="black.500"
-            cursor="pointer"
-            onClick={() => {
-              categories.current.scrollBy(500, 0);
-            }}
-          />
-        </Flex>
-      </Flex>
-      <Heading
-        fontSize="5vh"
-        marginLeft="5vw"
-        marginTop="2vw"
-        marginBottom="1vw"
-      >
-        Popular near you...
-      </Heading>
-      <FilterList
-        category={label.length > 0 ? label : "All"}
-        events={events}
-        handleReset={handleReset}
-      />
-      {initial ? (
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={1}
-          autoRows="auto"
-          justify-content="space-evenly"
-          justify-items="center"
-          align-content="space-evenly"
-          align-items="center"
-          marginBottom="1.5vw"
-        >
-          {events.map((event, idx) => {
-            return <Event event={event} key={idx} />;
-          })}
-        </Grid>
-      ) : null}
->>>>>>> main
     </Flex>
   );
 };
