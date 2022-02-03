@@ -55,6 +55,8 @@ const Preferences = ({userId}) => {
   const [userLocation, setUserLocation] = useState(null);
   const [user, loading, error] = useAuthState(auth);
 
+  const [decoratedSteps, setDecoratedSteps] = useState([]);
+
 
 
   useEffect(() => {
@@ -75,17 +77,31 @@ const Preferences = ({userId}) => {
 
     // Fetch all steps and locations.
     // Set locations and preferencesSteps state
-    const preferencesSteps = await axios('/api/preferences');
     const locations = await axios.get('/api/locations');
     setLocations(locations.data);
-    setSteps(preferencesSteps.data);
-
     // Fetch user data to get the user location + the user preferences
     // Set userPrefences and userLocation state.
     const user = await axios(`/api/users/${userId}`);
+    setUserLocation(user.data[0].location_id);
+
+    const preferencesSteps = await axios('/api/preferences');
     const userPreferences = await axios(`/api/users/${userId}/preferences`);
     setUserPreferences(userPreferences.data);
-    setUserLocation(user.data[0].location_id);
+    setSteps(preferencesSteps.data);
+
+
+     // merge preferencesSteps with userPreferences
+     const stepsPreferencesWithIsChecked = preferencesSteps.data.map(step => {
+      if (step.preferences) {
+        step.preferences = step.preferences.map(pref => {
+          pref.checked = userPreferences.data.includes(pref.id);
+          return pref;
+        })
+      }
+      return step;
+    })
+    setDecoratedSteps(stepsPreferencesWithIsChecked);
+
 
     setIsLoading(false);
   }, []);
@@ -163,6 +179,8 @@ const Preferences = ({userId}) => {
    */
   const handlePreferenceCheckboxOnChange = (evt) => {
     const preferenceId = parseInt(evt.target.value);
+
+    // debugger
     const isCurrentlyChecked = userPreferences.includes(preferenceId);
     let newPreferences = [];
 
@@ -175,14 +193,10 @@ const Preferences = ({userId}) => {
     setUserPreferences(newPreferences);
   }
 
-  const rendeChild = (par) => {
+  const renderChild = (par) => {
     if (!par.child.length) {
       return null;
     }
-
-    return (
-      oi
-    )
   }
 
   /**
@@ -192,7 +206,7 @@ const Preferences = ({userId}) => {
   const renderOptionsStep = () => {
     const preferences =  groupByParent(steps[stepIndex].preferences);
 
-    console.log(preferences)
+    console.log('preferences', preferences)
 
     if (!preferences) {
       return null;
@@ -217,14 +231,14 @@ const Preferences = ({userId}) => {
                   <List spacing={3} mb={4}>
                     {pref.child.map(child => (
                       <ListItem display="flex" alignItems="center" key={child.id}>
-                          <Checkbox
-                            isChecked={userPreferences.includes(child.id)}
-                            spacing='1rem'
-                            onChange={handlePreferenceCheckboxOnChange}
-                            value={child.id}
-                          >
-                            {child.label}
-                          </Checkbox>
+                        <Checkbox
+                          isChecked={userPreferences.includes(child.id)}
+                          spacing='1rem'
+                          onChange={handlePreferenceCheckboxOnChange}
+                          value={child.id}
+                        >
+                          {child.label}
+                        </Checkbox>
                       </ListItem>
                     ))}
                   </List>
