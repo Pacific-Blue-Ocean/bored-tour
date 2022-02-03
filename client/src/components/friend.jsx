@@ -2,35 +2,26 @@ import { Flex, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { auth } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import pepe from '../../../public/images/PepeProfile.jpeg';
+import pepe from '../../public/images/PepeProfile.jpeg';
 
 function Friend({ user_id, friend, event_id }) {
   const navigate = useNavigate();
   const [isFriend, setIsFriend] = useState(friend.friend);
   const [isInvited, setIsInvited] = useState(false);
-  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
-    axios.get(`/api/events/users/${event_id}`)
-      .then((res) => {
-        res.data.forEach((user) => {
-          if (user.user_id === friend.id) { setIsInvited(true); }
-        });
+    axios.get(`/api/events/users/${event_id}`).then((res) => {
+      res.data.forEach((user) => {
+        if (user.user_id === friend.id) {
+          setIsInvited(true);
+        }
       });
+    });
   }, [friend, event_id]);
 
-  useEffect(() => {
-    const navigateHome = () => navigate('/');
-    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
-    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
-    if (!user) navigateHome();
-  }, [user, loading]);
-
   /*******************************
-  * BUTTON HANDLERS
-  *******************************/
+   * BUTTON HANDLERS
+   *******************************/
   const handleFriendClick = (e) => {
     const request = e.target.value;
     const body = { user_id, friend_id: friend.id };
@@ -42,9 +33,10 @@ function Friend({ user_id, friend, event_id }) {
     setIsFriend(!isFriend);
   };
 
-  const handleFriendEvents = (e) => {
-    console.log(`Show events for user_id: ${friend.id}`);
-    navigate( '/events', {state: { user_id: `${friend.id}`, name: `${friend.full_name}` }});
+  const handleFriendEvents = () => {
+    navigate('/events', {
+      state: { user_id: `${friend.id}`, name: `${friend.full_name}` },
+    });
   };
 
   const handleInvite = (e) => {
@@ -59,8 +51,8 @@ function Friend({ user_id, friend, event_id }) {
   };
 
   /*******************************
-  * INVITATION BUTTON
-  *******************************/
+   * INVITATION BUTTON
+   *******************************/
   let inviteButton;
   if (event_id && !isInvited && isFriend) {
     inviteButton = (
@@ -79,8 +71,8 @@ function Friend({ user_id, friend, event_id }) {
   }
 
   /*******************************
-  * RENDER
-  *******************************/
+   * RENDER
+   *******************************/
   return (
     <Flex
       flexDirection="column"
@@ -90,7 +82,7 @@ function Friend({ user_id, friend, event_id }) {
       borderRadius="10px"
       fontSize="2.5vh"
     >
-      <img className="pepe" src={pepe}/>
+      <img className="pepe" src={pepe} alt="friend" />
       {friend.full_name}
       <br />
       {friend.location}
@@ -112,7 +104,7 @@ function Friend({ user_id, friend, event_id }) {
         </Button>
       ) : null}
 
-      { inviteButton }
+      {inviteButton}
     </Flex>
   );
 }
