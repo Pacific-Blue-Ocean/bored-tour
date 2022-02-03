@@ -26,7 +26,7 @@ const EventDetail = ({ userId }) => {
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
   const address = `${event.address_line_1} ${event.address_state} ${event.address_zip}`;
-  const [startDate, setStartDate] = useState(new Date());
+  const currentUser_id = 1;
 
   const theme = extendTheme({
     colors: {
@@ -46,22 +46,21 @@ const EventDetail = ({ userId }) => {
         if (res.data[0]) {
           setEvent(res.data[0]);
         } else {
-          navigate("/events");
+          navigate("/events", { event_id: params.eventId });
         }
       });
     }
   }, []);
 
-  // app.post('/api/events/users', events.addUserToEvent);
   const ReserveEvent = (e) => {
     e.preventDefault();
-    // axios.post('/api/events/users', )
+    axios.post('/api/events/users', { user_id: currentUser_id, event_id: params.eventId });
   };
 
   return (
     <Box>
       <Header />
-      <Box pl="8em" pr="8em" pd="2em">
+      <Box pl="10em" pr="6em" pd="2em">
         <HStack spacing="80px">
           <VStack align="left" w="500px" spacing="60px">
             <Image
@@ -116,50 +115,50 @@ const EventDetail = ({ userId }) => {
                 </Box>
               </VStack>
               <HStack>
-                <Button
-                  h="50px"
-                  w="30%"
-                  borderTopRadius="md"
-                  align="center"
-                  size="lg"
-                  _hover={{
-                    background: "white",
-                    color: "#EC7C71",
-                  }}
-                  bg="#E3444B"
-                  fontWeight="bold"
-                  color="white"
-                  variant="solid"
-                >
-                  {" "}
-                  RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
-                </Button>
+              <Button
+                h="50px"
+                w="30%"
+                borderTopRadius="md"
+                align="center"
+                size="lg"
+                _hover={{
+                  background: "white",
+                  color: "#EC7C71",
+                }}
+                bg="#E3444B"
+                fontWeight="bold"
+                color="white"
+                variant="solid"
+                onClick={(e) => {ReserveEvent(e)}}
+              >
+                {" "}
+                RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
+              </Button>
 
-                <Button
-                  h="50px"
-                  w="30%"
-                  borderTopRadius="md"
-                  align="center"
-                  size="lg"
-                  _hover={{
-                    background: "white",
-                    color: "#EC7C71",
-                  }}
-                  bg="#E3444B"
-                  fontWeight="bold"
-                  color="white"
-                  variant="solid"
-                  onClick={() => {
-                    navigate("/friends", {
-                      state: { event_id: event.id },
-                    });
-                  }}
+              <Button h="50px"
+                w="30%"
+                borderTopRadius="md"
+                align="center"
+                size="lg"
+                _hover={{
+                  background: "white",
+                  color: "#EC7C71",
+                }}
+                bg="#E3444B"
+                fontWeight="bold"
+                color="white"
+                variant="solid"
+                onClick={() => {
+                  navigate('/friends', {
+                    state: { event_id: event.id }
+                  })
+                }}
                 >
                   Add Friends{" "}
                   <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
                 </Button>
               </HStack>
-            </Box>
+              </Box>
               {address !== 'null null null' ? (
                 <VStack pt="5em" spacing="30px" align="left" pb="2em">
                   <Box>

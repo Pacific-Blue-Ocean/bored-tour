@@ -5,13 +5,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Header } from './header';
 import Friend from './friends/friend.jsx';
+import { useLocation } from 'react-router-dom';
 
 function Friends() {
   const [id, setUserId] = useState(1);
   const [friends, setFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
-  const [event_id, setEventId] = useState(5);
+  const [event_id, setEventId] = useState(null);
   const [searchText, setSearchText] = useState('');
+  const { state } = useLocation();
 
   useEffect(() => {
     axios.get('/api/friends', { params: { id } })
@@ -28,6 +30,12 @@ function Friends() {
     });
     setFilteredFriends(filteredFriends);
   }, [searchText]);
+
+  useEffect(() => {
+    if (state !== null) {
+      setEventId(state.event_id)
+    }
+  },[state])
 
   const handleChange = (e) => { setSearchText(e.target.value); };
 
