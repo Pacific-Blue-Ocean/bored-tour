@@ -4,6 +4,7 @@ const theme = extendTheme({
   fonts: {
     heading: 'Questrial',
     body: 'Questrial',
+    button: 'Questrial'
   },
   colors: {
     brand: {

@@ -32,70 +32,11 @@
   left: 0px;
 }
 
-.homepageSubheading {
-  font-size: 5vh;
-  margin-left: 5vw;
-  margin-top: 2vw;
-  margin-bottom: 0;
-  color: #EC7C71;
-}
-
-.homePageBackground {
-  background-image: url('./images/RaccoonParty.jpeg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 30% 50%;
-  width: 100vw;
-  height: 56vh;
-}
-
-.searchBarFlex {
-  display: flex;
-  justify-content: center;
-}
 
 
-.homePageSearch {
-  background: rgba(255, 255, 255, 0.6);
-  width: 30vw;
-  padding: 15px;
-  border-radius: 5px;
-  color: black;
-  font-size: 2vh;
-  margin-top: 30vh;
-  margin-right: 2vw;
-}
 
-.homePageSearch::placeholder {
-  color: rgba(75, 75, 75, 0.6);
-  font-size: 2vh;
-}
 
-.homePageSearchButton {
-  background-color: #EC7C71;
-  color: #FBFAFA;
-  width: 5vw;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 5px;
-  font-size: 2.5vh;
-  margin-top: 30vh;
-}
 
-.homePageSelector {
-  margin-top: 2vw;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
-
-}
-
-.dateTimeFlex {
-  display: flex;
-  margin-left: 3.5vw;
-}
 
 .calendar {
   border-radius: 8px;
@@ -106,6 +47,7 @@
   color:#FBFAFA;
   width: 8vw;
   height: 2.25vw;
+  margin-right: 2vw;
   padding-left: 1vw;
   padding-right: 1vw;
   text-align: center;
@@ -117,17 +59,9 @@
 }
 
 
-.categoriesFlex {
-  display: flex;
-  flex: row;
-  width: 70vw;
-  align-items: center;
-  justify-content: space-around;
-}
-
 .categories {
   width: 90%;
-  overflow-x: hidden;
+  overflow-x: scroll;
 }
 
 .eventContainer {
@@ -201,12 +135,12 @@
   align-items: center;
   color: #FBFAFA;
   background-color: #EC7C71;
-  border-radius: 10px;
+  border-radius: 8px;
   width: 17vw;
-  padding-right: 1vw;
+  height: 2.25vw;
   padding-left: 1vw;
+  padding-right: 1vw;
   font-size: 2vh;
-
 }
 .react-timerange-picker__inputGroup {
   min-width: calc((4px * 3) +  0.54em * 6  +  0.217em * 2);
