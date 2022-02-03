@@ -66,9 +66,9 @@ const addUserToEvent = (user_id, event_id) => {
   const query = `
     insert into events_users
     (events_id, user_id)
-    values (${event_id}, ${user_id})
+    values ($1, $2)
   `
-  return db.pool.query(query);
+  return db.pool.query(query, [event_id, user_id]);
 }
 
 const removeUserFromEvent = (user_id, event_id) => {

@@ -1,8 +1,8 @@
 const db = require('../../database');
 
 const addUser = (id, email, full_name) => {
-  const query = `insert into users (email, full_name) values ($1, $2);`;
-  return db.pool.query(query, [email, full_name]);
+  const query = `insert into users (id, email, full_name) values ($1, $2, $3);`;
+  return db.pool.query(query, [id, email, full_name]);
 }
 
 const getUser = (id) => {

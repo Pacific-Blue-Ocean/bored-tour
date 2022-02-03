@@ -26,8 +26,8 @@ create table preferences (
 );
 
 create table users_preferences (
-  user_id  bigserial not null,
-  preferences_id  bigserial not null,
+  user_id        varchar(50) not null,
+  preferences_id bigserial not null,
   foreign key (user_id) references users(id),
   foreign key (preferences_id) references preferences(id)
 );
@@ -69,9 +69,9 @@ values
 insert into users_preferences
   (user_id, preferences_id)
 values
-  (4, 1),
-  (4, 9),
-  (4, 16);
+  ('fernanda.rodrigues.cdc@gmail.com', 1),
+  ('fernanda.rodrigues.cdc@gmail.com', 9),
+  ('fernanda.rodrigues.cdc@gmail.com', 16);
 
 -- Update users rows and update user 4 with a location preference.
 -- As per PR feedback this will be implemented on a different schema.
