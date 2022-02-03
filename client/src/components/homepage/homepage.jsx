@@ -92,7 +92,9 @@ const HomePage = ({ searchEvent }) => {
   const handleClick = (event) => {
     event.preventDefault();
     setInitial(false);
-    setLabel([...label, event.target.name].sort());
+    if (label.indexOf(event.target.name) === -1) {
+      setLabel([...label, event.target.name].sort());
+    }
   };
 
   const handleReset = () => {
@@ -234,18 +236,12 @@ const HomePage = ({ searchEvent }) => {
       >
         Popular near you...
       </Heading>
-      {/* <FilterList
-          category={label.length > 0 ? label : "All"}
-          events={events}
-          handleReset={handleReset}
-        /> */}
-
       <Box pl="5em">
         <HStack spacing="5" marginBottom="2.5vh">
           <Box fontWeight="bold">
             Filter by:{" "}
             <Box display="inline-block" fontSize="20px">
-              {label.length > 0 ? label : "All"}
+              {label.length > 0 ? `${label}` : "All"}
             </Box>
           </Box>
           <Button onClick={handleReset}>
