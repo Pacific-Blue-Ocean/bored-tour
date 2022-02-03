@@ -4,6 +4,7 @@ import { Header } from './header';
 import Preferences from './preferences/Preferences.jsx';
 
 const Interests = () => {
+  const [user, loading, error] = useAuthState(auth);
 
   return (
   <Box>

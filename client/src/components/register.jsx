@@ -18,13 +18,6 @@ export const Register = () => {
   const register = (event) => {
     event.preventDefault();
     registerWithEmailAndPassword(name, email, password);
-
-    const body = {
-      email,
-      full_name: name,
-    }
-
-    axios.post('/api/users/add', body)
   };
 
   const theme = extendTheme({
