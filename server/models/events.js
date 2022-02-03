@@ -37,11 +37,11 @@ const searchEventsByTitle = (searchTerm, limit = 10, page = 0) => {
   const query = `
     select *
     from events
-    where title ilike '${searchTerm}%'
-    limit ${limit}
-    offset ${offset};
+    where lower(title) like lower($1)
+    limit $2
+    offset $3;
   `
-  return db.pool.query(query);
+  return db.pool.query(query, [`%${searchTerm}%`, limit, offset]);
 }
 
 const getUsersForEvent = (event_id) => {
@@ -51,6 +51,15 @@ const getUsersForEvent = (event_id) => {
     where events_id = ${event_id}
   `
   return db.pool.query(query);
+}
+
+const getEventsForUser = (user_id) => {
+  const query = `
+    select events_id
+    from events_users
+    where user_id = $1
+  `
+  return db.pool.query(query, [user_id]);
 }
 
 const addUserToEvent = (user_id, event_id) => {
@@ -79,5 +88,5 @@ const getEventCategoriesIds = (events_id) => {
 };
 
 module.exports = {
- getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent, getSpecificEvent, getEventCategoriesIds
+ getAllEvents, getEventsByTime, searchEventsByTitle, getUsersForEvent, addUserToEvent, removeUserFromEvent, getSpecificEvent, getEventCategoriesIds, getEventsForUser
 };

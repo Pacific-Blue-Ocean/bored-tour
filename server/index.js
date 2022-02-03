@@ -28,6 +28,7 @@ app.get('/api/events', events.getAllEvents);
 app.get('/api/categories', preferences.getAllCategories);
 app.get('/api/events/:id', events.getSpecificEvent);
 app.get('/api/events/users/:id', events.getUsersForEvent);
+app.get('/api/events/user/:id', events.getEventsForUser);
 app.post('/api/events/users', events.addUserToEvent);
 app.delete('/api/events/users', events.removeUserFromEvent);
 
