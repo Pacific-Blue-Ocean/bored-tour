@@ -6,8 +6,9 @@ import {
   Flex,
   Heading,
   Box,
+  IconButton
 } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "@chakra-ui/icons";
 import React, { useRef, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
@@ -26,6 +27,7 @@ const HomePage = ({ searchEvent }) => {
 
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
+
   const [startDate, setStartDate] = useState(new Date());
   const [value, onChange] = useState(["10:00", "11:00"]);
   const [label, setLabel] = useState("");
@@ -65,40 +67,67 @@ const HomePage = ({ searchEvent }) => {
     setLabel("");
   };
 
+  const searchEventsTime = () => {
+    const newDate = startDate.toLocaleDateString()
+    const from = value ? value[0] : '00:00'
+    const to = value ? value[1] : '23:59'
+    axios.get('/api/searchEvents/time', { params: { date: newDate, validFrom: from, validTo: to}})
+      .then((response) => {
+        setEvents(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   return (
-    <Flex alignItems="center" w="100vw">
-      <div>
+    <Flex
+      flexDirection='column'
+    >
+      <Flex
+        marginTop='2vw'
+        marginBottom='0'
+        flexDirection='row'
+        justifyContent='space-evenly'
+      >
         <Flex
-          marginTop="2vw"
-          marginBottom="0"
-          flexDirection="row"
-          justifyContent="center"
+          flexDirection='row'
+          marginLeft='2vw'
+          justifyContent='space-around'
         >
-          <Flex
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            marginLeft="2vw"
-          >
-            <DatePicker
-              className="calendar"
-              closeOnScroll={true}
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-            />
-            <TimeRangePicker
-              className="react-timerange-picker"
-              onChange={onChange}
-              value={value}
-            />
-          </Flex>
-          <Flex
-            flexDirection="row"
-            w="70vw"
-            alignItems="center"
-            justifyContent="space-around"
-            marginRight="2vw"
-          >
+          <DatePicker
+            className='calendar'
+            closeOnScroll={true}
+            selected={startDate}
+            onChange={(date) => {setStartDate(date)}}
+            type='submit'
+          />
+          <TimeRangePicker
+            className='react-timerange-picker'
+            onChange={onChange}
+            value={value}
+            type='submit'
+          />
+          <IconButton aria-label='Search database' icon={<SearchIcon />}
+            backgroundColor='brand.500'
+            color='brand.400'
+            size='lg'
+            textStyle='button'
+            fontSize='1vw'
+            _hover={{
+              backgroundColor: 'brand.400',
+              color: 'brand.500'
+            }}
+            onClick={(e) => {searchEventsTime()}}
+          />
+        </Flex>
+        <Flex
+          flexDirection='row'
+          w='50vw'
+          alignItems='center'
+          justifyContent='space-around'
+          marginRight='2vw'
+        >
             <ChevronLeftIcon
               ref={slideLeft}
               w={8}
@@ -109,9 +138,15 @@ const HomePage = ({ searchEvent }) => {
                 categories.current.scrollBy(-500, 0);
               }}
             />
-            {/* <div ref={categories} className='categories'> */}
-            <Box w="90%" overflowX="auto">
-              <ButtonGroup spacing={6} direction="row" align="center">
+            <Box w='90%'
+              overflowX='hidden'
+              ref={categories}
+            >
+              <ButtonGroup
+                spacing={6}
+                direction="row"
+                align="center"
+              >
                 {categoriesList.map((category, idx) => (
                   <Button
                     backgroundColor="brand.400"
@@ -128,7 +163,6 @@ const HomePage = ({ searchEvent }) => {
                 ))}
               </ButtonGroup>
             </Box>
-            {/* </div> */}
             <ChevronRightIcon
               ref={slideRight}
               w={8}
@@ -145,7 +179,7 @@ const HomePage = ({ searchEvent }) => {
           fontSize="5vh"
           marginLeft="5vw"
           marginTop="2vw"
-          marginBottom="2vw"
+          marginBottom='1vw'
         >
           Popular near you...
         </Heading>
@@ -170,7 +204,6 @@ const HomePage = ({ searchEvent }) => {
             })}
           </Grid>
         ) : null}
-      </div>
     </Flex>
   );
 };

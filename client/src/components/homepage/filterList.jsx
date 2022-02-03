@@ -16,7 +16,7 @@ const FilterList = ({ category, events, handleReset }) => {
 
   return (
     <Box pl="5em">
-      <HStack spacing="5">
+      <HStack spacing="5" marginBottom='2.5vh'>
         <Box>Filter by: {category}</Box>
         <Button onClick={handleReset}>
           Reset <Icon as={GrPowerReset} w={4} h={4} pl="2px" />

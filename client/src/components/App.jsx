@@ -1,19 +1,7 @@
 import { Header } from './header';
 import HomePage from './homepage/homepage.jsx';
 import React, { useState, useEffect } from "react";
-import {
-  Box, Heading, Spacer, Menu, Stack, FormControl, Input,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button,
-  Flex,
-  extendTheme
-} from '@chakra-ui/react';
+import { Box, Input, Button, Flex} from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -38,7 +26,7 @@ const App = () => {
 
   return (
     <div>
-      <Header />
+      <Header/>
       <Box
         backgroundImage="url('./images/RaccoonParty.jpeg')"
         backgroundSize='cover'

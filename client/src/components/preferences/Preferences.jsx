@@ -209,7 +209,7 @@ const Preferences = ({userId}) => {
 
     return (
       <div>
-        <Box bg='tomato' w='100%' p={4} mt={2} mb={4} color='white'>
+        <Box bg='brand.400' w='100%' p={4} mt={2} mb={4} color='white'>
           <Heading>{currentStepData.label}</Heading>
           <p>{currentStepData.question}</p>
         </Box>
@@ -233,17 +233,17 @@ const Preferences = ({userId}) => {
 
       <div className="controls">
         {stepIndex > 0 &&
-          <Box as='button' onClick={handlePrevious} borderRadius='md' bg='tomato' color='white' mr={2} px={4} h={8}>
+          <Box as='button' onClick={handlePrevious} borderRadius='md' bg='brand.400' color='white' mr={2} px={4} h={8}>
            Previous
           </Box>
         }
         {stepIndex < steps.length - 1 &&
-          <Box as='button' onClick={handleNext} borderRadius='md' bg='tomato' color='white' px={4} h={8}>
+          <Box as='button' onClick={handleNext} borderRadius='md' bg='brand.400' color='white' px={4} h={8}>
             Next
           </Box>
         }
         {stepIndex === steps.length - 1 &&
-          <Box as='button' onClick={handleFinish} borderRadius='md' bg='tomato' color='white' px={4} h={8}>
+          <Box as='button' onClick={handleFinish} borderRadius='md' bg='brand.400' color='white' px={4} h={8}>
             Finish
           </Box>
         }

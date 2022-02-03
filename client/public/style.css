@@ -32,12 +32,6 @@
   left: 0px;
 }
 
-
-
-
-
-
-
 .calendar {
   border-radius: 8px;
   font-size: 2vh;
@@ -61,48 +55,9 @@
 
 .categories {
   width: 90%;
-  overflow-x: scroll;
+  /* overflow-x:; */
 }
 
-.eventContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  margin: 0;
-  font-family: 'Questrial', sans-serif;
-  font-size: 2vh;
-}
-
-.eventRows {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  margin-top: 2vw;
-  margin-bottom: 5vw;
-  margin-left: 2.5vw;
-  margin-right: 2.5vw;
-}
-
-.homePageEventCard {
-  width: 35vh;
-  height: 50vh;
-  text-align: center;
-  margin-left: 1.5vw;
-  margin-right: 1.5vw;
-}
-
-.homePageEventPhoto {
-  width: 32vh;
-  height: 48vh;
-  text-align: center;
-  border-radius: 5%;
-  object-fit: cover;
-}
-
-
-.homePageRelative {
-  position: relative;
-}
 
 .pepe {
   height: 10vw;
