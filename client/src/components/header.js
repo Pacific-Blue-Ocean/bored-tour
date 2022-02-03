@@ -25,9 +25,9 @@ export const Header = () => {
     <div className="headerContainer">
       <div className={path === '/' ? '' : "headerBackGround"}>
         <div className="header">
-          <Flex>
+          <Flex alignItems='center'>
             <Link to="/">
-              <Heading as='h1' h='11.5vh' fontSize='6vh' color='brand.400' p={8}>
+              <Heading as='h1' p={5} fontSize='6vh' color='brand.400'>
                 bored tour
               </Heading>
             </Link>
