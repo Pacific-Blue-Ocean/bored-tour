@@ -22,6 +22,7 @@ import FilterList from "./filterList.jsx";
 
 const HomePage = ({ searchEvent }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [reset, setReset] = useState(false);
 
   const categories = useRef(null);
   const slideLeft = useRef(null);
@@ -36,12 +37,12 @@ const HomePage = ({ searchEvent }) => {
   const [duration, setDuration] = useState("");
 
   useEffect(() => {
-    const getEvents = axios
-      .get("/api/events", { params: { limit: 10, page: 0 } })
+    const getEvents = axios.get("/api/events", { params: { limit: 10, page: 0 } })
       .then((response) => {
         setEvents(response.data);
       });
-    const getAllCategories = axios.get("/api/categories").then((response) => {
+    const getAllCategories = axios.get("/api/categories")
+      .then((response) => {
       setCategoriesList(response.data);
     });
     const promises = [getEvents, getAllCategories];
@@ -52,7 +53,7 @@ const HomePage = ({ searchEvent }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [reset]);
 
   useEffect(() => {
     if (searchEvent.length > 0) {
@@ -65,8 +66,11 @@ const HomePage = ({ searchEvent }) => {
     setInitial(false);
     setLabel(event.target.name);
   };
+
   const handleReset = () => {
     setLabel("");
+    setReset(!reset);
+    setStartDate(new Date());
   };
 
   const searchEventsTime = () => {
@@ -75,6 +79,7 @@ const HomePage = ({ searchEvent }) => {
     const newEvents = events.filter((event, idx) => event.event_length_minutes == newDuration && event.date.slice(0,10) === newDate)
     setEvents(newEvents)
   }
+
 
   return (
     <Flex
