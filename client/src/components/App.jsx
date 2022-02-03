@@ -20,7 +20,6 @@ import axios from 'axios';
 import { auth, logout} from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-
 const App = () => {
   const [search, setSearch] = useState(null)
   const [searchEvent, setSearchEvent] = useState([])
@@ -54,7 +53,7 @@ const App = () => {
             <Link to="/events"><MenuItem>My Events</MenuItem></Link>
             <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
             <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-            <Button onClick={logout}> Log Out </Button>
+            <Link to="/" onClick={logout}><MenuItem>Log Out</MenuItem></Link>
           </MenuList>
         </Menu>
         </Box>

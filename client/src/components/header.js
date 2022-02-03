@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from "react-router-dom";
-import { auth} from './firebase';
+import { auth, logout } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 export const Header = () => {
@@ -40,6 +40,7 @@ export const Header = () => {
                 <Link to="/events"><MenuItem>My Events</MenuItem></Link>
                 <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
                 <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
+                <Link to="/" onClick={logout}><MenuItem>Log Out</MenuItem></Link>
               </MenuList>
             </Menu>
             </Box>

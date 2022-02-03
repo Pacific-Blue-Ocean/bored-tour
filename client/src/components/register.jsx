@@ -3,8 +3,7 @@ import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chak
 import { Link, useNavigate } from "react-router-dom";
 import { auth, registerWithEmailAndPassword } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
-
+import axios from "axios";
 
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,14 +12,25 @@ export const Register = () => {
   const [password, setPassword] = useState('');
   const [user, loading, error] = useAuthState(auth);
 
-
   const navigate = useNavigate();
-
   const handleShowClick = () => setShowPassword(!showPassword);
 
   const register = (event) => {
     event.preventDefault();
     registerWithEmailAndPassword(name, email, password);
+
+    console.log(user);
+    console.log(user.email)
+    console.log(user.displayName)
+    console.log(user.uid)
+    const {email, displayName, uid} = user;
+
+    const body = {
+      email: user.email,
+      full_name: displayName,
+    }
+
+    axios.post('/api/users/add', body)
   };
 
   const theme = extendTheme({
@@ -34,6 +44,7 @@ export const Register = () => {
       },
     },
   })
+
   useEffect(() => {
     const navigateToSurvey = () => navigate('/interests');
     if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
