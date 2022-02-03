@@ -10,14 +10,16 @@ const FilterList = ({ category, events, handleReset }) => {
     setList(
       category === "All"
         ? events
-        : events.filter((event) => event.categories.indexOf(category) !== -1)
+        : events.filter((event) => {
+          event.categories.sort().toString().replaceAll(' ', '').indexOf(category.sort().toString().replaceAll(' ', '')) !== -1;
+        })
     );
   }, [category]);
 
   return (
     <Box pl="5em">
       <HStack spacing="5" pb="1em">
-        <Box>Filter by: {category}</Box>
+        <Box>Filter by: {category} </Box>
         <Button align="center" size='sm' onClick={handleReset}>
           Reset {" "} <Icon as={MdSettingsBackupRestore} w={6} h={6} pl="2px" color="#EC7C71"/>
         </Button>

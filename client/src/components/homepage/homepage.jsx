@@ -28,7 +28,7 @@ const HomePage = ({ searchEvent }) => {
   const [categoriesList, setCategoriesList] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [value, onChange] = useState(["10:00", "11:00"]);
-  const [label, setLabel] = useState("");
+  const [label, setLabel] = useState([]);
   const [initial, setInitial] = useState(true);
 
   useEffect(() => {
@@ -59,10 +59,10 @@ const HomePage = ({ searchEvent }) => {
   const handleClick = (event) => {
     event.preventDefault();
     setInitial(false);
-    setLabel(event.target.name);
+    setLabel([...label, event.target.name]);
   };
   const handleReset = () => {
-    setLabel("");
+    setLabel([]);
   };
 
   return (
