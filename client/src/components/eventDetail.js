@@ -21,7 +21,7 @@ import moment from "moment";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EventDetail = ({userId}) => {
+const EventDetail = ({ userId }) => {
   const params = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState([]);
@@ -52,8 +52,6 @@ const EventDetail = ({userId}) => {
     }
   }, []);
 
-
-  // app.post('/api/events/users', events.addUserToEvent);
   const ReserveEvent = (e) => {
     e.preventDefault();
     axios.post('/api/events/users', { user_id: currentUser_id, event_id: params.eventId });
@@ -62,14 +60,14 @@ const EventDetail = ({userId}) => {
   return (
     <Box>
       <Header />
-      <Box pl="8em" pr="8em" pd="2em">
+      <Box pl="10em" pr="6em" pd="2em">
         <HStack spacing="80px">
           <VStack align="left" w="500px" spacing="60px">
             <Image
-            bg="tomato"
+              bg="tomato"
               boxSize="500px"
               objectFit="cover"
-              align="left"
+              align="center"
               src={event.mainphoto}
               alt="event image"
             />
@@ -99,25 +97,24 @@ const EventDetail = ({userId}) => {
             </Box>
           </VStack>
 
-          <VStack align="left" w="500px" spacing="80px" pt="5em" >
+          <VStack align="left" w="500px" spacing="80px" pt="5em">
             <Box pb="5em">
-
-            <Heading pb="2em">{event.title}</Heading>
-            <VStack align="left" spacing="4" pb="5em">
-              <Box>
-                <Text fontWeight="bold" display="inline-block">
-                  Price:{" "}
-                </Text>
-                {event.price ? ` $${event.price}` : " Free"}
-              </Box>
-              <Box>
-                <Text fontWeight="bold" display="inline-block">
-                  Type:{" "}
-                </Text>
-                {event.digital ? " Digital" : " In Person"}
-              </Box>
-            </VStack>
-            <HStack>
+              <Heading pb="2em">{event.title}</Heading>
+              <VStack align="left" spacing="4" pb="5em">
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
+                    Price:{" "}
+                  </Text>
+                  {event.price ? ` $${event.price}` : " Free"}
+                </Box>
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
+                    Type:{" "}
+                  </Text>
+                  {event.digital ? " Digital" : " In Person"}
+                </Box>
+              </VStack>
+              <HStack>
               <Button
                 h="50px"
                 w="30%"
@@ -157,20 +154,32 @@ const EventDetail = ({userId}) => {
                   })
                 }}
                 >
-                Add Friends <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
-              </Button>
-            </HStack>
-            </Box>
-            <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                  Add Friends{" "}
+                  <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
+                </Button>
+              </HStack>
+              </Box>
+              {address !== 'null null null' ? (
+                <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                  <Box>
+                    <Heading size="lg">Location:</Heading>
+                    <Text pt="1em" pb="1em">
+                      {address}
+                    </Text>
+                  </Box>
+                  <Map address={address} />
+                </VStack>
+              ) : (
+                <VStack pt="5em" spacing="30px" align="left" pb="2em">
+                  <Box>
 
-            <Box>
-              <Heading size="lg">Location:</Heading>
-              <Text pt="1em" pb="1em">
-                {address}
-              </Text>
-            </Box>
-            <Map address={address} />
-            </VStack>
+                  <Heading size="lg">Location:</Heading>
+                  <Text pb="35em" pt="1em">
+                    Online Only
+                  </Text>
+                  </Box>
+                </VStack>
+              )}
           </VStack>
         </HStack>
       </Box>
