@@ -13,21 +13,22 @@ import {
   extendTheme
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { auth, logout } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 export const Header = () => {
   const [user, loading, error] = useAuthState(auth);
+  const path = useLocation().pathname;
 
- return(
+ return (
     <div className="headerContainer">
-      <div className="headerBackGround">
-        <div className="header" >
+      <div className={path === '/' ? '' : "headerBackGround"}>
+        <div className="header">
           <Flex>
             <Link to="/">
-              <Heading as='h1' h='11.5vh' fontSize='6vh' color='brand.400' p={8}
-              >bored tour
+              <Heading as='h1' h='11.5vh' fontSize='6vh' color='brand.400' p={8}>
+                bored tour
               </Heading>
             </Link>
             <Spacer />
