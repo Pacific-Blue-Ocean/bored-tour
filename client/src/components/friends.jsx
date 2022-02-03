@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Header } from './header';
-import Friend from './friends/friend.jsx';
+import Friend from './friend.jsx';
 import { auth } from './firebase';
 
 function Friends() {
