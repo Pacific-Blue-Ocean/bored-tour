@@ -18,10 +18,17 @@ const FilterList = ({ category, events, handleReset }) => {
 
   return (
     <Box pl="5em">
+<<<<<<< HEAD
       <HStack spacing="5" pb="1em">
         <Box>Filter by: {category} </Box>
         <Button align="center" size='sm' onClick={handleReset}>
           Reset {" "} <Icon as={MdSettingsBackupRestore} w={6} h={6} pl="2px" color="#EC7C71"/>
+=======
+      <HStack spacing="5" marginBottom='2.5vh'>
+        <Box>Filter by: {category}</Box>
+        <Button onClick={handleReset}>
+          Reset <Icon as={GrPowerReset} w={4} h={4} pl="2px" />
+>>>>>>> main
         </Button>
       </HStack>
       <Grid

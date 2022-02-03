@@ -53,9 +53,11 @@ const getSpecificEvent = async (req, res) => {
 const getEventsByTime = async (req, res) => {
   let limit = req.query.limit || 10;
   let page = req.query.page || 0;
-  let minutes = req.query.minutes;
+  let date = req.query.date;
+  let validFrom = req.query.validFrom;
+  let validTo = req.query.validTo;
   try {
-    const { rows } = await models.getEventsByTime(minutes,limit, page);
+    const { rows } = await models.getEventsByTime(date, validFrom, validTo, limit, page);
     res.send(rows);
   } catch (e) {
     res.status(500).send(e);

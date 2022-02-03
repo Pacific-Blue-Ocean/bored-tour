@@ -6,7 +6,6 @@ const getSurvey = async (req, res) => {
 }
 
 const getUserPreferences = async (req, res) => {
-  console.log('getUserPreferences')
   const { id } = req.params;
   const { rows } = await models.getUserPreferences(id);
 
@@ -14,7 +13,6 @@ const getUserPreferences = async (req, res) => {
 }
 
 const getAllCategories = async (req, res) => {
-  console.log('getCategories')
   const { rows } = await models.getAllCategories();
   res.send(rows);
 }

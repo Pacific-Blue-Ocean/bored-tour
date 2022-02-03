@@ -16,8 +16,8 @@ import {
   Checkbox,
   CheckboxGroup
 } from '@chakra-ui/react';
-import { auth } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import StepLocation from './StepLocation.jsx';
+import StepOptions from './StepOptions.jsx';
 
 
 const Preferences = ({userId}) => {
@@ -34,14 +34,7 @@ const Preferences = ({userId}) => {
   const [userPreferences, setUserPreferences] = useState([]);
   // current user selected location
   const [userLocation, setUserLocation] = useState(null);
-  const [user, loading, error] = useAuthState(auth);
 
-  useEffect(() => {
-    const navigateHome = () => navigate('/');
-    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
-    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
-    if (!user) navigateHome();
-  }, [user, loading]);
 
   /**
    * DidInsertElement
@@ -54,17 +47,17 @@ const Preferences = ({userId}) => {
 
     // Fetch all steps and locations.
     // Set locations and preferencesSteps state
-    const preferencesSteps = await axios('/api/preferences');
     const locations = await axios.get('/api/locations');
     setLocations(locations.data);
-    setSteps(preferencesSteps.data);
-
     // Fetch user data to get the user location + the user preferences
     // Set userPrefences and userLocation state.
     const user = await axios(`/api/users/${userId}`);
+    setUserLocation(user.data[0].location_id);
+
+    const preferencesSteps = await axios('/api/preferences');
     const userPreferences = await axios(`/api/users/${userId}/preferences`);
     setUserPreferences(userPreferences.data);
-    setUserLocation(user.data[0].location_id);
+    setSteps(preferencesSteps.data);
 
     setIsLoading(false);
   }, []);
@@ -90,7 +83,6 @@ const Preferences = ({userId}) => {
     const sortedUserPreferences = userPreferences.sort((a,b) => a - b)
     await axios.post(`/api/users/${userId}/preferences`, userPreferences);
 
-    console.log('hanldeFinish location', parseInt(userLocation))
     await axios.put(`/api/users/${userId}/location`, {locationId: parseInt(userLocation)});
 
     const hasUserCompletedSurvey = await axios.get(`/api/users/${userId}/has-completed-survey`);
@@ -101,95 +93,6 @@ const Preferences = ({userId}) => {
     }
 
     navigate(`/`);
-  }
-
-  /**
-   * Handle changing the location
-   * @param {Object} evt
-   */
-  const handleLocationChange = (evt) => {
-    console.log('handlelocationchange locaiton', evt.target.value)
-    setUserLocation(evt.target.value);
-  }
-
-  /**
-   * Renders the location step component
-   * @returns locationStepComponent
-   */
-  const renderLocationStep = () => {
-    // The content of the input will be save in user.location_id
-    if(locations.length === 0) {
-      return '...loading';
-    }
-
-    return (
-      <div>
-        {/* <p>Locations</p> */}
-        <select onChange={handleLocationChange} name="locations" defaultValue={userLocation}>
-          {locations.map(loc => {
-            console.log(userLocation===loc.id, userLocation, loc.id)
-            return (<option key={loc.id} value={loc.id}>{loc.label}</option>)
-          })}
-        </select>
-
-      </div>
-    )
-  }
-
-  /**
-   * Handles checkboxes changes
-   * @returns locationStepComponent
-   */
-  const handlePreferenceCheckboxOnChange = (evt) => {
-    const preferenceId = parseInt(evt.target.value);
-    const isCurrentlyChecked = userPreferences.includes(preferenceId);
-    let newPreferences = [];
-
-    if (isCurrentlyChecked) {
-      newPreferences = userPreferences.filter(prefId =>  prefId !== preferenceId);
-    } else {
-      newPreferences = [...userPreferences, preferenceId];
-    }
-
-    setUserPreferences(newPreferences);
-  }
-
-  /**
-   * Renders the options step component
-   * @returns locationStepComponent
-   */
-  const renderOptionsStep = () => {
-    const preferences = steps[stepIndex].preferences;
-
-    if (!preferences) {
-      return null;
-    }
-
-    return (
-      <>
-        <List spacing={3} mb={4}>
-          {preferences.map(pref => (
-            <ListItem display="flex" alignItems="center" key={pref.id}>
-              <Checkbox
-                isChecked={userPreferences.includes(pref.id)}
-                spacing='1rem'
-                onChange={handlePreferenceCheckboxOnChange}
-                value={pref.id}
-              >{pref.label}</Checkbox>
-
-
-              {/* <input
-
-                value={pref.id}
-                checked={userPreferences.includes(pref.id)}
-                type="checkbox"
-              /> */}
-
-            </ListItem>
-          ))}
-        </List>
-      </>
-    )
   }
 
   /**
@@ -209,13 +112,28 @@ const Preferences = ({userId}) => {
 
     return (
       <div>
-        <Box bg='tomato' w='100%' p={4} mt={2} mb={4} color='white'>
+        <Box bg='brand.400' w='100%' p={4} mt={2} mb={4} color='white'>
           <Heading>{currentStepData.label}</Heading>
           <p>{currentStepData.question}</p>
         </Box>
 
-        { currentStepData.type === 'location' && renderLocationStep() }
-        { currentStepData.type === 'options' && renderOptionsStep() }
+        { currentStepData.type === 'location' && (
+          <StepLocation
+            userLocation={userLocation}
+            locations={locations}
+            setUserLocation={setUserLocation}
+          />
+        ) }
+
+
+        { currentStepData.type === 'options' && (
+          <StepOptions
+            steps={steps}
+            stepIndex={stepIndex}
+            userPreferences={userPreferences}
+            setUserPreferences={setUserPreferences}
+          />
+        ) }
       </div>
     )
   }
@@ -233,17 +151,17 @@ const Preferences = ({userId}) => {
 
       <div className="controls">
         {stepIndex > 0 &&
-          <Box as='button' onClick={handlePrevious} borderRadius='md' bg='tomato' color='white' mr={2} px={4} h={8}>
+          <Box as='button' onClick={handlePrevious} borderRadius='md' bg='brand.400' color='white' mr={2} px={4} h={8}>
            Previous
           </Box>
         }
         {stepIndex < steps.length - 1 &&
-          <Box as='button' onClick={handleNext} borderRadius='md' bg='tomato' color='white' px={4} h={8}>
+          <Box as='button' onClick={handleNext} borderRadius='md' bg='brand.400' color='white' px={4} h={8}>
             Next
           </Box>
         }
         {stepIndex === steps.length - 1 &&
-          <Box as='button' onClick={handleFinish} borderRadius='md' bg='tomato' color='white' px={4} h={8}>
+          <Box as='button' onClick={handleFinish} borderRadius='md' bg='brand.400' color='white' px={4} h={8}>
             Finish
           </Box>
         }
