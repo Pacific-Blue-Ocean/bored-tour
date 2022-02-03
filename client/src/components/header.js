@@ -18,7 +18,7 @@ import { auth, logout } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLocation } from 'react-router-dom'
 
-export const Header = (fade) => {
+export const Header = () => {
   const [user, loading, error] = useAuthState(auth);
   const path = useLocation().pathname;
 
