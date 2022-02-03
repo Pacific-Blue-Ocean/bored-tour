@@ -44,7 +44,7 @@ function Friend({ user_id, friend, event_id }) {
 
   const handleFriendEvents = (e) => {
     console.log(`Show events for user_id: ${friend.id}`);
-    navigate({ pathname: '/events', user_id: `${friend.id}` });
+    navigate( '/events', {state: { user_id: `${friend.id}`, name: `${friend.full_name}` }});
   };
 
   const handleInvite = (e) => {
