@@ -4,7 +4,8 @@ drop table if exists events_users cascade;
 create table events_users (
   id           bigserial not null primary key,
   events_id    bigserial not null,
-  user_id      varchar(50) not null
+  user_id      varchar(50) not null,
+  UNIQUE (events_id, user_id)
 );
 
 -- Populate relationships
