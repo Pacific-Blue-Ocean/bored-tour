@@ -10,7 +10,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useRef, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
-import Event from './event.jsx'
+import Event from './event.jsx';
+import FilterList from './filterList.jsx';
 
 const HomePage = ( { searchEvent } ) => {
 
@@ -23,6 +24,8 @@ const HomePage = ( { searchEvent } ) => {
   const [events, setEvents] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [value, onChange] = useState(new Date());
+  const [label, setLabel] = useState('');
+  const [initial, setInitial] = useState(true);
 
   useEffect(() => {
     const getEvents = axios.get('/api/events', { params: { limit: 10, page: 0 } })
@@ -46,6 +49,16 @@ const HomePage = ( { searchEvent } ) => {
   const eventRows = events.reduce(function(rows, key, index) {
     return (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
   }, [])
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    setInitial(false);
+    setLabel(event.target.name);
+  }
+  const handleReset = () => {
+    setLabel('');
+  }
+
 
   return (
     <div className='homePageRelative'>
@@ -90,8 +103,8 @@ const HomePage = ( { searchEvent } ) => {
                 textStyle='button'
                 fontSize='1vw'
                 key={idx}
-                //need category label in events
-                // onClick={() => {setHomePageEvents(category.label)}}
+                name={category.label}
+                onClick={(e) => handleClick(e)}
               >{category.label}
               </Button>
             ))}
@@ -110,6 +123,9 @@ const HomePage = ( { searchEvent } ) => {
       <h2 className='homepageSubheading'>
         Popular near you...
       </h2>
+      <FilterList category={label.length > 0 ? label : 'All'} events={events} handleReset={handleReset} />
+      {initial ?
+
       <div className='eventContainer'>
         {eventRows.map((row, idx) => (
           <div
@@ -124,6 +140,7 @@ const HomePage = ( { searchEvent } ) => {
           </div>
           ))}
       </div>
+      : null}
     </div>
   )
 }
