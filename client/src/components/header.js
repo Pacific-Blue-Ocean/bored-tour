@@ -37,10 +37,12 @@ export const Header = () => {
               {user ? user.email : "Menu"}
               </MenuButton>
               <MenuList fontSize='2.5vh' color='brand.400'>
-                <Link to="/events"><MenuItem>My Events</MenuItem></Link>
-                <Link to="/friends"><MenuItem>My Friends</MenuItem></Link>
-                <Link to="/interests"><MenuItem>My Interests</MenuItem></Link>
-                <Link to="/" onClick={logout}><MenuItem>Log Out</MenuItem></Link>
+                {user ? <Link to="/events"><MenuItem>My Events</MenuItem></Link> : null}
+                {user ? <Link to="/friends"><MenuItem>My Friends</MenuItem></Link> : null}
+                {user ? <Link to="/interests"><MenuItem>My Interests</MenuItem></Link> : null}
+                {user ? <Link to="/" onClick={logout}><MenuItem>Log Out</MenuItem></Link> : null}
+                {user ? null : <Link to="/login"><MenuItem>Log In</MenuItem></Link>}
+                {user ? null : <Link to="/register"><MenuItem>Register</MenuItem></Link>}
               </MenuList>
             </Menu>
             </Box>
