@@ -7,6 +7,7 @@ import {
   Heading,
   Box,
   IconButton,
+  SimpleGrid
 } from "@chakra-ui/react";
 import {
   ChevronLeftIcon,
@@ -88,8 +89,9 @@ const HomePage = ({ searchEvent }) => {
   };
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" >
       <Flex
+        display={{base: 'none', md: 'flex'}}
         marginTop="2vw"
         marginBottom="0"
         flexDirection="row"
@@ -180,7 +182,7 @@ const HomePage = ({ searchEvent }) => {
         </Flex>
       </Flex>
       <Heading
-        fontSize="5vh"
+        fontSize={{ base: '20px', md: "5vh"}}
         marginLeft="5vw"
         marginTop="2vw"
         marginBottom="1vw"
@@ -193,20 +195,11 @@ const HomePage = ({ searchEvent }) => {
         handleReset={handleReset}
       />
       {initial ? (
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={1}
-          autoRows="auto"
-          justify-content="space-evenly"
-          justify-items="center"
-          align-content="space-evenly"
-          align-items="center"
-          marginBottom="1.5vw"
-        >
+        <SimpleGrid columns={[1, 2,2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}
-        </Grid>
+        </SimpleGrid>
       ) : null}
     </Flex>
   );

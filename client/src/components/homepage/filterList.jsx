@@ -30,7 +30,7 @@ const FilterList = ({ category, events, handleReset }) => {
   }, [category]);
 
   return (
-    <Box pl="5em">
+    <Box pl="5em" display={{base: 'none', md: 'block'}}>
       <HStack spacing="5" marginBottom="2.5vh">
         <Box fontWeight="bold">
           Filter by:{" "}

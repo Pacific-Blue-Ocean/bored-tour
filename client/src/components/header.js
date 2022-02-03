@@ -25,7 +25,7 @@ export const Header = () => {
     <div className="headerContainer">
       <div className={path === '/' ? '' : "headerBackGround"}>
         <div className="header">
-          <Flex alignItems='center'>
+          <Flex alignItems='center' direction={{ base: 'column', sm: 'row'}}>
             <Link to="/">
               <Heading as='h1' p={5} fontSize='6vh' color='brand.400'>
                 bored tour
