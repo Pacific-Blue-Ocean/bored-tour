@@ -7,7 +7,7 @@ create table users (
   email                 varchar(50) not null,
   full_name             varchar(50) not null,
   has_completed_survey  boolean default false,
-  location_id           bigserial not null default 1
+  location_id           bigserial not null
 );
 
 -- Foreign key

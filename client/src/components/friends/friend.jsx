@@ -4,9 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
 import pepe from '../../../public/images/PepeProfile.jpeg';
-
 
 function Friend({ user_id, friend, event_id }) {
   const navigate = useNavigate();
