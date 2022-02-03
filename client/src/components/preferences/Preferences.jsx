@@ -16,27 +16,8 @@ import {
   Checkbox,
   CheckboxGroup
 } from '@chakra-ui/react';
-import { auth } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-
-const groupByParent = (arr) => {
-  const grouped = [];
-  for(let i = 0; i < arr.length; i++) {
-    const el = arr[i];
-    const isParent = !el.parent_preference_id;
-    if (isParent) {
-      grouped.push(el);
-    } else {
-      const parent = grouped.find(par => par.id === el.parent_preference_id);
-      if (parent.child) {
-        parent.child.push(el);
-      } else {
-        parent.child = [el];
-      }
-    }
-  }
-  return grouped;
-}
+import StepLocation from './StepLocation.jsx';
+import StepOptions from './StepOptions.jsx';
 
 
 const Preferences = ({userId}) => {
@@ -53,18 +34,7 @@ const Preferences = ({userId}) => {
   const [userPreferences, setUserPreferences] = useState([]);
   // current user selected location
   const [userLocation, setUserLocation] = useState(null);
-  const [user, loading, error] = useAuthState(auth);
 
-  const [decoratedSteps, setDecoratedSteps] = useState([]);
-
-
-
-  useEffect(() => {
-    const navigateHome = () => navigate('/');
-    if (error) return <img src="https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1" alt="Error" />;
-    if (loading) return <img src="https://images.wondershare.com/mockitt/ux-beginner/loading-time-tips.jpeg" alt="Loading" />;
-    if (!user) navigateHome();
-  }, [user, loading]);
 
   /**
    * DidInsertElement
@@ -88,20 +58,6 @@ const Preferences = ({userId}) => {
     const userPreferences = await axios(`/api/users/${userId}/preferences`);
     setUserPreferences(userPreferences.data);
     setSteps(preferencesSteps.data);
-
-
-     // merge preferencesSteps with userPreferences
-     const stepsPreferencesWithIsChecked = preferencesSteps.data.map(step => {
-      if (step.preferences) {
-        step.preferences = step.preferences.map(pref => {
-          pref.checked = userPreferences.data.includes(pref.id);
-          return pref;
-        })
-      }
-      return step;
-    })
-    setDecoratedSteps(stepsPreferencesWithIsChecked);
-
 
     setIsLoading(false);
   }, []);
@@ -127,7 +83,6 @@ const Preferences = ({userId}) => {
     const sortedUserPreferences = userPreferences.sort((a,b) => a - b)
     await axios.post(`/api/users/${userId}/preferences`, userPreferences);
 
-    console.log('hanldeFinish location', parseInt(userLocation))
     await axios.put(`/api/users/${userId}/location`, {locationId: parseInt(userLocation)});
 
     const hasUserCompletedSurvey = await axios.get(`/api/users/${userId}/has-completed-survey`);
@@ -138,117 +93,6 @@ const Preferences = ({userId}) => {
     }
 
     navigate(`/`);
-  }
-
-  /**
-   * Handle changing the location
-   * @param {Object} evt
-   */
-  const handleLocationChange = (evt) => {
-    console.log('handlelocationchange locaiton', evt.target.value)
-    setUserLocation(evt.target.value);
-  }
-
-  /**
-   * Renders the location step component
-   * @returns locationStepComponent
-   */
-  const renderLocationStep = () => {
-    // The content of the input will be save in user.location_id
-    if(locations.length === 0) {
-      return '...loading';
-    }
-
-    return (
-      <div>
-        {/* <p>Locations</p> */}
-        <select onChange={handleLocationChange} name="locations" defaultValue={userLocation}>
-          {locations.map(loc => {
-            console.log(userLocation===loc.id, userLocation, loc.id)
-            return (<option key={loc.id} value={loc.id}>{loc.label}</option>)
-          })}
-        </select>
-
-      </div>
-    )
-  }
-
-  /**
-   * Handles checkboxes changes
-   * @returns locationStepComponent
-   */
-  const handlePreferenceCheckboxOnChange = (evt) => {
-    const preferenceId = parseInt(evt.target.value);
-
-    // debugger
-    const isCurrentlyChecked = userPreferences.includes(preferenceId);
-    let newPreferences = [];
-
-    if (isCurrentlyChecked) {
-      newPreferences = userPreferences.filter(prefId =>  prefId !== preferenceId);
-    } else {
-      newPreferences = [...userPreferences, preferenceId];
-    }
-
-    setUserPreferences(newPreferences);
-  }
-
-  const renderChild = (par) => {
-    if (!par.child.length) {
-      return null;
-    }
-  }
-
-  /**
-   * Renders the options step component
-   * @returns locationStepComponent
-   */
-  const renderOptionsStep = () => {
-    const preferences =  groupByParent(steps[stepIndex].preferences);
-
-    console.log('preferences', preferences)
-
-    if (!preferences) {
-      return null;
-    }
-
-    return (
-      <>
-        <List spacing={3} mb={4}>
-          {preferences.map(pref => (
-            <ListItem display="flex" alignItems="center" key={pref.id}>
-              <Checkbox
-                isChecked={userPreferences.includes(pref.id)}
-                spacing='1rem'
-                onChange={handlePreferenceCheckboxOnChange}
-                value={pref.id}
-              >
-                {pref.label}
-              </Checkbox>
-              {
-                pref.child && pref.child.length > 0 &&
-                (
-                  <List spacing={3} mb={4}>
-                    {pref.child.map(child => (
-                      <ListItem display="flex" alignItems="center" key={child.id}>
-                        <Checkbox
-                          isChecked={userPreferences.includes(child.id)}
-                          spacing='1rem'
-                          onChange={handlePreferenceCheckboxOnChange}
-                          value={child.id}
-                        >
-                          {child.label}
-                        </Checkbox>
-                      </ListItem>
-                    ))}
-                  </List>
-                )
-              }
-            </ListItem>
-          ))}
-        </List>
-      </>
-    )
   }
 
   /**
@@ -273,8 +117,23 @@ const Preferences = ({userId}) => {
           <p>{currentStepData.question}</p>
         </Box>
 
-        { currentStepData.type === 'location' && renderLocationStep() }
-        { currentStepData.type === 'options' && renderOptionsStep() }
+        { currentStepData.type === 'location' && (
+          <StepLocation
+            userLocation={userLocation}
+            locations={locations}
+            setUserLocation={setUserLocation}
+          />
+        ) }
+
+
+        { currentStepData.type === 'options' && (
+          <StepOptions
+            steps={steps}
+            stepIndex={stepIndex}
+            userPreferences={userPreferences}
+            setUserPreferences={setUserPreferences}
+          />
+        ) }
       </div>
     )
   }
