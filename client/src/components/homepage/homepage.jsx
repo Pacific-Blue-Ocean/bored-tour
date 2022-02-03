@@ -179,7 +179,7 @@ const HomePage = ({ searchEvent }) => {
           fontSize="5vh"
           marginLeft="5vw"
           marginTop="2vw"
-          marginBottom="2vw"
+          marginBottom='1vw'
         >
           Popular near you...
         </Heading>
