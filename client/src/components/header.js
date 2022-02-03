@@ -13,10 +13,9 @@ import {
   extendTheme
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { auth, logout } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useLocation } from 'react-router-dom'
 
 export const Header = () => {
   const [user, loading, error] = useAuthState(auth);
