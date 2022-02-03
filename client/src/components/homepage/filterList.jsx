@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Box, Icon, HStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Box, Icon, HStack, Grid } from "@chakra-ui/react";
 import React, { useRef, useEffect, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
 import Event from "./event.jsx";
@@ -14,13 +14,6 @@ const FilterList = ({ category, events, handleReset }) => {
     );
   }, [category]);
 
-  let eventRows = list.reduce(function (rows, key, index) {
-    return (
-      (index % 4 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
-      rows
-    );
-  }, []);
-
   return (
     <Box pl="5em">
       <HStack spacing="5">
@@ -29,15 +22,20 @@ const FilterList = ({ category, events, handleReset }) => {
           Reset <Icon as={GrPowerReset} w={4} h={4} pl="2px" />
         </Button>
       </HStack>
-      <div className="eventContainer">
-        {eventRows.map((row, idx) => (
-          <div className="eventRows" key={idx}>
-            {row.map((event, idx) => (
-              <Event event={event} key={idx} />
-            ))}
-          </div>
-        ))}
-      </div>
+      <Grid
+            templateColumns="repeat(4, 1fr)"
+            gap={1}
+            autoRows="auto"
+            justify-content="space-evenly"
+            justify-items="center"
+            align-content="space-evenly"
+            align-items="center"
+            marginBottom="1.5vw"
+          >
+            {list.map((event, idx) => {
+              return <Event event={event} key={idx} />;
+            })}
+          </Grid>
     </Box>
   );
 };

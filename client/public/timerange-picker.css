@@ -11,8 +11,8 @@
   box-sizing: border-box;
 } */
 .react-timerange-picker--disabled {
-  background-color: black;
-  color: black;
+  background-color: white;
+  color: white;
 }
 .react-timerange-picker__wrapper {
   display: flex;
