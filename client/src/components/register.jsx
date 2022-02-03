@@ -20,6 +20,7 @@ export const Register = () => {
     registerWithEmailAndPassword(name, email, password);
 
     const body = {
+      id: email,
       email,
       full_name: name,
     }
@@ -36,7 +37,6 @@ export const Register = () => {
 
 
   return (
-    <ChakraProvider theme={theme}>
       <Box
         backgroundImage="url('./images/RaccoonParty.jpeg')"
         backgroundPosition="center"
@@ -122,6 +122,5 @@ export const Register = () => {
         </Box>
       </Flex>
     </Box>
-    </ChakraProvider >
   );
 };
