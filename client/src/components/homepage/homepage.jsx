@@ -6,7 +6,9 @@ import {
   Flex,
   Heading,
   Box,
-  IconButton
+  IconButton,
+  Stack,
+  Select
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "@chakra-ui/icons";
 import React, { useRef, useEffect, useState } from "react";
@@ -29,9 +31,9 @@ const HomePage = ({ searchEvent }) => {
   const [categoriesList, setCategoriesList] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
-  const [value, onChange] = useState(["10:00", "11:00"]);
   const [label, setLabel] = useState("");
   const [initial, setInitial] = useState(true);
+  const [duration, setDuration] = useState("");
 
   useEffect(() => {
     const getEvents = axios
@@ -68,16 +70,10 @@ const HomePage = ({ searchEvent }) => {
   };
 
   const searchEventsTime = () => {
-    const newDate = startDate.toLocaleDateString()
-    const from = value ? value[0] : '00:00'
-    const to = value ? value[1] : '23:59'
-    axios.get('/api/searchEvents/time', { params: { date: newDate, validFrom: from, validTo: to}})
-      .then((response) => {
-        setEvents(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    const newDuration = duration.substring(0, duration.length - 5)
+    const newDate = startDate.toISOString().slice(0, 10)
+    const newEvents = events.filter((event, idx) => event.event_length_minutes == newDuration && event.date.slice(0,10) === newDate)
+    setEvents(newEvents)
   }
 
   return (
@@ -99,15 +95,35 @@ const HomePage = ({ searchEvent }) => {
             className='calendar'
             closeOnScroll={true}
             selected={startDate}
+            textStyle='button'
             onChange={(date) => {setStartDate(date)}}
             type='submit'
           />
-          <TimeRangePicker
-            className='react-timerange-picker'
-            onChange={onChange}
-            value={value}
-            type='submit'
-          />
+          <Stack spacing={3}>
+            <Select
+              variant='filled'
+              placeholder='Duration'
+              backgroundColor='brand.400'
+              color='brand.500'
+              size='lg'
+              textStyle='button'
+              fontSize='1vw'
+              w='8vw'
+              textStyle='button'
+              textAlign='center'
+              _selection={{
+                backgroundColor: 'brand.400',
+                color: 'brand.500'
+              }}
+              onChange={(e) => setDuration(e.target.value)}
+            >
+            {events.map((event, idx) => event.event_length_minutes).filter((item, i, arr)=> arr.indexOf(item) === i).sort((a, b) => a - b).map((duration, idx) => (
+              <option>
+                {duration} mins
+              </option>
+            ))}
+            </Select>
+          </Stack>
           <IconButton aria-label='Search database' icon={<SearchIcon />}
             backgroundColor='brand.500'
             color='brand.400'
@@ -132,8 +148,8 @@ const HomePage = ({ searchEvent }) => {
               ref={slideLeft}
               w={8}
               h={8}
-              color="black.500"
-              cursor="pointer"
+              color='black.500'
+              cursor='pointer'
               onClick={() => {
                 categories.current.scrollBy(-500, 0);
               }}
@@ -144,16 +160,16 @@ const HomePage = ({ searchEvent }) => {
             >
               <ButtonGroup
                 spacing={6}
-                direction="row"
-                align="center"
+                direction='row'
+                align='center'
               >
                 {categoriesList.map((category, idx) => (
                   <Button
-                    backgroundColor="brand.400"
-                    color="brand.500"
-                    size="lg"
-                    textStyle="button"
-                    fontSize="1vw"
+                    backgroundColor='brand.400'
+                    color='brand.500'
+                    size='lg'
+                    textStyle='button'
+                    fontSize='1vw'
                     key={idx}
                     name={category.label}
                     onClick={(e) => handleClick(e)}
@@ -167,8 +183,8 @@ const HomePage = ({ searchEvent }) => {
               ref={slideRight}
               w={8}
               h={8}
-              color="black.500"
-              cursor="pointer"
+              color='black.500'
+              cursor='pointer'
               onClick={() => {
                 categories.current.scrollBy(500, 0);
               }}
@@ -176,9 +192,9 @@ const HomePage = ({ searchEvent }) => {
           </Flex>
         </Flex>
         <Heading
-          fontSize="5vh"
-          marginLeft="5vw"
-          marginTop="2vw"
+          fontSize='5vh'
+          marginLeft='5vw'
+          marginTop='2vw'
           marginBottom='1vw'
         >
           Popular near you...
@@ -190,14 +206,14 @@ const HomePage = ({ searchEvent }) => {
         />
         {initial ? (
           <Grid
-            templateColumns="repeat(4, 1fr)"
+            templateColumns='repeat(4, 1fr)'
             gap={1}
-            autoRows="auto"
-            justify-content="space-evenly"
-            justify-items="center"
-            align-content="space-evenly"
-            align-items="center"
-            marginBottom="1.5vw"
+            autoRows='auto'
+            justify-content='space-evenly'
+            justify-items='center'
+            align-content='space-evenly'
+            align-items='center'
+            marginBottom='1.5vw'
           >
             {events.map((event, idx) => {
               return <Event event={event} key={idx} />;
