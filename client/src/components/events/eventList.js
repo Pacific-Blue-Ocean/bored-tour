@@ -61,7 +61,7 @@ const EventList = (props) => {
   else {
     return (
       <Flex p={5} border='1px' borderRadius='10px' borderColor='#8F8F8F'>
-        <SimpleGrid columns={4} spacing={10} p={4}>
+        <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           { props.events.map((event, i) => { return <GridItem key={i}><EventItemBlock event={event} /></GridItem> })}
         </SimpleGrid>
       </Flex>

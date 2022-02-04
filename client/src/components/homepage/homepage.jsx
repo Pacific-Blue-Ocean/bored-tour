@@ -1,12 +1,11 @@
 import {
   Button,
   ButtonGroup,
-  Grid,
-  GridItem,
   Flex,
   Heading,
   Box,
   IconButton,
+  SimpleGrid,
   Stack,
   Select,
   HStack,
@@ -20,7 +19,6 @@ import {
 import React, { useRef, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
-import TimeRangePicker from "@wojtekmaj/react-timerange-picker/dist/entry.nostyle";
 import axios from "axios";
 import Event from "./event.jsx";
 import { MdSettingsBackupRestore } from "react-icons/md";
@@ -115,8 +113,9 @@ const HomePage = ({ searchEvent }) => {
   };
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" >
       <Flex
+        display={{base: 'none', md: 'flex'}}
         marginTop="2vw"
         marginBottom="0"
         flexDirection="row"
@@ -229,14 +228,14 @@ const HomePage = ({ searchEvent }) => {
         </Flex>
       </Flex>
       <Heading
-        fontSize="5vh"
+        fontSize={{ base: '20px', md: "5vh"}}
         marginLeft="5vw"
         marginTop="2vw"
         marginBottom="1vw"
       >
         Popular near you...
       </Heading>
-      <Box pl="5em">
+      <Box pl="5em" display={{base: 'none', md: 'flex'}}>
         <HStack spacing="5" marginBottom="2.5vh">
           <Box fontWeight="bold">
             Filter by:{" "}
@@ -248,37 +247,14 @@ const HomePage = ({ searchEvent }) => {
             Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
           </Button>
         </HStack>
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={1}
-          autoRows="auto"
-          justify-content="space-evenly"
-          justify-items="center"
-          align-content="space-evenly"
-          align-items="center"
-          marginBottom="1.5vw"
-        >
-          {events.map((event, idx) => {
-            return <Event event={event} key={idx} />;
-          })}
-        </Grid>
       </Box>
 
       {initial ? (
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={1}
-          autoRows="auto"
-          justify-content="space-evenly"
-          justify-items="center"
-          align-content="space-evenly"
-          align-items="center"
-          marginBottom="1.5vw"
-        >
+        <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}
-        </Grid>
+        </SimpleGrid>
       ) : null}
     </Flex>
   );
