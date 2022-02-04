@@ -192,7 +192,7 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
                   size="lg"
                   textStyle="button"
                   fontSize={{base: "3vw", md: "1vw"}}
-                  h={{base: "5vw", md: "3vw"}}
+                  h={{base: "8vw", md: "3vw"}}
                   key={idx}
                   name={category.label}
                   onClick={(e) => handleClick(e)}
