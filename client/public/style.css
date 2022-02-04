@@ -35,12 +35,18 @@ body {
   background-color: #EC7C71;
   color:#FBFAFA;
   width: 8vw;
-  height: 2.25vw;
+  height: 3vw;
   margin-right: 2vw;
   padding-left: 1vw;
   padding-right: 1vw;
   text-align: center;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .calendar {
+    display: none;
+  }
 }
 
 .calendar:hover {
