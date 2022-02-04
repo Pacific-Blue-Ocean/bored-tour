@@ -11,6 +11,7 @@ import {
   Select,
   HStack,
   Icon,
+  SimpleGrid
 } from "@chakra-ui/react";
 import {
   ChevronLeftIcon,
@@ -228,20 +229,11 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
             Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
           </Button>
         </HStack>
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={1}
-          autoRows="auto"
-          justify-content="space-evenly"
-          justify-items="center"
-          align-content="space-evenly"
-          align-items="center"
-          marginBottom="1.5vw"
-        >
+        <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}
-        </Grid>
+        </SimpleGrid>
       </Box>
     </Flex>
   );
