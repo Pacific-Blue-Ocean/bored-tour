@@ -10,10 +10,13 @@ function App() {
   const [search, setSearch] = useState(null);
   const [searchEvent, setSearchEvent] = useState([]);
 
+
+
   const searchEvents = (e) => {
     e.preventDefault();
     axios.get('/api/searchEvents/title', { params: { search } })
       .then((response) => {
+        console.log(response.data)
         setSearchEvent(response.data);
       })
       .catch((error) => {

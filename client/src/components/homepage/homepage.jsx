@@ -42,8 +42,7 @@ const HomePage = ({ searchEvent }) => {
   const [duration, setDuration] = useState("");
 
   useEffect(() => {
-    const getEvents = axios
-      .get("/api/events", { params: { limit: 10, page: 0 } })
+    const getEvents = axios.get("/api/events", { params: { limit: 10, page: 0 } })
       .then((response) => {
         setEvents(response.data);
       });
@@ -236,7 +235,7 @@ const HomePage = ({ searchEvent }) => {
       >
         Popular near you...
       </Heading>
-      <Box pl="5em">
+      {/* <Box pl="5em">
         <HStack spacing="5" marginBottom="2.5vh">
           <Box fontWeight="bold">
             Filter by:{" "}
@@ -262,7 +261,7 @@ const HomePage = ({ searchEvent }) => {
             return <Event event={event} key={idx} />;
           })}
         </Grid>
-      </Box>
+      </Box> */}
 
       {initial ? (
         <Grid
