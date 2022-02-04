@@ -17,6 +17,7 @@ const Event = ({ event }) => {
         alignItems='center'
         justifyContent='space-around'
         w='32vh'
+        fontWeight='bold'
       >
         <Link to={`/events/${event.id}`} style={{textDecoration: 'none'}}>
           <Image
