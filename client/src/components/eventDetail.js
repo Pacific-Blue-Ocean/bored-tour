@@ -114,7 +114,6 @@ const EventDetail = ({ userId }) => {
                   }}
                   fontWeight="bold"
                   variant="solid"
-                  w="100%"
                   onClick={(e) => {
                     ReserveEvent(e);
                   }}

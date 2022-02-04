@@ -23,7 +23,6 @@ body {
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
   url('./images/RaccoonParty.jpeg');
   position: relative;
-  height: 11.5vh;
   background-position: 25% 70%;
 }
 

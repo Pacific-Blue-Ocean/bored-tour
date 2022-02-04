@@ -20,6 +20,10 @@ insert into users (id, email, full_name, location_id) values ('ericbaldwinn@gmai
 insert into users (id, email, full_name, location_id) values ('fernanda.rodrigues.cdc@gmail.com', 'fernanda.rodrigues.cdc@gmail.com', 'Fernanda Silva', 4);
 insert into users (id, email, full_name, location_id) values ('sean.welch@me.com', 'sean.welch@me.com', 'Sean Welch', 2);
 insert into users (id, email, full_name, location_id) values ('yulanrong123@gmail.com', 'yulanrong123@gmail.com', 'Yulan Rong', 3);
+insert into users (id, email, full_name, location_id) values ('test@test.com', 'test@test.com', 'Test 0', 1);
+insert into users (id, email, full_name, location_id) values ('test1@test.com', 'test1@test.com', 'Test 1', 1);
+insert into users (id, email, full_name, location_id) values ('test2@test.com', 'test2@test.com', 'Test 2', 1);
+insert into users (id, email, full_name, location_id) values ('test3@test.com', 'test3@test.com', 'Test 3', 1);
 
 -- Update users rows and update user 4 with a location preference.
 update users set location_id = 1 where id = 'fernanda.rodrigues.cdc@gmail.com'; -- Update user Fernanda with the location San Francisco
