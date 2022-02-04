@@ -54,91 +54,69 @@ function EventDetail() {
   return (
     <Box>
       <Header />
-      <Box pl={{ sm: '10px', md: '10em' }} pr={{ sm: '5px', md: '6em' }}>
-        <Flex direction={{ base: 'column', md: 'row' }}>
-          <VStack align="left" w="500px" spacing="60px">
-            <Image
-              bg="tomato"
-              boxSize={{ base: '100vw', md: '500px' }}
-              objectFit="cover"
-              align="center"
-              src={event.mainphoto}
-              alt="event image"
-            />
-            <Box pt="2em">
-              <Heading size="lg">Detail:</Heading>
-              <Text pt="1em" pb="1em">
-                {event.details}
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="lg">Time:</Heading>
-              <Text pt="1em" pb="1em">
-                {moment(event.date).format('MMMM Do YYYY')}
-                ,
-                {event.start_time}
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="lg">Duration:</Heading>
-              <Text pt="1em" pb="1em">
-                {event.event_length_minutes}
-                min
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="lg"> About this event:</Heading>
-              <Text pt="1em" pb="1em">
-                {event.description}
-              </Text>
-            </Box>
-          </VStack>
-
-          <VStack align="left" w="500px" spacing="80px" p="15px">
-            <Box pb="5em">
-              <Heading pb="2em">{event.title}</Heading>
-              <VStack align="left" spacing="4" pb="5em">
-                <Box>
-                  <Text fontWeight="bold" display="inline-block">
-                    Price:
-                    {' '}
-                  </Text>
-                  {event.price ? ` ${event.price}` : ' Free'}
-                </Box>
-                <Box>
-                  <Text fontWeight="bold" display="inline-block">
-                    Type:
-                    {' '}
-                  </Text>
-                  {event.digital ? ' Digital' : ' In Person'}
-                </Box>
-                <Box>
-                  <Text fontWeight="bold" display="inline-block">
-                    Categories:
-                    {' '}
-                  </Text>
-                  {` ${event.categories} `}
-                </Box>
-              </VStack>
-              <HStack>
+      <Flex flexDirection="column" margin="0">
+        <Flex
+          flexDirection="row"
+          w="100%"
+          justifyContent="space-around"
+          marginTop="5vw"
+          marginLeft="5vw"
+        >
+          <Image
+            bg="tomato"
+            w="50%"
+            h="30vw"
+            objectFit="cover"
+            borderRadius='5%'
+            align="center"
+            src={event.mainphoto}
+            alt="event image"
+          />
+          <Flex flexDirection="column" w="40%" justifyContent="space-evenly">
+            <Flex flexDirection="column">
+              <Heading fontSize="3vw">{event.title}</Heading>
+              <Box fontSize="1.5vw">
+                <Text fontWeight="bold" display="inline-block">
+                  Price:{" "}
+                </Text>
+                {event.price ? ` $${event.price}` : " Free"}
+              </Box>
+              <Box fontSize="1.5vw">
+                <Text fontWeight="bold" display="inline-block">
+                  Time:{" "}
+                </Text>
+                  {` ${moment(event.date).format("MMMM Do YYYY")}, ${event.start_time}`}
+              </Box>
+              <Box fontSize="1.5vw">
+                <Text fontWeight="bold" display="inline-block">
+                  {`Duration: `}
+                </Text>
+                {event.event_length_minutes ? ` ${event.event_length_minutes} min` : " TBA"}
+              </Box>
+              <Box fontSize="1.5vw">
+                <Text fontWeight="bold" display="inline-block">
+                  Type:{" "}
+                </Text>
+                {event.digital ? " Digital" : " In Person"}
+              </Box>
+            </Flex>
+            <Flex flexDirection="row" w="40%" justifyContent="space-between">
                 {!reserved ? (
                   <Button
-                    h="50px"
-                    w="30%"
-                    borderTopRadius="md"
-                    align="center"
-                    size="lg"
-                    _hover={{
-                      background: 'white',
-                      color: '#EC7C71',
-                    }}
-                    bg="#E3444B"
-                    fontWeight="bold"
-                    color="white"
-                    variant="solid"
-                    onClick={(e) => {
-                      ReserveEvent(e);
-                    }}
+                  backgroundColor="brand.400"
+                  color="brand.500"
+                  size="lg"
+                  fontSize="1vw"
+                  textStyle="button"
+                  _hover={{
+                    background: "white",
+                    color: "brand.400",
+                  }}
+                  fontWeight="bold"
+                  variant="solid"
+                  onClick={(e) => {
+                    ReserveEvent(e);
+                  }}
                   >
                     {' '}
                     RSVP Now
@@ -146,70 +124,88 @@ function EventDetail() {
                     <Icon as={MdAddBox} w={6} h={6} pl="2px" />
                   </Button>
                 ) : (
-                  <Text
-                    h="50px"
-                    w="30%"
-                    pt="5px"
-                    align="center"
-                    fontSize="25px"
-                    fontWeight="bold"
-                    bg="#EC7C71"
-                    color="white"
-                    borderRadius="md"
+                  <Button
+                  backgroundColor="brand.400"
+                  color="brand.500"
+                  size="lg"
+                  fontSize="1vw"
+                  textStyle="button"
+                  _hover={{
+                    background: "white",
+                    color: "brand.400",
+                  }}
+                  fontWeight="bold"
+                  variant="solid"
                   >
                     {' '}
                     Thank You!
-                  </Text>
+                  </Button>
                 )}
                 <Button
-                  h="50px"
-                  w="30%"
-                  borderTopRadius="md"
-                  align="center"
+                  backgroundColor="brand.400"
+                  color="brand.500"
                   size="lg"
+                  fontSize="1vw"
+                  textStyle="button"
                   _hover={{
-                    background: 'white',
-                    color: '#EC7C71',
+                    background: "white",
+                    color: "brand.400",
                   }}
-                  bg="#E3444B"
                   fontWeight="bold"
-                  color="white"
                   variant="solid"
                   onClick={() => {
                     navigate('/friends', {
                       state: { event_id: event.id },
                     });
                   }}
-                >
-                  Add Friends
-                  {' '}
+                  >
+                  Add Friends{" "}
                   <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
                 </Button>
-              </HStack>
-            </Box>
-            {address !== 'null null null' ? (
-              <VStack pt="5em" spacing="30px" align="left" pb="2em">
-                <Box>
-                  <Heading size="lg">Location:</Heading>
-                  <Text pt="1em" pb="1em">
-                    {address}
-                  </Text>
-                </Box>
-                <Map address={address} />
-              </VStack>
-            ) : (
-              <VStack pt="5em" spacing="30px" align="left" pb="2em">
-                <Box>
-                  <Heading size="lg">Location:</Heading>
-                  <Text pb="35em" pt="1em">
-                    Online Only
-                  </Text>
-                </Box>
-              </VStack>
-            )}
-          </VStack>
+            </Flex>
+          </Flex>
         </Flex>
-      </Box>
+        <Flex
+          flexDirection="row"
+          w="100%"
+          h="45vw"
+          justifyContent="space-around"
+          marginTop="5vw"
+          marginLeft="5vw"
+          marginRight="5vw"
+        >
+          <Flex flexDirection="column" w="45%" alignContent="flex-start" marginLeft="2.5vw" marginTop="1.5vw">
+            <Heading size="lg" fontSize="1.5vw">Categories:</Heading>
+            <Text fontSize="1.5vw" marginBottom="3vw">
+              {`${event.categories}`}
+            </Text>
+            <Heading size="lg" fontSize="1.5vw">Detail:</Heading>
+            <Text fontSize="1.5vw" marginBottom="3vw">
+              {event.details}
+            </Text>
+            <Heading size="lg" fontSize="1.5vw"> About this event:</Heading>
+            <Text fontSize="1.5vw">
+              {event.description}
+            </Text>
+          </Flex>
+          {address !== "null null null" ? (
+            <Flex flexDirection="column" w="40%" h="45vw" justifyContent="space-evenly" marginRight="5vw">
+              <Heading size="lg" fontSize="1.5vw">Location:</Heading>
+              <Text fontSize="1.5vw" marginBottom="1vw">
+                {address}
+              </Text>
+              <Map address={address} />
+            </Flex>
+          ) : (
+            <Flex flexDirection="column" w="40%" h="45vw" justifyContent="space-evenly" marginRight="5vw">
+              <Heading size="lg" fontSize="1.5vw">Location:</Heading>
+              <Text fontSize="1.5vw">
+                Online Only
+              </Text>
+            </Flex>
+          )}
+        </Flex>
+      </Flex>
     </Box>
   );
 }
