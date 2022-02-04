@@ -99,13 +99,13 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
       <Flex
         marginTop="2vw"
         marginBottom="0"
-        flexDirection="row"
-        justifyContent="space-evenly"
+        flexDirection={{base: "column", md: "row"}}
+        justifyContent={{base: "center", md: "space-evenly"}}
       >
         <Flex
           flexDirection="row"
-          marginLeft="2vw"
-          justifyContent="space-around"
+          marginLeft={{base: "0", md: "2vw"}}
+          justifyContent={{base: "space-evenly", md: "space-around"}}
         >
           <DatePicker
             className="calendar"
@@ -119,6 +119,7 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
           />
           <Stack spacing={3}>
             <Select
+              className="duration"
               variant="outline"
               focusBorderColor="brand.400"
               placeholder="Duration"
@@ -128,6 +129,7 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
               textStyle="button"
               fontSize="1vw"
               w="8vw"
+              h={{base: "5vw", md: "3vw"}}
               textStyle="button"
               textAlign="center"
               _selection={{
@@ -151,6 +153,7 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
             backgroundColor="brand.500"
             color="brand.400"
             size="lg"
+            h={{base: "5vw", md: "3vw"}}
             textStyle="button"
             fontSize="1vw"
             _hover={{
@@ -164,10 +167,11 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
         </Flex>
         <Flex
           flexDirection="row"
-          w="50vw"
+          w={{base: "90vw", md: "50vw"}}
           alignItems="center"
           justifyContent="space-around"
-          marginRight="2vw"
+          marginRight={{base: "0", md: "2vw"}}
+          marginLeft={{base: "5vw", md: "0"}}
         >
           <ChevronLeftIcon
             ref={slideLeft}
@@ -187,7 +191,8 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
                   color="brand.500"
                   size="lg"
                   textStyle="button"
-                  fontSize="1vw"
+                  fontSize={{base: "3vw", md: "1vw"}}
+                  h={{base: "5vw", md: "3vw"}}
                   key={idx}
                   name={category.label}
                   onClick={(e) => handleClick(e)}
@@ -210,31 +215,31 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
         </Flex>
       </Flex>
       <Heading
-        fontSize="5vh"
+        fontSize={{base: "3vh", md: "5vh"}}
         marginLeft="5vw"
         marginTop="2vw"
         marginBottom="1vw"
       >
         Popular near you...
       </Heading>
-      <Box pl="5em">
-        <HStack spacing="5" marginBottom="2.5vh">
-          <Box fontWeight="bold">
-            Filter by:{" "}
-            <Box display="inline-block" fontSize="20px">
-              {label.length > 0 ? `${label}` : "All"}
-            </Box>
+      <HStack spacing="5" marginBottom={{base: "5vw", md: "2.5vh"}}>
+        <Box fontWeight="bold" fontSize={{base: "5vw", md: "1vw"}} marginLeft="7vw">
+          Filter by:{" "}
+          <Box display="inline-block" fontSize={{base: "5vw", md: "1vw"}}>
+            {label.length > 0 ? `${label}` : "All"}
           </Box>
-          <Button onClick={handleReset}>
-            Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
-          </Button>
-        </HStack>
+        </Box>
+        <Button onClick={handleReset}>
+          Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
+        </Button>
+      </HStack>
+      <Flex justifyContent="center">
         <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}
         </SimpleGrid>
-      </Box>
+      </Flex>
     </Flex>
   );
 };

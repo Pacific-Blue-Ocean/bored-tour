@@ -6,7 +6,7 @@ import Geocode from "react-geocode";
 
 const Map = ({ address }) => {
   const mapStyles = {
-    height: "60vh",
+    height: "100%",
     width: "100%",
     float: "right",
   };
@@ -48,10 +48,16 @@ const Map = ({ address }) => {
   if (!loading) {
     return (
       <LoadScript googleMapsApiKey={api}>
-      <GoogleMap mapContainerStyle={mapStyles} zoom={12} center={center}>
-        <Marker position={center} />
-      </GoogleMap>
-    </LoadScript>
+        <Flex
+          h={{base: "40vw", md: "50vh"}}
+          w={{base: "80vw", md: "100%"}}
+          marginBottom={{base: "5vw"}}
+        >
+          <GoogleMap mapContainerStyle={mapStyles} zoom={12} center={center}>
+            <Marker position={center} />
+          </GoogleMap>
+        </Flex>
+      </LoadScript>
     );
   } else {
     return null;
