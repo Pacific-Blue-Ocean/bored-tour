@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box, Input, Button, Flex,
 } from '@chakra-ui/react';
@@ -7,16 +7,39 @@ import { Header } from './header';
 import HomePage from './homepage/homepage.jsx';
 
 function App() {
+
+  const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState(null);
   const [searchEvent, setSearchEvent] = useState([]);
 
+  const [reset, setReset] = useState(false);
 
+  const [events, setEvents] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
+
+  useEffect(() => {
+    const getEvents = axios.get("/api/events", { params: { limit: 10, page: 0 } })
+      .then((response) => {
+        setEvents(response.data);
+      });
+    const getAllCategories = axios.get("/api/categories").then((response) => {
+      setCategoriesList(response.data);
+    });
+    const promises = [getEvents, getAllCategories];
+    Promise.all(promises)
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [reset]);
 
   const searchEvents = (e) => {
     e.preventDefault();
     axios.get('/api/searchEvents/title', { params: { search } })
       .then((response) => {
-        console.log(response.data)
+        setEvents(response.data)
         setSearchEvent(response.data);
       })
       .catch((error) => {
@@ -69,6 +92,11 @@ function App() {
       </Box>
       <HomePage
         searchEvent={searchEvent}
+        events={events}
+        setEvents={setEvents}
+        categoriesList={categoriesList}
+        setReset={setReset}
+        reset={reset}
       />
     </div>
   );
