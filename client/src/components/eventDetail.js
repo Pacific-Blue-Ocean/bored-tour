@@ -12,18 +12,18 @@ import {
   Spacer,
   extendTheme,
   ChakraProvider,
-} from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import { Header } from "./header";
-import Map from "./map";
-import { MdAddBox, MdOutlineGroupAdd } from "react-icons/md";
-import moment from "moment";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { auth } from './firebase';
+} from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { MdAddBox, MdOutlineGroupAdd } from 'react-icons/md';
+import moment from 'moment';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
+import Map from './map';
+import { Header } from './header';
 
-const EventDetail = ({ userId }) => {
+function EventDetail() {
   const [user, loading, error] = useAuthState(auth);
   const params = useParams();
   const navigate = useNavigate();
@@ -33,11 +33,11 @@ const EventDetail = ({ userId }) => {
 
   useEffect(() => {
     if (params.eventId) {
-      axios.get(`/api/events/${params.eventId}`).then((res) => {
-        if (res.data[0]) {
-          setEvent(res.data[0]);
+      axios.get('/api/events').then((res) => {
+        if (res.data.filter((evt) => evt.id === params.eventId)[0]) {
+          setEvent(res.data.filter((evt) => evt.id === params.eventId)[0]);
         } else {
-          navigate("/events", { event_id: params.eventId });
+          navigate('/events', { event_id: params.eventId });
         }
       });
     }
@@ -119,8 +119,10 @@ const EventDetail = ({ userId }) => {
                     ReserveEvent(e);
                   }}
                   >
-                    {" "}
-                    RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
+                    {' '}
+                    RSVP Now
+                    {' '}
+                    <Icon as={MdAddBox} w={6} h={6} pl="2px" />
                   </Button>
                 ) : (
                   <Button
@@ -136,7 +138,7 @@ const EventDetail = ({ userId }) => {
                   fontWeight="bold"
                   variant="solid"
                   >
-                    {" "}
+                    {' '}
                     Thank You!
                   </Button>
                 )}
@@ -153,7 +155,7 @@ const EventDetail = ({ userId }) => {
                   fontWeight="bold"
                   variant="solid"
                   onClick={() => {
-                    navigate("/friends", {
+                    navigate('/friends', {
                       state: { event_id: event.id },
                     });
                   }}
@@ -174,6 +176,10 @@ const EventDetail = ({ userId }) => {
           marginRight="5vw"
         >
           <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop={{base: "20vw", md: "1.5vw"}} marginBottom={{base: "5vw"}}>
+          <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "1vw", md: "1vw"}}>Categories:</Heading>
+            <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw" marginBottom={{base: "2vw", md: "4vw"}}  marginBottom={{base: "2vw", md: "0"}}>
+              {`${event.categories}`}
+            </Text>
             <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "1vw", md: "1vw"}}>Detail:</Heading>
             <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw" marginBottom={{base: "2vw", md: "4vw"}}  marginBottom={{base: "2vw", md: "0"}}>
               {event.details}
@@ -204,6 +210,6 @@ const EventDetail = ({ userId }) => {
       </Flex>
     </Box>
   );
-};
+}
 
 export default EventDetail;
