@@ -56,7 +56,7 @@ const EventDetail = ({ userId }) => {
       <Header />
       <Box pl="10em" pr="6em" pd="2em">
         <HStack spacing="80px">
-          <VStack align="left" w="500px" spacing="60px">
+          <VStack align="left" w="500px" spacing="60px" marginTop="5vw">
             <Image
               bg="tomato"
               boxSize="30vw"
@@ -70,18 +70,6 @@ const EventDetail = ({ userId }) => {
               <Heading size="lg">Detail:</Heading>
               <Text pt="1em" pb="1em">
                 {event.details}
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="lg">Time:</Heading>
-              <Text pt="1em" pb="1em">
-                {moment(event.date).format("MMMM Do YYYY")}, {event.start_time}
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="lg">Duration:</Heading>
-              <Text pt="1em" pb="1em">
-                {event.event_length_minutes}min
               </Text>
             </Box>
             <Box>
@@ -104,6 +92,18 @@ const EventDetail = ({ userId }) => {
                 </Box>
                 <Box>
                   <Text fontWeight="bold" display="inline-block">
+                    Time:{" "}
+                  </Text>
+                    {` ${moment(event.date).format("MMMM Do YYYY")}, ${event.start_time}`}
+                </Box>
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
+                    {`Duration: `}
+                  </Text>
+                   {event.event_length_minutes ? ` ${event.event_length_minutes} min` : " TBA"}
+                </Box>
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
                     Type:{" "}
                   </Text>
                   {event.digital ? " Digital" : " In Person"}
@@ -121,7 +121,7 @@ const EventDetail = ({ userId }) => {
                       background: "white",
                       color: "#EC7C71",
                     }}
-                    bg="#E3444B"
+                    bg="brand.400"
                     fontWeight="bold"
                     color="white"
                     variant="solid"
@@ -158,7 +158,7 @@ const EventDetail = ({ userId }) => {
                     background: "white",
                     color: "#EC7C71",
                   }}
-                  bg="#E3444B"
+                  bg="brand.400"
                   fontWeight="bold"
                   color="white"
                   variant="solid"
