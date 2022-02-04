@@ -72,41 +72,41 @@ const EventDetail = ({ userId }) => {
             src={event.mainphoto}
             alt="event image"
           />
-          <Flex flexDirection="column" w="40%" justifyContent="space-evenly">
-            <Flex flexDirection="column">
-              <Heading fontSize="3vw">{event.title}</Heading>
-              <Box fontSize="1.5vw">
-                <Text fontWeight="bold" display="inline-block">
+          <Flex flexDirection="column" w={{base: "100%", md: "40%"}} justifyContent="space-evenly">
+            <Flex flexDirection="column" marginBottom={{base: "0vw", md: "0"}}>
+              <Heading fontSize={{base: "4vw", md: "3vw"}} marginBottom={{base: "2vw", md: "0"}}>{event.title}</Heading>
+              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
+                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
                   Price:{" "}
                 </Text>
                 {event.price ? ` $${event.price}` : " Free"}
               </Box>
-              <Box fontSize="1.5vw">
-                <Text fontWeight="bold" display="inline-block">
+              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
+                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
                   Time:{" "}
                 </Text>
                   {` ${moment(event.date).format("MMMM Do YYYY")}, ${event.start_time}`}
               </Box>
-              <Box fontSize="1.5vw">
-                <Text fontWeight="bold" display="inline-block">
+              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
+                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
                   {`Duration: `}
                 </Text>
                 {event.event_length_minutes ? ` ${event.event_length_minutes} min` : " TBA"}
               </Box>
-              <Box fontSize="1.5vw">
-                <Text fontWeight="bold" display="inline-block">
+              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
+                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
                   Type:{" "}
                 </Text>
                 {event.digital ? " Digital" : " In Person"}
               </Box>
             </Flex>
-            <Flex flexDirection="row" w="40%" justifyContent="space-between">
+            <Flex flexDirection="row" w={{base: "50%", md:"60%"}} justifyContent="space-between">
                 {!reserved ? (
                   <Button
                   backgroundColor="brand.400"
                   color="brand.500"
                   size="lg"
-                  fontSize="1vw"
+                  fontSize={{base: "2.5vw", md: "1vw"}}
                   textStyle="button"
                   _hover={{
                     background: "white",
@@ -126,7 +126,7 @@ const EventDetail = ({ userId }) => {
                   backgroundColor="brand.400"
                   color="brand.500"
                   size="lg"
-                  fontSize="1vw"
+                  fontSize={{base: "2.5vw", md: "1vw"}}
                   textStyle="button"
                   _hover={{
                     background: "white",
@@ -143,7 +143,7 @@ const EventDetail = ({ userId }) => {
                   backgroundColor="brand.400"
                   color="brand.500"
                   size="lg"
-                  fontSize="1vw"
+                  fontSize={{base: "2.5vw", md: "1vw"}}
                   textStyle="button"
                   _hover={{
                     background: "white",
@@ -168,32 +168,32 @@ const EventDetail = ({ userId }) => {
           w="100%"
           h="45vw"
           justifyContent="space-around"
-          marginTop="5vw"
+          marginTop={{base: "15vw", md: "5vw"}}
           marginLeft="5vw"
           marginRight="5vw"
         >
-          <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop="1.5vw">
-            <Heading size="lg" fontSize="1.5vw">Detail:</Heading>
-            <Text fontSize="1.5vw" marginBottom="3vw">
+          <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop={{base: "20vw", md: "1.5vw"}}>
+            <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "1vw", md: "1vw"}}>Detail:</Heading>
+            <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw" marginBottom={{base: "2vw", md: "4vw"}}  marginBottom={{base: "2vw", md: "0"}}>
               {event.details}
             </Text>
-            <Heading size="lg" fontSize="1.5vw"> About this event:</Heading>
-            <Text fontSize="1.5vw">
+            <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginTop={{base: "0.5", md: "1vw"}} marginBottom={{base: "2vw", md: "1vw"}}> About this event:</Heading>
+            <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "4vw"}}  >
               {event.description}
             </Text>
           </Flex>
           <Flex flexDirection="column" w="40%" h="45vw" justifyContent="flex-start" marginRight="5vw" marginTop="1.5vw">
-            <Heading size="lg" fontSize="1.5vw">Location:</Heading>
+            <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>Location:</Heading>
             {address !== "null null null" ? (
               <div>
-                <Text fontSize="1.5vw" marginBottom="3vw">
+                <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw">
                   {address}
                 </Text>
                 <Map address={address} />
               </div>
                 ) : (
               <div>
-              <Text fontSize="1.5vw" marginBottom="3vw">
+              <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw">
                 Online Only
               </Text>
               </div>
