@@ -54,17 +54,17 @@ const EventDetail = ({ userId }) => {
   return (
     <Box>
       <Header />
-      <Flex flexDirection="column" margin="0">
+      <Flex flexDirection="column" margin="0" w={{base: "100vw"}}>
         <Flex
           flexDirection={{ base: "column", md: "row"}}
-          w="100%"
+          w={{base: "100%", md: "100%"}}
           justifyContent="space-around"
           marginTop="5vw"
           marginLeft="5vw"
         >
           <Image
             bg="tomato"
-            w="50%"
+            w={{base: "72%", md: "50%"}}
             h="30vw"
             objectFit="cover"
             borderRadius='5%'
