@@ -138,7 +138,8 @@ const HomePage = ({ searchEvent }) => {
           />
           <Stack spacing={3}>
             <Select
-              variant="filled"
+              variant="outline"
+              focusBorderColor="brand.400"
               placeholder="Duration"
               backgroundColor="brand.400"
               color="brand.500"
@@ -235,7 +236,7 @@ const HomePage = ({ searchEvent }) => {
       >
         Popular near you...
       </Heading>
-      {/* <Box pl="5em">
+      <Box pl="5em">
         <HStack spacing="5" marginBottom="2.5vh">
           <Box fontWeight="bold">
             Filter by:{" "}
@@ -261,24 +262,7 @@ const HomePage = ({ searchEvent }) => {
             return <Event event={event} key={idx} />;
           })}
         </Grid>
-      </Box> */}
-
-      {initial ? (
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={1}
-          autoRows="auto"
-          justify-content="space-evenly"
-          justify-items="center"
-          align-content="space-evenly"
-          align-items="center"
-          marginBottom="1.5vw"
-        >
-          {events.map((event, idx) => {
-            return <Event event={event} key={idx} />;
-          })}
-        </Grid>
-      ) : null}
+      </Box>
     </Flex>
   );
 };
