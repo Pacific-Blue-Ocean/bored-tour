@@ -64,8 +64,9 @@ const EventDetail = ({ userId }) => {
         >
           <Image
             bg="tomato"
-            w={{base: "72%", md: "50%"}}
-            h="30vw"
+            w={{base: "90vw", md: "50%"}}
+            h={{base: "60vw", md: "30vw"}}
+            marginBottom={{base: "5vw", md: "0"}}
             objectFit="cover"
             borderRadius='5%'
             align="center"
