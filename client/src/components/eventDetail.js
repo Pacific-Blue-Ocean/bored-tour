@@ -54,12 +54,12 @@ const EventDetail = ({ userId }) => {
   return (
     <Box>
       <Header />
-      <Box pl="10em" pr="6em" pd="2em">
-        <HStack spacing="80px">
+      <Box pl={{ sm: '10px', md: "10em",}} pr={{ sm: '5px', md: "6em"}}>
+        <Flex direction={{ base: 'column', md: 'row'}}>
           <VStack align="left" w="500px" spacing="60px">
             <Image
               bg="tomato"
-              boxSize="500px"
+              boxSize={{base: '100vw', md: "500px"}}
               objectFit="cover"
               align="center"
               src={event.mainphoto}
@@ -91,7 +91,7 @@ const EventDetail = ({ userId }) => {
             </Box>
           </VStack>
 
-          <VStack align="left" w="500px" spacing="80px" pt="5em">
+          <VStack align="left" w="500px" spacing="80px" p="15px">
             <Box pb="5em">
               <Heading pb="2em">{event.title}</Heading>
               <VStack align="left" spacing="4" pb="5em">
@@ -193,7 +193,7 @@ const EventDetail = ({ userId }) => {
               </VStack>
             )}
           </VStack>
-        </HStack>
+        </Flex>
       </Box>
     </Box>
   );
