@@ -56,7 +56,7 @@ const EventDetail = ({ userId }) => {
       <Header />
       <Flex flexDirection="column" margin="0">
         <Flex
-          flexDirection="row"
+          flexDirection={{ base: "column", md: "row"}}
           w="100%"
           justifyContent="space-around"
           marginTop="5vw"
@@ -164,7 +164,7 @@ const EventDetail = ({ userId }) => {
           </Flex>
         </Flex>
         <Flex
-          flexDirection="row"
+          flexDirection={{ base: "column", md: "row"}}
           w="100%"
           h="45vw"
           justifyContent="space-around"
@@ -172,7 +172,7 @@ const EventDetail = ({ userId }) => {
           marginLeft="5vw"
           marginRight="5vw"
         >
-          <Flex flexDirection="column" w="45%" alignContent="flex-start" marginLeft="2.5vw" marginTop="1.5vw">
+          <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop="1.5vw">
             <Heading size="lg" fontSize="1.5vw">Detail:</Heading>
             <Text fontSize="1.5vw" marginBottom="3vw">
               {event.details}
@@ -182,22 +182,23 @@ const EventDetail = ({ userId }) => {
               {event.description}
             </Text>
           </Flex>
-          {address !== "null null null" ? (
-            <Flex flexDirection="column" w="40%" h="45vw" justifyContent="space-evenly" marginRight="5vw">
-              <Heading size="lg" fontSize="1.5vw">Location:</Heading>
-              <Text fontSize="1.5vw" marginBottom="1vw">
-                {address}
-              </Text>
-              <Map address={address} />
-            </Flex>
-          ) : (
-            <Flex flexDirection="column" w="40%" h="45vw" justifyContent="space-evenly" marginRight="5vw">
-              <Heading size="lg" fontSize="1.5vw">Location:</Heading>
-              <Text fontSize="1.5vw">
+          <Flex flexDirection="column" w="40%" h="45vw" justifyContent="flex-start" marginRight="5vw" marginTop="1.5vw">
+            <Heading size="lg" fontSize="1.5vw">Location:</Heading>
+            {address !== "null null null" ? (
+              <div>
+                <Text fontSize="1.5vw" marginBottom="3vw">
+                  {address}
+                </Text>
+                <Map address={address} />
+              </div>
+                ) : (
+              <div>
+              <Text fontSize="1.5vw" marginBottom="3vw">
                 Online Only
               </Text>
-            </Flex>
-          )}
+              </div>
+            )}
+          </Flex>
         </Flex>
       </Flex>
     </Box>
