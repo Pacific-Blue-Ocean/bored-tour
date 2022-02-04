@@ -12,18 +12,18 @@ import {
   Spacer,
   extendTheme,
   ChakraProvider,
-} from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import { Header } from "./header";
-import Map from "./map";
-import { MdAddBox, MdOutlineGroupAdd } from "react-icons/md";
-import moment from "moment";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { auth } from './firebase';
+} from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { MdAddBox, MdOutlineGroupAdd } from 'react-icons/md';
+import moment from 'moment';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
+import Map from './map';
+import { Header } from './header';
 
-const EventDetail = ({ userId }) => {
+function EventDetail() {
   const [user, loading, error] = useAuthState(auth);
   const params = useParams();
   const navigate = useNavigate();
@@ -33,11 +33,11 @@ const EventDetail = ({ userId }) => {
 
   useEffect(() => {
     if (params.eventId) {
-      axios.get(`/api/events/${params.eventId}`).then((res) => {
-        if (res.data[0]) {
-          setEvent(res.data[0]);
+      axios.get('/api/events').then((res) => {
+        if (res.data.filter((evt) => evt.id === params.eventId)[0]) {
+          setEvent(res.data.filter((evt) => evt.id === params.eventId)[0]);
         } else {
-          navigate("/events", { event_id: params.eventId });
+          navigate('/events', { event_id: params.eventId });
         }
       });
     }
@@ -54,12 +54,12 @@ const EventDetail = ({ userId }) => {
   return (
     <Box>
       <Header />
-      <Box pl={{ sm: '10px', md: "10em",}} pr={{ sm: '5px', md: "6em"}}>
-        <Flex direction={{ base: 'column', md: 'row'}}>
+      <Box pl={{ sm: '10px', md: '10em' }} pr={{ sm: '5px', md: '6em' }}>
+        <Flex direction={{ base: 'column', md: 'row' }}>
           <VStack align="left" w="500px" spacing="60px">
             <Image
               bg="tomato"
-              boxSize={{base: '100vw', md: "500px"}}
+              boxSize={{ base: '100vw', md: '500px' }}
               objectFit="cover"
               align="center"
               src={event.mainphoto}
@@ -74,13 +74,16 @@ const EventDetail = ({ userId }) => {
             <Box>
               <Heading size="lg">Time:</Heading>
               <Text pt="1em" pb="1em">
-                {moment(event.date).format("MMMM Do YYYY")}, {event.start_time}
+                {moment(event.date).format('MMMM Do YYYY')}
+                ,
+                {event.start_time}
               </Text>
             </Box>
             <Box>
               <Heading size="lg">Duration:</Heading>
               <Text pt="1em" pb="1em">
-                {event.event_length_minutes}min
+                {event.event_length_minutes}
+                min
               </Text>
             </Box>
             <Box>
@@ -97,15 +100,24 @@ const EventDetail = ({ userId }) => {
               <VStack align="left" spacing="4" pb="5em">
                 <Box>
                   <Text fontWeight="bold" display="inline-block">
-                    Price:{" "}
+                    Price:
+                    {' '}
                   </Text>
-                  {event.price ? ` $${event.price}` : " Free"}
+                  {event.price ? ` ${event.price}` : ' Free'}
                 </Box>
                 <Box>
                   <Text fontWeight="bold" display="inline-block">
-                    Type:{" "}
+                    Type:
+                    {' '}
                   </Text>
-                  {event.digital ? " Digital" : " In Person"}
+                  {event.digital ? ' Digital' : ' In Person'}
+                </Box>
+                <Box>
+                  <Text fontWeight="bold" display="inline-block">
+                    Categories:
+                    {' '}
+                  </Text>
+                  {` ${event.categories} `}
                 </Box>
               </VStack>
               <HStack>
@@ -117,8 +129,8 @@ const EventDetail = ({ userId }) => {
                     align="center"
                     size="lg"
                     _hover={{
-                      background: "white",
-                      color: "#EC7C71",
+                      background: 'white',
+                      color: '#EC7C71',
                     }}
                     bg="#E3444B"
                     fontWeight="bold"
@@ -128,8 +140,10 @@ const EventDetail = ({ userId }) => {
                       ReserveEvent(e);
                     }}
                   >
-                    {" "}
-                    RSVP Now <Icon as={MdAddBox} w={6} h={6} pl="2px" />
+                    {' '}
+                    RSVP Now
+                    {' '}
+                    <Icon as={MdAddBox} w={6} h={6} pl="2px" />
                   </Button>
                 ) : (
                   <Text
@@ -143,7 +157,7 @@ const EventDetail = ({ userId }) => {
                     color="white"
                     borderRadius="md"
                   >
-                    {" "}
+                    {' '}
                     Thank You!
                   </Text>
                 )}
@@ -154,25 +168,26 @@ const EventDetail = ({ userId }) => {
                   align="center"
                   size="lg"
                   _hover={{
-                    background: "white",
-                    color: "#EC7C71",
+                    background: 'white',
+                    color: '#EC7C71',
                   }}
                   bg="#E3444B"
                   fontWeight="bold"
                   color="white"
                   variant="solid"
                   onClick={() => {
-                    navigate("/friends", {
+                    navigate('/friends', {
                       state: { event_id: event.id },
                     });
                   }}
                 >
-                  Add Friends{" "}
+                  Add Friends
+                  {' '}
                   <Icon as={MdOutlineGroupAdd} w={6} h={6} pl="2px" />
                 </Button>
               </HStack>
             </Box>
-            {address !== "null null null" ? (
+            {address !== 'null null null' ? (
               <VStack pt="5em" spacing="30px" align="left" pb="2em">
                 <Box>
                   <Heading size="lg">Location:</Heading>
@@ -197,6 +212,6 @@ const EventDetail = ({ userId }) => {
       </Box>
     </Box>
   );
-};
+}
 
 export default EventDetail;
