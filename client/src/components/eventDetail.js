@@ -56,10 +56,11 @@ const EventDetail = ({ userId }) => {
       <Header />
       <Box pl="10em" pr="6em" pd="2em">
         <HStack spacing="80px">
-          <VStack align="left" w="500px" spacing="60px" marginTop="5vw">
+          <VStack align="left" w="50vw" spacing="60px" marginTop="5vw">
             <Image
               bg="tomato"
-              boxSize="30vw"
+              w="50vw"
+              h="30vw"
               objectFit="cover"
               borderRadius='5%'
               align="center"
@@ -79,30 +80,29 @@ const EventDetail = ({ userId }) => {
               </Text>
             </Box>
           </VStack>
-
-          <VStack align="left" w="500px" spacing="80px" pt="5em">
-            <Box pb="5em">
-              <Heading pb="2em">{event.title}</Heading>
+          <VStack align="left" w="50vw" spacing="80px" pt="5em">
+            <Box pb="1em">
+              <Heading pb="2em" fontSize="3vw">{event.title}</Heading>
               <VStack align="left" spacing="4" pb="5em">
-                <Box>
+                <Box fontSize="1.5vw">
                   <Text fontWeight="bold" display="inline-block">
                     Price:{" "}
                   </Text>
                   {event.price ? ` $${event.price}` : " Free"}
                 </Box>
-                <Box>
+                <Box fontSize="1.5vw">
                   <Text fontWeight="bold" display="inline-block">
                     Time:{" "}
                   </Text>
                     {` ${moment(event.date).format("MMMM Do YYYY")}, ${event.start_time}`}
                 </Box>
-                <Box>
+                <Box fontSize="1.5vw">
                   <Text fontWeight="bold" display="inline-block">
                     {`Duration: `}
                   </Text>
                    {event.event_length_minutes ? ` ${event.event_length_minutes} min` : " TBA"}
                 </Box>
-                <Box>
+                <Box fontSize="1.5vw">
                   <Text fontWeight="bold" display="inline-block">
                     Type:{" "}
                   </Text>
@@ -117,6 +117,7 @@ const EventDetail = ({ userId }) => {
                     borderTopRadius="md"
                     align="center"
                     size="lg"
+                    fontSize="1.5vw"
                     _hover={{
                       background: "white",
                       color: "#EC7C71",
@@ -138,7 +139,7 @@ const EventDetail = ({ userId }) => {
                     w="30%"
                     pt="5px"
                     align="center"
-                    fontSize="25px"
+                    fontSize="1.5vw"
                     fontWeight="bold"
                     bg="#EC7C71"
                     color="white"
@@ -152,6 +153,7 @@ const EventDetail = ({ userId }) => {
                   h="50px"
                   w="30%"
                   borderTopRadius="md"
+                  fontSize="1.5vw"
                   align="center"
                   size="lg"
                   _hover={{
@@ -177,7 +179,7 @@ const EventDetail = ({ userId }) => {
               <VStack pt="5em" spacing="30px" align="left" pb="2em">
                 <Box>
                   <Heading size="lg">Location:</Heading>
-                  <Text pt="1em" pb="1em">
+                  <Text pt="1em" pb="1em" fontSize="1.5vw">
                     {address}
                   </Text>
                 </Box>
