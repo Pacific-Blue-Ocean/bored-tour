@@ -119,7 +119,7 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
           />
           <Stack spacing={3}>
             <Select
-              display={{base: "none"}}
+              className="duration"
               variant="outline"
               focusBorderColor="brand.400"
               placeholder="Duration"
@@ -222,24 +222,24 @@ const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesL
       >
         Popular near you...
       </Heading>
-      <Box pl="5em">
-        <HStack spacing="5" marginBottom={{base: "1vw", md: "2.5vh"}}>
-          <Box fontWeight="bold" fontSize={{base: "5vw", md: "1vw"}}>
-            Filter by:{" "}
-            <Box display="inline-block" fontSize={{base: "5vw", md: "1vw"}}>
-              {label.length > 0 ? `${label}` : "All"}
-            </Box>
+      <HStack spacing="5" marginBottom={{base: "5vw", md: "2.5vh"}}>
+        <Box fontWeight="bold" fontSize={{base: "5vw", md: "1vw"}} marginLeft="7vw">
+          Filter by:{" "}
+          <Box display="inline-block" fontSize={{base: "5vw", md: "1vw"}}>
+            {label.length > 0 ? `${label}` : "All"}
           </Box>
-          <Button onClick={handleReset}>
-            Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
-          </Button>
-        </HStack>
+        </Box>
+        <Button onClick={handleReset}>
+          Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
+        </Button>
+      </HStack>
+      <Flex justifyContent="center">
         <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}
         </SimpleGrid>
-      </Box>
+      </Flex>
     </Flex>
   );
 };
