@@ -1,15 +1,17 @@
 import {
   Button,
   ButtonGroup,
+  Grid,
+  GridItem,
   Flex,
   Heading,
   Box,
   IconButton,
-  SimpleGrid,
   Stack,
   Select,
   HStack,
   Icon,
+  SimpleGrid
 } from "@chakra-ui/react";
 import {
   ChevronLeftIcon,
@@ -19,44 +21,24 @@ import {
 import React, { useRef, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
+import TimeRangePicker from "@wojtekmaj/react-timerange-picker/dist/entry.nostyle";
 import axios from "axios";
 import Event from "./event.jsx";
+import moment from "moment";
 import { MdSettingsBackupRestore } from "react-icons/md";
 
-const HomePage = ({ searchEvent }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [reset, setReset] = useState(false);
+const HomePage = ({ reset, setReset, events, setEvents, searchEvent, categoriesList }) => {
 
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
 
-  const [events, setEvents] = useState([]);
-  const [categoriesList, setCategoriesList] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
   const [label, setLabel] = useState("");
   const [initial, setInitial] = useState(true);
   const [duration, setDuration] = useState("");
 
-  useEffect(() => {
-    const getEvents = axios
-      .get("/api/events", { params: { limit: 10, page: 0 } })
-      .then((response) => {
-        setEvents(response.data);
-      });
-    const getAllCategories = axios.get("/api/categories").then((response) => {
-      setCategoriesList(response.data);
-    });
-    const promises = [getEvents, getAllCategories];
-    Promise.all(promises)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [reset]);
 
   useEffect(() => {
     if (searchEvent.length > 0) {
@@ -103,19 +85,18 @@ const HomePage = ({ searchEvent }) => {
 
   const searchEventsTime = () => {
     const newDuration = duration.substring(0, duration.length - 5);
-    const newDate = startDate.toISOString().slice(0, 10);
+    const newDate = moment(startDate).format().slice(0, 10);
     const newEvents = events.filter(
       (event, idx) =>
         event.event_length_minutes == newDuration &&
-        event.date.slice(0, 10) === newDate
+        event.date.slice(0, 10) == newDate
     );
     setEvents(newEvents);
   };
 
   return (
-    <Flex flexDirection="column" >
+    <Flex flexDirection="column">
       <Flex
-        display={{base: 'none', md: 'flex'}}
         marginTop="2vw"
         marginBottom="0"
         flexDirection="row"
@@ -138,7 +119,8 @@ const HomePage = ({ searchEvent }) => {
           />
           <Stack spacing={3}>
             <Select
-              variant="filled"
+              variant="outline"
+              focusBorderColor="brand.400"
               placeholder="Duration"
               backgroundColor="brand.400"
               color="brand.500"
@@ -228,14 +210,14 @@ const HomePage = ({ searchEvent }) => {
         </Flex>
       </Flex>
       <Heading
-        fontSize={{ base: '20px', md: "5vh"}}
+        fontSize="5vh"
         marginLeft="5vw"
         marginTop="2vw"
         marginBottom="1vw"
       >
         Popular near you...
       </Heading>
-      <Box pl="5em" display={{base: 'none', md: 'flex'}}>
+      <Box pl="5em">
         <HStack spacing="5" marginBottom="2.5vh">
           <Box fontWeight="bold">
             Filter by:{" "}
@@ -247,15 +229,12 @@ const HomePage = ({ searchEvent }) => {
             Reset <Icon as={MdSettingsBackupRestore} w={4} h={4} pl="2px" />
           </Button>
         </HStack>
-      </Box>
-
-      {initial ? (
         <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
           {events.map((event, idx) => {
             return <Event event={event} key={idx} />;
           })}
         </SimpleGrid>
-      ) : null}
+      </Box>
     </Flex>
   );
 };
