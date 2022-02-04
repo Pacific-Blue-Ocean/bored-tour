@@ -54,11 +54,11 @@ const EventDetail = ({ userId }) => {
   return (
     <Box>
       <Header />
-      <Flex flexDirection="column" margin="0" w={{base: "100vw"}}>
+      <Flex flexDirection="column" margin="0" w={{base: "100%"}}>
         <Flex
           flexDirection={{ base: "column", md: "row"}}
           w={{base: "100%", md: "100%"}}
-          justifyContent="space-around"
+          justifyContent={{base: "center", md: "space-around"}}
           marginTop="5vw"
           marginLeft="5vw"
         >
@@ -100,7 +100,7 @@ const EventDetail = ({ userId }) => {
                 {event.digital ? " Digital" : " In Person"}
               </Box>
             </Flex>
-            <Flex flexDirection="row" w={{base: "50%", md:"60%"}} justifyContent="space-between">
+            <Flex flexDirection="row" w={{base: "50%", md:"60%"}} justifyContent="space-between" marginBottom={{base: "5vw"}}>
                 {!reserved ? (
                   <Button
                   backgroundColor="brand.400"
@@ -172,7 +172,7 @@ const EventDetail = ({ userId }) => {
           marginLeft="5vw"
           marginRight="5vw"
         >
-          <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop={{base: "20vw", md: "1.5vw"}}>
+          <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop={{base: "20vw", md: "1.5vw"}} marginBottom={{base: "5vw"}}>
             <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "1vw", md: "1vw"}}>Detail:</Heading>
             <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw" marginBottom={{base: "2vw", md: "4vw"}}  marginBottom={{base: "2vw", md: "0"}}>
               {event.details}
@@ -182,7 +182,7 @@ const EventDetail = ({ userId }) => {
               {event.description}
             </Text>
           </Flex>
-          <Flex flexDirection="column" w="40%" h="45vw" justifyContent="flex-start" marginRight="5vw" marginTop="1.5vw">
+          <Flex flexDirection="column" w="40%" h="45vw" justifyContent="flex-start" marginRight="5vw" marginTop={{base: "5vw", md: "1.5vw"}}>
             <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>Location:</Heading>
             {address !== "null null null" ? (
               <div>

@@ -48,7 +48,11 @@ const Map = ({ address }) => {
   if (!loading) {
     return (
       <LoadScript googleMapsApiKey={api}>
-        <Flex h={{base: "30vh", md: "50vh"}}>
+        <Flex
+          h={{base: "40vw", md: "50vh"}}
+          w={{base: "80vw", md: "100%"}}
+          marginBottom={{base: "5vw"}}
+        >
           <GoogleMap mapContainerStyle={mapStyles} zoom={12} center={center}>
             <Marker position={center} />
           </GoogleMap>
