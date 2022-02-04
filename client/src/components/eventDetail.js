@@ -68,40 +68,88 @@ function EventDetail() {
             h={{base: "60vw", md: "30vw"}}
             marginBottom={{base: "5vw", md: "0"}}
             objectFit="cover"
-            borderRadius='5%'
+            borderRadius={{base: "10px", md: "10px"}}
             align="center"
             src={event.mainphoto}
             alt="event image"
           />
-          <Flex flexDirection="column" w={{base: "100%", md: "40%"}} justifyContent="space-evenly">
-            <Flex flexDirection="column" marginBottom={{base: "0vw", md: "0"}}>
-              <Heading fontSize={{base: "4vw", md: "3vw"}} marginBottom={{base: "2vw", md: "0"}}>{event.title}</Heading>
-              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
-                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
-                  Price:{" "}
-                </Text>
+          <Flex
+            flexDirection="column"
+            w={{base: "100%", md: "40%"}}
+            justifyContent="space-evenly"
+          >
+            <Flex
+              flexDirection="column"
+              marginTop={{base: "0", md: "2vw"}}
+              marginBottom={{base: "2vw", md: "0"}}
+            >
+              <Heading
+                fontSize={{base: "4vw", md: "3vw"}}
+                marginBottom={{base: "2vw", md: "0"}}
+                w="90%"
+              >{event.title}</Heading>
+              <Box
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom={{base: "2vw", md: "0"}}
+              >
+                <Text
+                  fontWeight="bold"
+                  display="inline-block"
+                  marginBottom={{base: "2vw", md: "0"}}
+                >Price:{" "}</Text>
                 {event.price ? ` $${event.price}` : " Free"}
               </Box>
-              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
-                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
-                  Time:{" "}
+              <Box
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom={{base: "2vw", md: "0"}}
+              >
+                <Text
+                  fontWeight="bold"
+                  display="inline-block"
+                  marginBottom={{base: "2vw", md: "0"}}
+                >Time:{" "}
                 </Text>
                   {` ${moment(event.date).format("MMMM Do YYYY")}, ${event.start_time}`}
               </Box>
-              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
-                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
-                  {`Duration: `}
-                </Text>
+              <Box
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom={{base: "2vw", md: "0"}}
+              >
+                <Text
+                  fontWeight="bold"
+                  display="inline-block"
+                  marginBottom={{base: "2vw", md: "0"}}
+                >{`Duration: `}</Text>
                 {event.event_length_minutes ? ` ${event.event_length_minutes} min` : " TBA"}
               </Box>
-              <Box fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>
-                <Text fontWeight="bold" display="inline-block" marginBottom={{base: "2vw", md: "0"}}>
-                  Type:{" "}
-                </Text>
+              <Box
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom={{base: "2vw", md: "0"}}
+              >
+                <Text
+                  fontWeight="bold"
+                  display="inline-block"
+                  marginBottom={{base: "2vw", md: "0"}}
+                >{`Categories: `}</Text>
+                {` ${event.categories}`}
+              </Box>
+              <Box
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom={{base: "2vw", md: "1.5vw"}}
+              >
+                <Text
+                  fontWeight="bold"
+                  display="inline-block"
+                  marginBottom={{base: "2vw", md: "0"}}
+                >Type:{" "}</Text>
                 {event.digital ? " Digital" : " In Person"}
               </Box>
             </Flex>
-            <Flex flexDirection="row" w={{base: "50%", md:"60%"}} justifyContent="space-between" marginBottom={{base: "5vw"}}>
+            <Flex
+              flexDirection="row"
+              w={{base: "50%", md:"60%"}}
+              justifyContent="space-between"
+              marginBottom={{base: "10%"}}>
                 {!reserved ? (
                   <Button
                   backgroundColor="brand.400"
@@ -171,38 +219,67 @@ function EventDetail() {
           w="100%"
           h="45vw"
           justifyContent="space-around"
-          marginTop={{base: "15vw", md: "5vw"}}
+          marginTop={{base: "20%", md: "5vw"}}
           marginLeft="5vw"
           marginRight="5vw"
         >
-          <Flex flexDirection="column" w="45%" alignContent="flex-start" h="45vw" marginLeft={{ base: "0", md: "2.5vw"}} marginTop={{base: "20vw", md: "1.5vw"}} marginBottom={{base: "5vw"}}>
-          <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "1vw", md: "1vw"}}>Categories:</Heading>
-            <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw" marginBottom={{base: "2vw", md: "4vw"}}  marginBottom={{base: "2vw", md: "0"}}>
-              {`${event.categories}`}
-            </Text>
-            <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "1vw", md: "1vw"}}>Detail:</Heading>
-            <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw" marginBottom={{base: "2vw", md: "4vw"}}  marginBottom={{base: "2vw", md: "0"}}>
-              {event.details}
-            </Text>
-            <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginTop={{base: "0.5", md: "1vw"}} marginBottom={{base: "2vw", md: "1vw"}}> About this event:</Heading>
-            <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "4vw"}}  >
-              {event.description}
-            </Text>
+          <Flex
+            flexDirection="column"
+            w="45%"
+            alignContent="flex-start"
+            h="45vw"
+            marginLeft={{ base: "0", md: "2.5vw"}}
+            marginTop={{base: "10%", md: "1.5vw"}}
+            marginBottom={{base: "10%"}}
+          >
+            <Heading
+              size="lg"
+              fontSize={{base: "3vw", md: "1.5vw"}}
+              marginBottom={{base: "1vw", md: "1vw"}}
+            >Detail:</Heading>
+              <Text
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom="3vw"
+                marginBottom={{base: "3vw", md: "4vw"}}
+              >{event.details}</Text>
+            <Heading
+              size="lg"
+              fontSize={{base: "3vw", md: "1.5vw"}}
+              marginTop={{base: "0.5", md: "1vw"}}
+              marginBottom={{base: "2vw", md: "1vw"}}
+            >About this event:</Heading>
+              <Text
+                fontSize={{base: "3vw", md: "1.5vw"}}
+                marginBottom={{base: "5vw", md: "4vw"}}
+              >{event.description}</Text>
           </Flex>
-          <Flex flexDirection="column" w="40%" h="45vw" justifyContent="flex-start" marginRight="5vw" marginTop={{base: "5vw", md: "1.5vw"}}>
-            <Heading size="lg" fontSize={{base: "3vw", md: "1.5vw"}} marginBottom={{base: "2vw", md: "0"}}>Location:</Heading>
+          <Flex
+            flexDirection="column"
+            w="40%"
+            h="45vw"
+            justifyContent="flex-start"
+            marginRight="5vw"
+            marginTop={{base: "5%", md: "1.5vw"}}
+          >
+            <Heading
+              size="lg"
+              fontSize={{base: "3vw", md: "1.5vw"}}
+              marginBottom={{base: "2vw", md: "0"}}
+            >Location:</Heading>
             {address !== "null null null" ? (
               <div>
-                <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw">
-                  {address}
-                </Text>
+                <Text
+                  fontSize={{base: "3vw", md: "1.5vw"}}
+                  marginBottom="3vw"
+                >{address}</Text>
                 <Map address={address} />
               </div>
                 ) : (
               <div>
-              <Text fontSize={{base: "3vw", md: "1.5vw"}} marginBottom="3vw">
-                Online Only
-              </Text>
+                <Text
+                  fontSize={{base: "3vw", md: "1.5vw"}}
+                  marginBottom="3vw"
+                >Online Only</Text>
               </div>
             )}
           </Flex>
