@@ -20,34 +20,34 @@ const getSurvey = () => {
   )) FROM preferences_steps AS steps`;
 
   return db.pool.query(query);
-}
+};
 
 const getUserPreferences = (userId) => {
-  const query = 'SELECT json_agg(preferences_id) FROM  users_preferences where user_id = $1'
+  const query = 'SELECT json_agg(preferences_id) FROM  users_preferences where user_id = $1';
   return db.pool.query(query, [userId]);
-}
+};
 
 const getLabelOfPrefById = (id) => {
-  const query = `SELECT label FROM preferences where id = ${id}`
+  const query = `SELECT label FROM preferences where id = ${id}`;
   return db.pool.query(query);
-}
+};
 
 const getAllCategories = () => {
-  const query = `SELECT label, COUNT(label) AS categories FROM preferences GROUP BY label`
+  const query = 'SELECT label, COUNT(label) AS categories FROM preferences GROUP BY label';
   return db.pool.query(query);
-}
+};
 
 const removeUserPreferences = (userId) => {
   const query = 'DELETE from users_preferences WHERE user_id = $1';
   return db.pool.query(query, [userId]);
-}
+};
 
-const postUserPreferences = ({userId, preferences}) => {
-  const values = preferences.map(preferenceId => `('${userId}' , ${preferenceId})`).join(',');
-  const query = `insert into users_preferences (user_id, preferences_id) values ${values};`
+const postUserPreferences = ({ userId, preferences }) => {
+  const values = preferences.map((preferenceId) => `('${userId}' , ${preferenceId})`).join(',');
+  const query = `insert into users_preferences (user_id, preferences_id) values ${values};`;
 
   return db.pool.query(query);
-}
+};
 
 module.exports = {
   getSurvey,
@@ -55,5 +55,5 @@ module.exports = {
   getAllCategories,
   postUserPreferences,
   removeUserPreferences,
-  getLabelOfPrefById
+  getLabelOfPrefById,
 };

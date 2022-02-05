@@ -1,26 +1,14 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
-  Flex,
   Heading,
-  extendTheme,
-  ChakraProvider,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-  Text,
-  Checkbox,
-  CheckboxGroup
 } from '@chakra-ui/react';
 import StepLocation from './StepLocation.jsx';
 import StepOptions from './StepOptions.jsx';
 
-
-const Preferences = ({userId}) => {
+const Preferences = ({ userId }) => {
   const navigate = useNavigate();
   // Whether the data to render this component is available
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +23,6 @@ const Preferences = ({userId}) => {
   // current user selected location
   const [userLocation, setUserLocation] = useState(null);
 
-
   /**
    * DidInsertElement
    * This method runs only when the Preferences component is loaded
@@ -47,16 +34,16 @@ const Preferences = ({userId}) => {
 
     // Fetch all steps and locations.
     // Set locations and preferencesSteps state
-    const locations = await axios.get('/api/locations');
-    setLocations(locations.data);
+    const locationsResponse = await axios.get('/api/locations');
+    setLocations(locationsResponse.data);
     // Fetch user data to get the user location + the user preferences
     // Set userPrefences and userLocation state.
     const user = await axios(`/api/users/${userId}`);
     setUserLocation(user.data[0].location_id);
 
     const preferencesSteps = await axios('/api/preferences');
-    const userPreferences = await axios(`/api/users/${userId}/preferences`);
-    setUserPreferences(userPreferences.data);
+    const userPreferencesResponse = await axios(`/api/users/${userId}/preferences`);
+    setUserPreferences(userPreferencesResponse.data);
     setSteps(preferencesSteps.data);
 
     setIsLoading(false);
@@ -67,22 +54,22 @@ const Preferences = ({userId}) => {
    */
   const handlePrevious = () => {
     setStepIndex(stepIndex - 1);
-  }
+  };
 
   /**
    * Go to next step
    */
   const handleNext = () => {
     setStepIndex(stepIndex + 1);
-  }
+  };
 
   /**
    * Handle submit preferences
    */
   const handleFinish = async () => {
-    const sortedUserPreferences = userPreferences.sort((a,b) => a - b)
-    await axios.post(`/api/users/${userId}/preferences`, userPreferences);
-    await axios.put(`/api/users/${userId}/location`, {locationId: parseInt(userLocation)});
+    const sortedUserPreferences = userPreferences.sort((a, b) => a - b);
+    await axios.post(`/api/users/${userId}/preferences`, sortedUserPreferences);
+    await axios.put(`/api/users/${userId}/location`, { locationId: parseInt(userLocation, 10) });
 
     const hasUserCompletedSurvey = await axios.get(`/api/users/${userId}/has-completed-survey`);
 
@@ -90,18 +77,20 @@ const Preferences = ({userId}) => {
       await axios.post(`/api/users/${userId}/has-completed-survey`);
     }
 
-    navigate(`/`);
-  }
+    navigate('/');
+  };
 
   /**
    * Renders step
    *
-   * It will choose whether to render the options step component or the locatin step component based on the current step type ('location', 'options')
+   * It will choose whether to render the options step component
+   * or the locatin step component based on the
+   * current step type ('location', 'options')
    *
    * @param {} stepData
    * @returns
    */
-  const renderStep = (stepIndex) => {
+  const renderStep = () => {
     const currentStepData = steps[stepIndex];
 
     if (!currentStepData) {
@@ -110,7 +99,7 @@ const Preferences = ({userId}) => {
 
     return (
       <div>
-        <Box bg='brand.400' w='100%' p={4} mt={2} mb={4} color='white'>
+        <Box bg="brand.400" w="100%" p={4} mt={2} mb={4} color="white">
           <Heading>{currentStepData.label}</Heading>
           <p>{currentStepData.question}</p>
         </Box>
@@ -123,7 +112,6 @@ const Preferences = ({userId}) => {
           />
         ) }
 
-
         { currentStepData.type === 'options' && (
           <StepOptions
             steps={steps}
@@ -133,39 +121,50 @@ const Preferences = ({userId}) => {
           />
         ) }
       </div>
-    )
-  }
+    );
+  };
 
   if (isLoading) {
-    return 'isLoading...'
+    return 'isLoading...';
   }
 
   return (
     <div className="preferences">
       <div className="step-content">
-        <p>Step {stepIndex + 1} of {steps.length}</p>
+        <p>
+          Step
+          {' '}
+          {stepIndex + 1}
+          {' '}
+          of
+          {' '}
+          {steps.length}
+        </p>
         {renderStep(stepIndex)}
       </div>
 
       <div className="controls">
-        {stepIndex > 0 &&
-          <Box as='button' onClick={handlePrevious} borderRadius='md' bg='brand.400' color='white' mr={2} px={4} h={8}>
-           Previous
+        {stepIndex > 0
+          && (
+          <Box as="button" onClick={handlePrevious} borderRadius="md" bg="brand.400" color="white" mr={2} px={4} h={8}>
+            Previous
           </Box>
-        }
-        {stepIndex < steps.length - 1 &&
-          <Box as='button' onClick={handleNext} borderRadius='md' bg='brand.400' color='white' px={4} h={8}>
+          )}
+        {stepIndex < steps.length - 1
+          && (
+          <Box as="button" onClick={handleNext} borderRadius="md" bg="brand.400" color="white" px={4} h={8}>
             Next
           </Box>
-        }
-        {stepIndex === steps.length - 1 &&
-          <Box as='button' onClick={handleFinish} borderRadius='md' bg='brand.400' color='white' px={4} h={8}>
+          )}
+        {stepIndex === steps.length - 1
+          && (
+          <Box as="button" onClick={handleFinish} borderRadius="md" bg="brand.400" color="white" px={4} h={8}>
             Finish
           </Box>
-        }
+          )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Preferences;
