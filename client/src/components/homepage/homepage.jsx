@@ -24,7 +24,12 @@ import { MdSettingsBackupRestore } from 'react-icons/md';
 import Event from './event.jsx';
 
 const HomePage = ({
-  reset, setReset, events, setEvents, searchEvent, categoriesList,
+  reset,
+  setReset,
+  events,
+  setEvents,
+  searchEvent,
+  categoriesList,
 }) => {
   const categories = useRef(null);
   const slideLeft = useRef(null);
@@ -78,8 +83,8 @@ const HomePage = ({
     const newDuration = duration.substring(0, duration.length - 5);
     const newDate = moment(startDate).format().slice(0, 10);
     const newEvents = events.filter(
-      (event, idx) => event.event_length_minutes == newDuration
-        && event.date.slice(0, 10) == newDate,
+      (event) => event.event_length_minutes === newDuration
+        && event.date.slice(0, 10) === newDate,
     );
     setEvents(newEvents);
   };
@@ -128,10 +133,10 @@ const HomePage = ({
               onChange={(e) => setDuration(e.target.value)}
             >
               {events
-                .map((event, idx) => event.event_length_minutes)
+                .map((event) => event.event_length_minutes)
                 .filter((item, i, arr) => arr.indexOf(item) === i)
                 .sort((a, b) => a - b)
-                .map((duration, idx) => (
+                .map((duration) => (
                   <option>
                     {duration}
                     {' '}
@@ -153,9 +158,7 @@ const HomePage = ({
               backgroundColor: 'brand.400',
               color: 'brand.500',
             }}
-            onClick={() => {
-              searchEventsTime();
-            }}
+            onClick={searchEventsTime}
           />
         </Flex>
         <Flex
@@ -216,7 +219,11 @@ const HomePage = ({
         Popular near you...
       </Heading>
       <HStack spacing="5" marginBottom={{ base: '5vw', md: '2.5vh' }}>
-        <Box fontWeight="bold" fontSize={{ base: '5vw', md: '1vw' }} marginLeft="7vw">
+        <Box
+          fontWeight="bold"
+          fontSize={{ base: '5vw', md: '1vw' }}
+          marginLeft="7vw"
+        >
           Filter by:
           {' '}
           <Box display="inline-block" fontSize={{ base: '5vw', md: '1vw' }}>
@@ -231,7 +238,7 @@ const HomePage = ({
       </HStack>
       <Flex justifyContent="center">
         <SimpleGrid columns={[1, 2, 2, 4]} spacing={10} p={4}>
-          {events.map((event, idx) => <Event event={event} key={idx} />)}
+          {events.map((event) => <Event event={event} key={event.id} />)}
         </SimpleGrid>
       </Flex>
     </Flex>
