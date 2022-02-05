@@ -8,6 +8,10 @@ Fullstack application to help people find things to do with their time. Features
 - Fill out a preferences survey to record their interests.
 - Browse events in a mobile-friendly interface.
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/32132177/152653054-4c12b919-85f6-4824-9bad-bb3f0c784872.gif" />
+</p>
+  
 ## Setup
 1. Install dependencies:
 ```
@@ -32,11 +36,9 @@ http://localhost:3000
 
 ## Dependencies
 - [React](https://reactjs.org)
-- [Router](https://reactrouter.com)
-- [react-day-picker](https://react-day-picker.js.org/)
-- [Geocode](https://github.com/shukerullah/react-geocode)
+- [React Router](https://reactrouter.com)
+- [react-day-picker](https://react-day-picker.js.org/), [react-geocode](https://github.com/shukerullah/react-geocode), [Moment.js](https://momentjs.com)
 - [Chakra UI](https://chakra-ui.com)
-- [Moment.js](https://momentjs.com)
 - [Axios](https://axios-http.com)
 - [Node.js](https://nodejs.org/en) / [Express](https://expressjs.com)
 - [PostgreSQL](https://www.postgresql.org)
@@ -47,6 +49,6 @@ http://localhost:3000
 - [Andrew Lam](https://github.com/awhlam)
 - [Cat Chiu](https://github.com/the-trash-panda)
 - [Eric Baldwin](https://github.com/EricBaldwinn)
-- [Nanda Silva](https://github.com/fernanda1411)
+- [Fernanda Silva](https://github.com/fernanda1411)
 - [Sean Welch](https://github.com/seanpwelch90)
 - [Yulan Rong](https://github.com/yulanrong)
