@@ -31,19 +31,22 @@ http://localhost:3000
 ```
 
 ## Dependencies
-- React (including Router, Day-Picker, Geocode)
-- Chakra UI
-- Moment
-- Axios
-- Node.js / Express
-- PostgreSQL
-- Firebase
-- Webpack / Babel
+- [React](https://reactjs.org)
+- [Router](https://reactrouter.com)
+- [react-day-picker](https://react-day-picker.js.org/)
+- [Geocode](https://github.com/shukerullah/react-geocode)
+- [Chakra UI](https://chakra-ui.com)
+- [Moment.js](https://momentjs.com)
+- [Axios](https://axios-http.com)
+- [Node.js](https://nodejs.org/en) / [Express](https://expressjs.com)
+- [PostgreSQL](https://www.postgresql.org)
+- [Firebase](https://firebase.google.com)
+- [Webpack](https://webpack.js.org) / [Babel](https://babeljs.io)
 
 ## Team
-- Andrew Lam
-- Cat Chiu
-- Eric Baldwin
-- Nanda Silva
-- Sean Welch
-- Yulan Rong
+- [Andrew Lam](https://github.com/awhlam)
+- [Cat Chiu](https://github.com/the-trash-panda)
+- [Eric Baldwin](https://github.com/EricBaldwinn)
+- [Nanda Silva](https://github.com/fernanda1411)
+- [Sean Welch](https://github.com/seanpwelch90)
+- [Yulan Rong](https://github.com/yulanrong)
