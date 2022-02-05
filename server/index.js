@@ -4,10 +4,10 @@ const express = require('express');
 const middleware = require('./middleware');
 // controllers
 const events = require('./controllers/events');
-const friends = require("./controllers/friends");
-const preferences = require("./controllers/preferences");
-const locations = require("./controllers/locations");
-const users = require("./controllers/users");
+const friends = require('./controllers/friends');
+const preferences = require('./controllers/preferences');
+const locations = require('./controllers/locations');
+const users = require('./controllers/users');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,9 +18,9 @@ app.use(middleware.logger);
 
 app.get('/google/auth', (req, res) => {
   if (process.env.GOOGLE_API) {
-    res.send(process.env.GOOGLE_API)
+    res.send(process.env.GOOGLE_API);
   } else {
-    res.status(403).send('Access denied. Please set up a Google_API token in your server\'s .env file.')
+    res.status(403).send('Access denied. Please set up a Google_API token in your server\'s .env file.');
   }
 });
 
@@ -55,8 +55,8 @@ app.post('/api/users/:id/has-completed-survey', users.updateUserHasCompletedSurv
 
 app.put('/api/users/:id/location', users.updateUserLocation);
 
-app.get('*', (req,res) =>{
-  res.sendFile(path.join(__dirname + '../..' + '/client/public/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(`${__dirname}../../client/public/index.html`));
 });
 
 app.listen(PORT, () => {
