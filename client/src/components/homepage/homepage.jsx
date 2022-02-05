@@ -23,14 +23,14 @@ import moment from 'moment';
 import { MdSettingsBackupRestore } from 'react-icons/md';
 import Event from './event.jsx';
 
-function HomePage({
+const HomePage = ({
   reset,
   setReset,
   events,
   setEvents,
   searchEvent,
   categoriesList,
-}) {
+}) => {
   const categories = useRef(null);
   const slideLeft = useRef(null);
   const slideRight = useRef(null);
@@ -243,6 +243,6 @@ function HomePage({
       </Flex>
     </Flex>
   );
-}
+};
 
 export default HomePage;
