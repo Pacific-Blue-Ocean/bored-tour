@@ -17,7 +17,7 @@ pool
   .then(() => console.log('Connected to Postgres database'))
   .catch((err) => console.error('Error connecting to Postgres database', err.stack));
 
-pool.on('error', (err, client) => {
+pool.on('error', (err) => {
   console.error('Unexpected error on idle Postgres client', err);
   process.exit(-1);
 });
