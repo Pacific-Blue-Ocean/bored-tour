@@ -37,7 +37,6 @@ function HomePage({
 
   const [startDate, setStartDate] = useState(new Date());
   const [label, setLabel] = useState('');
-  const [initial, setInitial] = useState(true);
   const [duration, setDuration] = useState('');
 
   useEffect(() => {
@@ -69,7 +68,6 @@ function HomePage({
 
   const handleClick = (event) => {
     event.preventDefault();
-    setInitial(false);
     if (label.indexOf(event.target.name) === -1) {
       setLabel([...label, event.target.name].sort());
     }

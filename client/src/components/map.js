@@ -1,16 +1,15 @@
-import { Flex, extendTheme } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import axios from "axios";
-import Geocode from "react-geocode";
+import { Flex } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import axios from 'axios';
+import Geocode from 'react-geocode';
 
 const Map = ({ address }) => {
   const mapStyles = {
-    height: "100%",
-    width: "100%",
-    float: "right",
+    height: '100%',
+    width: '100%',
+    float: 'right',
   };
-
 
   const [location, setLocation] = useState({});
   const [api, getApi] = useState();
@@ -21,10 +20,11 @@ const Map = ({ address }) => {
       (res) => {
         getApi((res.data));
         isLoading(false);
-      });
+      },
+    );
   }, []);
 
-  if(!loading) {
+  if (!loading) {
     Geocode.setApiKey(api);
   }
 
@@ -38,9 +38,7 @@ const Map = ({ address }) => {
       });
   }, [address]);
 
-
-
-  let center = {
+  const center = {
     lat: parseFloat(location.lat),
     lng: parseFloat(location.lng),
   };
@@ -49,9 +47,9 @@ const Map = ({ address }) => {
     return (
       <LoadScript googleMapsApiKey={api}>
         <Flex
-          h={{base: "40vw", md: "50vh"}}
-          w={{base: "80vw", md: "100%"}}
-          marginBottom={{base: "5vw"}}
+          h={{ base: '40vw', md: '50vh' }}
+          w={{ base: '80vw', md: '100%' }}
+          marginBottom={{ base: '5vw' }}
         >
           <GoogleMap mapContainerStyle={mapStyles} zoom={12} center={center}>
             <Marker position={center} />
@@ -59,9 +57,8 @@ const Map = ({ address }) => {
         </Flex>
       </LoadScript>
     );
-  } else {
-    return null;
   }
+  return null;
 };
 
 export default Map;

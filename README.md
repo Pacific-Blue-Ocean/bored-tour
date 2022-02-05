@@ -1,6 +1,17 @@
-# Bored Tour
-Helping people find things to do with their time.
+![image](https://user-images.githubusercontent.com/32132177/152610003-514ab037-6384-4b64-83bd-3da3670a0b37.png)
 
+# Bored Tour
+Fullstack application to help people find things to do with their time. Features allow users to discover events:
+- Browse events and refine by searching or filtering by date, duration, or category.
+- See event details including location and map.
+- Create an account to RSVP to events and add/invite friends.
+- Fill out a preferences survey to record their interests.
+- Browse events in a mobile-friendly interface.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/32132177/152653054-4c12b919-85f6-4824-9bad-bb3f0c784872.gif" />
+</p>
+  
 ## Setup
 1. Install dependencies:
 ```
@@ -23,10 +34,21 @@ npm start
 http://localhost:3000
 ```
 
+## Dependencies
+- [React](https://reactjs.org)
+- [React Router](https://reactrouter.com)
+- [react-day-picker](https://react-day-picker.js.org/), [react-geocode](https://github.com/shukerullah/react-geocode), [Moment.js](https://momentjs.com)
+- [Chakra UI](https://chakra-ui.com)
+- [Axios](https://axios-http.com)
+- [Node.js](https://nodejs.org/en) / [Express](https://expressjs.com)
+- [PostgreSQL](https://www.postgresql.org)
+- [Firebase](https://firebase.google.com)
+- [Webpack](https://webpack.js.org) / [Babel](https://babeljs.io)
+
 ## Team
-- Andrew Lam
-- Cat Chiu
-- Eric Baldwin
-- Nanda Silva
-- Sean Welch
-- Yulan Rong
+- [Andrew Lam](https://github.com/awhlam)
+- [Cat Chiu](https://github.com/the-trash-panda)
+- [Eric Baldwin](https://github.com/EricBaldwinn)
+- [Fernanda Silva](https://github.com/fernanda1411)
+- [Sean Welch](https://github.com/seanpwelch90)
+- [Yulan Rong](https://github.com/yulanrong)
